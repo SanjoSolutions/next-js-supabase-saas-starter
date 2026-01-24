@@ -18,6 +18,7 @@ import {
 import { createClient } from "@/lib/supabase/server"
 import { formatDistanceToNow } from "date-fns"
 import { redirect } from "next/navigation"
+import { Suspense } from "react"
 
 export default async function MembersPage({
   params,
@@ -105,7 +106,9 @@ export default async function MembersPage({
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col items-center">
-        <Header />
+        <Suspense fallback={<div className="h-16 w-full border-b" />}>
+          <Header />
+        </Suspense>
         <div className="flex-1 w-full max-w-5xl p-6">
           <Card>
             <CardHeader>
