@@ -2,18 +2,18 @@
 
 import { Button } from "@/components/ui/button"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { useState } from "react"
 
 export function SignUpForm({
@@ -26,6 +26,8 @@ export function SignUpForm({
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const returnUrl = searchParams.get("return_url")
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -43,12 +45,17 @@ export function SignUpForm({
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/protected`,
-        },
+        // options: {
+        //   emailRedirectTo: `${window.location.origin}/protected`,
+        // },
       })
       if (error) throw error
-      router.push("/auth/sign-up-success")
+      
+      if (returnUrl) {
+        router.push(returnUrl)
+      } else {
+        router.push("/auth/sign-up-success")
+      }
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {

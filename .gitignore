@@ -13,6 +13,11 @@
 # testing
 /coverage
 /playwright-report
+/test-results
+/test_*.txt
+/e2e_*.txt
+/test_result.json
+/test_output.log
 
 # next.js
 /.next/
