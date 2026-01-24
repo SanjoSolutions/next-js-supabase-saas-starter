@@ -79,6 +79,7 @@ test("should create an invite link", async ({ page }) => {
   // 7. Open invite link in new context (simulating new user)
   await page.goto("/auth/sign-up")
   await page.fill('input[id="email"]', newUserEmail)
+  await page.fill('input[id="first-name"]', "Invited User")
   await page.fill('input[id="password"]', "password123")
   await page.fill('input[id="repeat-password"]', "password123")
   await page.click('button:has-text("Sign up")')
@@ -195,6 +196,7 @@ test("should only show organizations where user is a member", async ({
   await page.goto("/auth/sign-up")
   const otherUserEmail = `other-${Date.now()}@example.com`
   await page.fill('input[id="email"]', otherUserEmail)
+  await page.fill('input[id="first-name"]', "Other User")
   await page.fill('input[id="password"]', "password123")
   await page.fill('input[id="repeat-password"]', "password123")
   await page.click('button:has-text("Sign up")')
@@ -285,6 +287,7 @@ test("members page shows owner and invited member", async ({ page }) => {
   // 4. Sign up the other user and accept invite
   await page.goto("/auth/sign-up")
   await page.fill('input[id="email"]', otherUserEmail)
+  await page.fill('input[id="first-name"]', "Member User")
   await page.fill('input[id="password"]', "password123")
   await page.fill('input[id="repeat-password"]', "password123")
   await page.click('button:has-text("Sign up")')
