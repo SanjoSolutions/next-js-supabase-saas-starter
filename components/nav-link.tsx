@@ -10,7 +10,11 @@ interface NavLinkProps {
   className?: string
 }
 
-export default function NavLink({ href, children, className = "" }: NavLinkProps) {
+export default function NavLink({
+  href,
+  children,
+  className = "",
+}: NavLinkProps) {
   const pathname = usePathname() || "/"
   const isActive = href === "/" ? pathname === "/" : pathname.startsWith(href)
   const classes = `${className ? className + " " : ""}${isActive ? "text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"} transition-colors`

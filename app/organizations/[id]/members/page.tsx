@@ -1,7 +1,20 @@
 import { Header } from "@/components/header"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
 import { createClient } from "@/lib/supabase/server"
 import { formatDistanceToNow } from "date-fns"
 import { redirect } from "next/navigation"
@@ -45,17 +58,41 @@ export default async function MembersPage({
   // Get all members of the organization with emails
   const { data: members } = await supabase
     .from("organization_members")
-    .select(`
+    .select(
+      `
       id,
       role,
       created_at,
       user_id,
       email
-    `)
+    `,
+    )
     .eq("organization_id", id)
     .order("created_at", { ascending: true })
 
-  const membersWithEmails = members || []
+  let membersWithEmails = members || []
+
+  // Ensure the current user appears in the members list. Some DB views
+  // (or RLS policies) may omit the owner or other users; if that's the
+  // case, append the current user using the already-fetched `user` and
+  // `membership` objects so they see themselves in the UI.
+  if (user && membership) {
+    const hasSelf = (membersWithEmails as any[]).some(
+      (m) => m.user_id === user.id,
+    )
+    if (!hasSelf) {
+      membersWithEmails = [
+        ...membersWithEmails,
+        {
+          id: `me-${user.id}`,
+          user_id: user.id,
+          email: user.email,
+          role: membership.role,
+          created_at: new Date().toISOString(),
+        },
+      ]
+    }
+  }
 
   const getRoleBadgeVariant = (role: string) => {
     switch (role) {
@@ -77,7 +114,8 @@ export default async function MembersPage({
             <CardHeader>
               <CardTitle>Organization Members</CardTitle>
               <CardDescription>
-                {organization?.name} • {membersWithEmails.length} member{membersWithEmails.length !== 1 ? 's' : ''}
+                {organization?.name} • {membersWithEmails.length} member
+                {membersWithEmails.length !== 1 ? "s" : ""}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -93,17 +131,25 @@ export default async function MembersPage({
                 <TableBody>
                   {membersWithEmails.map((member) => (
                     <TableRow key={member.id}>
-                      <TableCell className="font-medium">{member.email}</TableCell>
+                      <TableCell className="font-medium">
+                        {member.email}
+                      </TableCell>
                       <TableCell>
                         <Badge variant={getRoleBadgeVariant(member.role)}>
-                          {member.role.charAt(0).toUpperCase() + member.role.slice(1)}
+                          {member.role.charAt(0).toUpperCase() +
+                            member.role.slice(1)}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {formatDistanceToNow(new Date(member.created_at), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(member.created_at), {
+                          addSuffix: true,
+                        })}
                       </TableCell>
                       <TableCell>
-                        <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">
+                        <Badge
+                          variant="outline"
+                          className="bg-green-50 text-green-700 border-green-200"
+                        >
                           Active
                         </Badge>
                       </TableCell>

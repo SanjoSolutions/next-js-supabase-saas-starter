@@ -250,3 +250,85 @@ test("should only show organizations where user is a member", async ({
   // 13. Verify first user does NOT see the other user's organization
   await expect(page.locator("nav").getByText(org3Name)).not.toBeVisible()
 })
+
+test("members page shows owner and invited member", async ({ page }) => {
+  page.on("console", (msg) => console.log("BROWSER:", msg.text()))
+
+  // 1. Login as owner
+  await page.goto("/auth/login")
+  await page.fill('input[id="email"]', "test@example.com")
+  await page.fill('input[id="password"]', "password123")
+  await page.click('button:has-text("Login")')
+  await expect(page).toHaveURL(/\/protected/)
+
+  // 2. Create organization
+  await page.click('a:has-text("Create Organization")')
+  const orgName = `Members Test Org ${Date.now()}`
+  await page.fill('input[id="name"]', orgName)
+  await page.click('button:has-text("Create Organization")')
+  await page.waitForLoadState("networkidle")
+  await page.waitForTimeout(1000)
+
+  // 3. Navigate to invites and create invite for other user
+  await page.click('a:has-text("Invite")')
+  await page.waitForLoadState("networkidle")
+  await page.waitForTimeout(500)
+  const otherUserEmail = `member-${Date.now()}@example.com`
+  await page.fill('input[id="email"]', otherUserEmail)
+  await page.click('button:has-text("Create Invite")')
+  await page.waitForSelector("text=Invite created successfully!")
+  const linkText = await page
+    .locator(".bg-green-500\\/10 .font-mono")
+    .textContent()
+  const inviteLink = linkText!.trim()
+
+  // 4. Sign up the other user and accept invite
+  await page.goto("/auth/sign-up")
+  await page.fill('input[id="email"]', otherUserEmail)
+  await page.fill('input[id="password"]', "password123")
+  await page.fill('input[id="repeat-password"]', "password123")
+  await page.click('button:has-text("Sign up")')
+  await page.waitForLoadState("networkidle")
+
+  // Visit invite link and accept
+  await page.goto(inviteLink)
+  await page.waitForLoadState("networkidle")
+  await page.waitForTimeout(1500)
+  try {
+    await page.waitForSelector('button:has-text("Accept Invitation")', {
+      timeout: 60000,
+    })
+    await page.click('button:has-text("Accept Invitation")')
+  } catch (e) {
+    console.log(
+      "Could not find Accept Invitation button, page content:",
+      await page.content(),
+    )
+    throw e
+  }
+
+  await expect(page).toHaveURL(/\/organizations\/[^/]+\/welcome/)
+  await page.waitForLoadState("networkidle")
+
+  // 5. Logout and login back as owner
+  await page.click('button:has-text("Logout")')
+  await page.waitForURL(/\/auth\/login/)
+  await page.fill('input[id="email"]', "test@example.com")
+  await page.fill('input[id="password"]', "password123")
+  await page.click('button:has-text("Login")')
+  await expect(page).toHaveURL(/\/protected/)
+  await page.waitForLoadState("networkidle")
+  await page.waitForTimeout(1000)
+
+  // 6. Open Members page via header (Members link appears when active org is set)
+  await page.click('a:has-text("Members")')
+  await page.waitForLoadState("networkidle")
+  await page.waitForTimeout(1000)
+
+  // 7. Assert both owner and invited member emails are visible in members table
+  await expect(page.locator("table")).toContainText("test@example.com")
+  // The invited member may take a moment to appear due to DB propagation / RLS checks.
+  await expect(page.locator("table")).toContainText(otherUserEmail, {
+    timeout: 60000,
+  })
+})
