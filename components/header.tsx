@@ -31,12 +31,22 @@ export async function Header() {
                 )}
               </Suspense>
               {organizations && organizations.length > 0 && (
-                <Link
-                  href={"/invites/new"}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Invite
-                </Link>
+                <>
+                  <Link
+                    href={"/invites/new"}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Invite
+                  </Link>
+                  {activeOrgId && (
+                    <Link
+                      href={`/organizations/${activeOrgId}/members`}
+                      className="text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      Members
+                    </Link>
+                  )}
+                </>
               )}
               <Link
                 href={"/organizations/new"}

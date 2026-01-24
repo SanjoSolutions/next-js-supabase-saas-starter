@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from '@playwright/test'
 
 test('should create a new organization', async ({ page }) => {
   // 1. Go to login page
@@ -18,8 +18,15 @@ test('should create a new organization', async ({ page }) => {
 
   // 5. Fill organization name
   const orgName = `E2E Org ${Date.now()}`;
+  
+  // Listen for console errors
+  page.on('console', msg => console.log('BROWSER:', msg.text()));
+  
   await page.fill('input[id="name"]', orgName);
   await page.click('button:has-text("Create Organization")');
+  
+  // Wait for navigation
+  await page.waitForLoadState('networkidle');
 
   // 6. Verify redirect back to protected
   await expect(page).toHaveURL(/\/protected/);
