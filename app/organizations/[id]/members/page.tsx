@@ -56,19 +56,16 @@ export default async function MembersPage({
     .single()
 
   // Get all members of the organization with emails
-  const { data: members } = await supabase
-    .from("organization_members")
-    .select(
-      `
-      id,
-      role,
-      created_at,
-      user_id,
-      email
-    `,
-    )
-    .eq("organization_id", id)
-    .order("created_at", { ascending: true })
+  const { data: members, error } = await supabase.rpc(
+    "get_organization_members",
+    {
+      org_id: id,
+    },
+  )
+
+  if (error) {
+    console.error("Error fetching members:", error)
+  }
 
   let membersWithEmails = members || []
 
@@ -129,7 +126,7 @@ export default async function MembersPage({
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {membersWithEmails.map((member) => (
+                  {membersWithEmails.map((member: any) => (
                     <TableRow key={member.id}>
                       <TableCell className="font-medium">
                         {member.email}
