@@ -14,9 +14,15 @@ export async function Header() {
   const cookieStore = await cookies()
   const activeOrgId = cookieStore.get("active_org_id")?.value
 
-  const { data: organizations } = user 
-    ? await supabase.from("organizations").select("id, name")
+  // Get organizations where the user is a member
+  const { data: memberships } = user 
+    ? await supabase
+        .from("memberships")
+        .select("organizations!inner(id, name)")
+        .eq("user_id", user.sub)
     : { data: null }
+
+  const organizations = memberships?.map(m => m.organizations).filter(Boolean) || null
 
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">

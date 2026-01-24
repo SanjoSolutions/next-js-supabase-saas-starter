@@ -1,0 +1,9 @@
+{
+	"servers": {
+		"supabase-local": {
+			"url": "http://localhost:54321/mcp",
+			"type": "http"
+		}
+	},
+	"inputs": []
+}
