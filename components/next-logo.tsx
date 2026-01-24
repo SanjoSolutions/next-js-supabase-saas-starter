@@ -42,5 +42,5 @@ export function NextLogo() {
         fill="currentColor"
       />
     </svg>
-  );
+  )
 }

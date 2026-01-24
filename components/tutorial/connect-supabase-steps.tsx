@@ -1,4 +1,4 @@
-import { TutorialStep } from "./tutorial-step";
+import { TutorialStep } from "./tutorial-step"
 
 export function ConnectSupabaseSteps() {
   return (
@@ -58,5 +58,5 @@ export function ConnectSupabaseSteps() {
         </p>
       </TutorialStep>
     </ol>
-  );
+  )
 }
