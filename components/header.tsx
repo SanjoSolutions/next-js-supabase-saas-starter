@@ -30,7 +30,7 @@ export async function Header() {
       <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
         <div className="flex gap-5 items-center font-semibold">
           <NavLink href={"/"} className="font-semibold">
-            Next.js Supabase Starter
+            Next.js Supabase SaaS Starter
           </NavLink>
           {user && (
             <div className="flex items-center gap-4 ml-4 font-normal">
