@@ -52,12 +52,20 @@ export async function Header() {
                     Invite
                   </NavLink>
                   {activeOrgId && (
-                    <NavLink
-                      href={`/organizations/${activeOrgId}/members`}
-                      className=""
-                    >
-                      Members
-                    </NavLink>
+                    <>
+                      <NavLink
+                        href={`/organizations/${activeOrgId}/members`}
+                        className=""
+                      >
+                        Members
+                      </NavLink>
+                      <NavLink
+                        href={`/organizations/${activeOrgId}/billing`}
+                        className=""
+                      >
+                        Billing
+                      </NavLink>
+                    </>
                   )}
                 </>
               )}
