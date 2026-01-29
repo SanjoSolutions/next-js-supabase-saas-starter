@@ -1,17 +1,10 @@
 "use client"
 
+import { FormCard } from "@/components/form-card"
 import { Button } from "@/components/ui/button"
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
-import { cn } from "@/lib/utils"
 import { useState } from "react"
 
 interface InviteFormProps {
@@ -65,44 +58,38 @@ export function InviteForm({ activeOrgId, className }: InviteFormProps) {
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)}>
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Invite Member</CardTitle>
-          <CardDescription>
-            Send an invitation to join your organization.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email Address</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="colleague@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              {error && <p className="text-sm text-red-500">{error}</p>}
-              {success && (
-                <div className="bg-green-500/10 p-3 rounded text-green-600 text-sm">
-                  <p className="font-medium">Invite created successfully!</p>
-                  <p className="mt-1 break-all">
-                    Link: <span className="font-mono">{inviteLink}</span>
-                  </p>
-                </div>
-              )}
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Sending..." : "Create Invite"}
-              </Button>
+    <FormCard
+      title="Invite Member"
+      description="Send an invitation to join your organization."
+      className={className}
+    >
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-6">
+          <div className="grid gap-2">
+            <Label htmlFor="email">Email Address</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="colleague@example.com"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          {error && <p className="text-sm text-red-500">{error}</p>}
+          {success && (
+            <div className="bg-green-500/10 p-3 rounded text-green-600 text-sm">
+              <p className="font-medium">Invite created successfully!</p>
+              <p className="mt-1 break-all">
+                Link: <span className="font-mono">{inviteLink}</span>
+              </p>
             </div>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+          )}
+          <Button type="submit" className="w-full" disabled={isLoading}>
+            {isLoading ? "Sending..." : "Create Invite"}
+          </Button>
+        </div>
+      </form>
+    </FormCard>
   )
 }
