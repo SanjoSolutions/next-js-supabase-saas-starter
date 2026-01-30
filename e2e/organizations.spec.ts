@@ -78,8 +78,10 @@ test("should only show organizations where user is a member", async ({
   await page.waitForTimeout(1000)
 
   // 5. Verify both orgs appear in switcher
-  await expect(page.locator("nav").getByText(org1Name)).toHaveCount(1)
-  await expect(page.locator("nav").getByText(org2Name)).toHaveCount(1)
+  await page.click('button:has-text("User1 Another Org")')
+  await expect(page.getByRole("menu").getByText(org1Name)).toBeVisible()
+  await expect(page.getByRole("menu").getByText(org2Name)).toBeVisible()
+  await page.keyboard.press("Escape") // Close switcher
 
   // 6. Logout
   await logout(page)

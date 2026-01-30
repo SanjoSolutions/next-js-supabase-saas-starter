@@ -1,6 +1,6 @@
 "use client"
 
-import { setActiveOrganizationAction } from "@/app/organizations/actions"
+import { setActiveOrganizationAction } from "@/app/(authenticated)/organizations/actions"
 import { Button } from "@/components/ui/button"
 import {
     DropdownMenu,

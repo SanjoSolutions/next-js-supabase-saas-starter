@@ -1,6 +1,6 @@
 "use client"
 
-import { setActiveOrganizationAction } from "@/app/organizations/actions"
+import { setActiveOrganizationAction } from "@/app/(authenticated)/organizations/actions"
 import { FormCard } from "@/components/form-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

@@ -9,8 +9,8 @@ import { OrgSwitcher } from "./org-switcher"
 
 export async function Header() {
   const supabase = await createClient()
-  const { data } = await supabase.auth.getClaims()
-  const user = data?.claims
+  const { data } = await supabase.auth.getUser()
+  const user = data?.user
   const cookieStore = await cookies()
   const activeOrgId = cookieStore.get("active_org_id")?.value
 
@@ -18,12 +18,14 @@ export async function Header() {
   const { data: memberships } = user
     ? await supabase
         .from("memberships")
-        .select("organizations!inner(id, name)")
-        .eq("user_id", user.sub)
+        .select("organizations(id, name)")
+        .eq("user_id", user.id)
     : { data: null }
 
   const organizations =
-    memberships?.map((m) => m.organizations).filter(Boolean) || null
+    (memberships
+      ?.map((m: any) => m.organizations)
+      .filter(Boolean) as any[]) || []
 
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
@@ -39,14 +41,14 @@ export async function Header() {
                   <div className="h-8 w-32 bg-accent animate-pulse rounded" />
                 }
               >
-                {organizations && organizations.length > 0 && (
+                {organizations.length > 0 ? (
                   <OrgSwitcher
                     organizations={organizations}
                     activeOrgId={activeOrgId}
                   />
-                )}
+                ) : null}
               </Suspense>
-              {organizations && organizations.length > 0 && (
+              {organizations.length > 0 ? (
                 <>
                   <NavLink href={"/invites/new"} className="">
                     Invite
@@ -68,7 +70,7 @@ export async function Header() {
                     </>
                   )}
                 </>
-              )}
+              ) : null}
               <NavLink href={"/organizations/new"} className="">
                 Create Organization
               </NavLink>

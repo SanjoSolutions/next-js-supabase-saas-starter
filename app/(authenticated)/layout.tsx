@@ -2,7 +2,7 @@ import { Header } from "@/components/header"
 import { ThemeSwitcher } from "@/components/theme-switcher"
 import { Suspense } from "react"
 
-export default function ProtectedLayout({
+export default function AuthenticatedLayout({
   children,
 }: {
   children: React.ReactNode
@@ -13,7 +13,7 @@ export default function ProtectedLayout({
         <Suspense fallback={<div className="h-16 w-full border-b" />}>
           <Header />
         </Suspense>
-        <div className="flex-1 flex flex-col gap-20 max-w-5xl p-5">
+        <div className="flex-1 flex flex-col gap-20 max-w-5xl w-full p-5">
           {children}
         </div>
 

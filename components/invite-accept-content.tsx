@@ -1,6 +1,6 @@
 "use client"
 
-import { acceptInviteAction } from "@/app/organizations/actions"
+import { acceptInviteAction } from "@/app/(authenticated)/organizations/actions"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/client"
