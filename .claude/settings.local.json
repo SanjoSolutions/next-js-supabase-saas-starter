@@ -1,0 +1,9 @@
+{
+  "outputStyle": "default",
+  "enabledMcpjsonServers": [
+    "supabase-local",
+    "next-devtools",
+    "playwright",
+    "stripe"
+  ]
+}
