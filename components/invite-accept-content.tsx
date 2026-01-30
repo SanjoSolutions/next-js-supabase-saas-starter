@@ -18,30 +18,21 @@ export function InviteAcceptContent({ token }: { token: string }) {
   useEffect(() => {
     async function fetchInvite() {
       const { data: inviteData, error: fetchError } = await supabase
-        .from("invites")
-        .select(`id, email, role, organization_id`)
-        .eq("token", token)
+        .rpc("get_invite_details", { invite_token: token })
         .single()
 
       if (fetchError || !inviteData) {
         console.error('Fetch invite error:', fetchError)
         setError("Invite not found or expired")
       } else {
+        const data = inviteData as any
         console.log('DEBUG: invite_token=' + token)
-        console.log('DEBUG: org_id=' + inviteData?.organization_id)
-        const { data: orgData, error: orgError } = await supabase
-          .from("organizations")
-          .select("name")
-          .eq("id", inviteData.organization_id)
-          .single()
-        
-        if (orgError) {
-          console.error('Fetch org error:', orgError)
-          setError("Failed to load organization details")
-        } else {
-          console.log('Org found:', orgData)
-          setInvite({ ...inviteData, organizations: orgData })
-        }
+        setInvite({
+          id: data.id,
+          email: data.email,
+          role: data.role,
+          organizations: { name: data.organization_name }
+        })
       }
       setLoading(false)
     }
