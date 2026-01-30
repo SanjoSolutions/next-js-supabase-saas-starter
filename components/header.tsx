@@ -5,6 +5,7 @@ import { hasEnvVars } from "@/lib/utils"
 import { cookies } from "next/headers"
 import { Suspense } from "react"
 import NavLink from "./nav-link"
+import { NotificationCenter } from "./notification-center"
 import { OrgSwitcher } from "./org-switcher"
 
 export async function Header() {
@@ -80,13 +81,16 @@ export async function Header() {
         {!hasEnvVars ? (
           <EnvVarWarning />
         ) : (
-          <Suspense
-            fallback={
-              <div className="h-8 w-20 bg-accent animate-pulse rounded" />
-            }
-          >
-            <AuthButton />
-          </Suspense>
+          <div className="flex items-center gap-4">
+            {user && <NotificationCenter />}
+            <Suspense
+              fallback={
+                <div className="h-8 w-20 bg-accent animate-pulse rounded" />
+              }
+            >
+              <AuthButton />
+            </Suspense>
+          </div>
         )}
       </div>
     </nav>

@@ -21,8 +21,8 @@ test("should create a new organization", async ({ page }) => {
   // 2. Create organization
   const orgName = await createOrganization(page, "E2E Org")
 
-  // 3. Verify redirect back to protected
-  await expect(page).toHaveURL(/\/protected/)
+  // 3. Verify redirect to welcome page
+  await expect(page).toHaveURL(/\/organizations\/.*\/welcome/)
 
   // 4. Verify organization name appears in the switcher
   const header = page.getByRole("navigation").first()
@@ -37,7 +37,7 @@ test("should create an invite link", async ({ page }) => {
 
   // 2. Create organization
   const orgName = await createOrganization(page, "Invite Org")
-  await expect(page).toHaveURL(/\/protected/)
+  await expect(page).toHaveURL(/\/organizations\/.*\/welcome/)
 
   // 3. Create invite for new user
   const newUserEmail = generateTestEmail("new-user")
@@ -67,7 +67,7 @@ test("should only show organizations where user is a member", async ({
 
   // 2. Create first organization
   const org1Name = await createOrganization(page, "User1 Org")
-  await expect(page).toHaveURL(/\/protected/)
+  await expect(page).toHaveURL(/\/organizations\/.*\/welcome/)
   await page.waitForTimeout(1000)
 
   // 3. Verify first org appears in switcher

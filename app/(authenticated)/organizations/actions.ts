@@ -21,41 +21,21 @@ export async function acceptInviteAction(token: string) {
   } = await supabase.auth.getUser()
   if (!user) throw new Error("Authentication required")
 
-  // 2. Fetch invite
-  const { data: invite, error: fetchError } = await supabase
-    .from("invites")
-    .select("*")
-    .eq("token", token)
+  // 2. Use secure RPC function to accept invite (bypasses RLS)
+  const { data, error } = await supabase
+    .rpc("accept_invite", { invite_token: token })
     .single()
 
-  if (fetchError || !invite) throw new Error("Invite not found or expired")
-  if (invite.status !== "pending") throw new Error("Invite already processed")
+  if (error) throw new Error(error.message || "Failed to accept invite")
+  if (!data) throw new Error("Invite not found or expired")
 
-  // 3. Create membership
-  const { error: memberError } = await supabase.from("memberships").insert([
-    {
-      user_id: user.id,
-      organization_id: invite.organization_id,
-      role: invite.role,
-    },
-  ])
+  const result = data as { org_id: string; org_role: string }
 
-  if (memberError) {
-    if (memberError.code === "23505") {
-      // Already a member, that's fine, just process the invite
-    } else {
-      throw memberError
-    }
-  }
-
-  // 4. Update invite status
-  await supabase.from("invites").update({ status: "accepted" }).eq("id", invite.id)
-
-  // 5. Set as active org
-  cookieStore.set("active_org_id", invite.organization_id, {
+  // 3. Set as active org
+  cookieStore.set("active_org_id", result.org_id, {
     path: "/",
     maxAge: 60 * 60 * 24 * 30,
   })
 
-  return { organizationId: invite.organization_id }
+  return { organizationId: result.org_id }
 }

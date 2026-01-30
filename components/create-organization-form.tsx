@@ -35,9 +35,9 @@ export function CreateOrganizationForm({
 
       if (data) {
         await setActiveOrganizationAction(data.id)
+        router.push(`/organizations/${data.id}/welcome`)
       }
 
-      router.push("/protected")
       router.refresh()
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "An error occurred while creating the organization")

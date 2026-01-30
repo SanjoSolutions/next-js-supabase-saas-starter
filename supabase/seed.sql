@@ -34,7 +34,7 @@ BEGIN
     extensions.crypt('password123', extensions.gen_salt('bf')),
     now(),
     '{"provider":"email","providers":["email"]}',
-    '{}',
+    '{"first_name":"Existing User"}',
     now(),
     now(),
     'authenticated',
