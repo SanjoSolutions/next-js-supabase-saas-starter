@@ -1,5 +1,6 @@
 import { AuthButton } from "@/components/auth-button"
 import { EnvVarWarning } from "@/components/env-var-warning"
+import { isFeatureEnabled } from "@/lib/feature-flags"
 import { createClient } from "@/lib/supabase/server"
 import { hasEnvVars } from "@/lib/utils"
 import { cookies } from "next/headers"
@@ -27,6 +28,11 @@ export async function Header() {
     (memberships
       ?.map((m: any) => m.organizations)
       .filter(Boolean) as any[]) || []
+
+  // Check if activity dashboard is enabled for the active organization
+  const hasActivityDashboard = activeOrgId
+    ? await isFeatureEnabled("advanced_analytics", activeOrgId)
+    : false
 
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
@@ -62,6 +68,14 @@ export async function Header() {
                       >
                         Members
                       </NavLink>
+                      {hasActivityDashboard && (
+                        <NavLink
+                          href={`/organizations/${activeOrgId}/activity`}
+                          className=""
+                        >
+                          Activity
+                        </NavLink>
+                      )}
                       <NavLink
                         href={`/organizations/${activeOrgId}/billing`}
                         className=""
