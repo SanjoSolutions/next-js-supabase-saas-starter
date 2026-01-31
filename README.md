@@ -28,3 +28,14 @@
   - Invite
   - Billing (with Stripe)
     - Plans
+  - Activity Dashboard (Pro plan)
+    - Audit log of all organization events
+    - Automatic tracking via database triggers
+    - Member joins, invites, role changes, billing events
+- Feature Flags
+  - Per-organization feature toggles
+  - Gate features behind subscription plans
+- Notifications
+  - In-app notification system
+  - Mark as read/unread
+  - Notification bell with unread count
