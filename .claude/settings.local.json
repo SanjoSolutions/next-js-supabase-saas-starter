@@ -1,9 +1,15 @@
 {
-  "outputStyle": "default",
+  "permissions": {
+    "allow": [
+      "Bash(npx playwright test:*)",
+      "Bash(git add:*)"
+    ]
+  },
   "enabledMcpjsonServers": [
     "supabase-local",
     "next-devtools",
     "playwright",
     "stripe"
-  ]
+  ],
+  "outputStyle": "default"
 }
