@@ -5,11 +5,17 @@
       "Bash(git add:*)"
     ]
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "supabase-local",
     "next-devtools",
     "playwright",
-    "stripe"
+    "stripe",
+    "chrome-dev-tools"
   ],
-  "outputStyle": "default"
+  "outputStyle": "default",
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true
+  }
 }
