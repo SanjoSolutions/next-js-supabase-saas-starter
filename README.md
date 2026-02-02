@@ -1,27 +1,15 @@
-<a href="https://demo-nextjs-with-supabase.vercel.app/">
-  <img alt="Next.js and Supabase Starter Kit - the fastest way to build apps with Next.js and Supabase" src="https://demo-nextjs-with-supabase.vercel.app/opengraph-image.png">
-  <h1 align="center">Next.js and Supabase SaaS Starter Kit</h1>
-</a>
+# Next.js and Supabase SaaS Starter Kit
 
-<p align="center">
- MIT licensed
-</p>
+Safe time on your next SaaS idea and start with this starter kit!
+
+- The whole code base is MIT licensed. So you can do almost anything with it.
+- Includes automated tests
+  - End-to-end tests with Playwright
+  - Unit tests with Vitest
+  - Database security test with pgTAP
 
 ## Features
 
-- Works across the entire [Next.js](https://nextjs.org) stack
-  - App Router
-  - Pages Router
-  - Proxy
-  - Client
-  - Server
-  - It just works!
-- supabase-ssr. A package to configure Supabase Auth to use cookies
-- Password-based authentication block installed via the [Supabase UI Library](https://supabase.com/ui/docs/nextjs/password-based-auth)
-- Styling with [Tailwind CSS](https://tailwindcss.com)
-- Components with [shadcn/ui](https://ui.shadcn.com/)
-- Optional deployment with [Supabase Vercel Integration and Vercel deploy](#deploy-your-own)
-  - Environment variables automatically assigned to Vercel project
 - Users
 - Organizations
   - Memberships
@@ -39,3 +27,10 @@
   - In-app notification system
   - Mark as read/unread
   - Notification bell with unread count
+
+---
+
+[![Buy Now](https://img.shields.io/badge/Buy%20Now-Get%20Started-brightgreen?style=for-the-badge)](https://5332164700848.gumroad.com/l/next-js-supabase-saas-starter)
+
+You can always test it first and buy it later.
+And yes, this project is MIT licensed. You can use it for free. Buying it is just a way to say thanks.
