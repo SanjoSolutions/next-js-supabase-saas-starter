@@ -28,9 +28,9 @@ Safe time on your next SaaS idea and start with this starter kit!
   - Mark as read/unread
   - Notification bell with unread count
 
----
+## Buy
 
-[![Buy Now](https://img.shields.io/badge/Buy%20Now-Get%20Started-brightgreen?style=for-the-badge)](https://5332164700848.gumroad.com/l/next-js-supabase-saas-starter)
+![Buy Now](https://5332164700848.gumroad.com/l/next-js-supabase-saas-starter)
 
 You can always test it first and buy it later.
 And yes, this project is MIT licensed. You can use it for free. Buying it is just a way to say thanks.
