@@ -1,9 +1,30 @@
-import { act, render, screen, waitFor } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { CookieConsentBanner } from "./cookie-consent-banner"
 import { CookieConsentProvider } from "./cookie-consent-provider"
 import { useCookieConsent } from "./use-cookie-consent"
+import { I18nTestWrapper } from "@/test/utils/i18n-test-wrapper"
+
+// Mock next-intl navigation
+vi.mock("@/i18n/navigation", () => ({
+  Link: ({
+    children,
+    href,
+    ...props
+  }: {
+    children: React.ReactNode
+    href: string
+  }) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+  useRouter: () => ({
+    replace: vi.fn(),
+  }),
+  usePathname: () => "/test-path",
+}))
 
 // Helper component to test the hook
 function TestConsumer() {
@@ -161,9 +182,11 @@ describe("CookieConsentBanner", () => {
 
   it("renders banner when no consent given", async () => {
     render(
-      <CookieConsentProvider>
-        <CookieConsentBanner />
-      </CookieConsentProvider>
+      <I18nTestWrapper locale="de">
+        <CookieConsentProvider>
+          <CookieConsentBanner />
+        </CookieConsentProvider>
+      </I18nTestWrapper>
     )
 
     await waitFor(() => {
@@ -184,9 +207,11 @@ describe("CookieConsentBanner", () => {
     )
 
     render(
-      <CookieConsentProvider>
-        <CookieConsentBanner />
-      </CookieConsentProvider>
+      <I18nTestWrapper locale="de">
+        <CookieConsentProvider>
+          <CookieConsentBanner />
+        </CookieConsentProvider>
+      </I18nTestWrapper>
     )
 
     await waitFor(() => {
@@ -198,9 +223,11 @@ describe("CookieConsentBanner", () => {
     const user = userEvent.setup()
 
     render(
-      <CookieConsentProvider>
-        <CookieConsentBanner />
-      </CookieConsentProvider>
+      <I18nTestWrapper locale="de">
+        <CookieConsentProvider>
+          <CookieConsentBanner />
+        </CookieConsentProvider>
+      </I18nTestWrapper>
     )
 
     await waitFor(() => {
@@ -218,9 +245,11 @@ describe("CookieConsentBanner", () => {
     const user = userEvent.setup()
 
     render(
-      <CookieConsentProvider>
-        <CookieConsentBanner />
-      </CookieConsentProvider>
+      <I18nTestWrapper locale="de">
+        <CookieConsentProvider>
+          <CookieConsentBanner />
+        </CookieConsentProvider>
+      </I18nTestWrapper>
     )
 
     await waitFor(() => {
@@ -241,9 +270,11 @@ describe("CookieConsentBanner", () => {
     const user = userEvent.setup()
 
     render(
-      <CookieConsentProvider>
-        <CookieConsentBanner />
-      </CookieConsentProvider>
+      <I18nTestWrapper locale="de">
+        <CookieConsentProvider>
+          <CookieConsentBanner />
+        </CookieConsentProvider>
+      </I18nTestWrapper>
     )
 
     await waitFor(() => {
@@ -271,9 +302,11 @@ describe("CookieConsentBanner", () => {
 
   it("contains link to privacy policy", async () => {
     render(
-      <CookieConsentProvider>
-        <CookieConsentBanner />
-      </CookieConsentProvider>
+      <I18nTestWrapper locale="de">
+        <CookieConsentProvider>
+          <CookieConsentBanner />
+        </CookieConsentProvider>
+      </I18nTestWrapper>
     )
 
     await waitFor(() => {

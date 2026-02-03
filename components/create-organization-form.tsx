@@ -1,6 +1,6 @@
 "use client"
 
-import { setActiveOrganizationAction } from "@/app/(authenticated)/organizations/actions"
+import { setActiveOrganizationAction } from "@/app/[locale]/(authenticated)/organizations/actions"
 import { FormCard } from "@/components/form-card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -8,11 +8,13 @@ import { Label } from "@/components/ui/label"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 export function CreateOrganizationForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const t = useTranslations("organizations.create")
   const [name, setName] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -40,22 +42,18 @@ export function CreateOrganizationForm({
 
       router.refresh()
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : "An error occurred while creating the organization")
+      setError(err instanceof Error ? err.message : t("error"))
     } finally {
       setIsLoading(false)
     }
   }
 
   return (
-    <FormCard
-      title="Create Organization"
-      className={className}
-      {...props}
-    >
+    <FormCard title={t("title")} className={className} {...props}>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-6">
           <div className="grid gap-2">
-            <Label htmlFor="name">Name</Label>
+            <Label htmlFor="name">{t("name")}</Label>
             <Input
               id="name"
               type="text"
@@ -68,7 +66,7 @@ export function CreateOrganizationForm({
           </div>
           {error && <p className="text-sm text-red-500">{error}</p>}
           <Button type="submit" className="w-full" disabled={isLoading}>
-            {isLoading ? "Creating..." : "Create Organization"}
+            {isLoading ? t("loading") : t("submit")}
           </Button>
         </div>
       </form>

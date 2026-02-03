@@ -1,0 +1,232 @@
+{
+  "common": {
+    "appName": "Next.js Supabase SaaS Starter",
+    "poweredBy": "Unterstützt von",
+    "loading": "Lädt...",
+    "error": "Ein Fehler ist aufgetreten",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "submit": "Absenden",
+    "back": "Zurück",
+    "next": "Weiter",
+    "previous": "Zurück"
+  },
+  "nav": {
+    "invite": "Einladen",
+    "members": "Mitglieder",
+    "activity": "Aktivität",
+    "billing": "Abrechnung",
+    "createOrganization": "Organisation erstellen"
+  },
+  "auth": {
+    "login": {
+      "title": "Anmelden",
+      "description": "Geben Sie Ihre E-Mail-Adresse ein, um sich anzumelden",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "forgotPassword": "Passwort vergessen?",
+      "noAccount": "Noch kein Konto?",
+      "signUp": "Registrieren",
+      "submit": "Anmelden",
+      "loading": "Anmeldung läuft..."
+    },
+    "signUp": {
+      "title": "Registrieren",
+      "description": "Erstellen Sie ein neues Konto",
+      "firstName": "Vorname",
+      "email": "E-Mail",
+      "password": "Passwort",
+      "repeatPassword": "Passwort wiederholen",
+      "submit": "Registrieren",
+      "loading": "Konto wird erstellt...",
+      "hasAccount": "Bereits ein Konto?",
+      "login": "Anmelden",
+      "passwordMismatch": "Passwörter stimmen nicht überein"
+    },
+    "forgotPassword": {
+      "title": "Passwort zurücksetzen",
+      "description": "Geben Sie Ihre E-Mail-Adresse ein und wir senden Ihnen einen Link zum Zurücksetzen",
+      "email": "E-Mail",
+      "submit": "Link senden",
+      "loading": "Wird gesendet...",
+      "successTitle": "E-Mail prüfen",
+      "successDescription": "Anweisungen zum Zurücksetzen wurden gesendet",
+      "successMessage": "Wenn Sie sich mit E-Mail und Passwort registriert haben, erhalten Sie eine E-Mail zum Zurücksetzen des Passworts.",
+      "hasAccount": "Bereits ein Konto?",
+      "login": "Anmelden"
+    },
+    "updatePassword": {
+      "title": "Passwort zurücksetzen",
+      "description": "Bitte geben Sie Ihr neues Passwort ein.",
+      "newPassword": "Neues Passwort",
+      "submit": "Neues Passwort speichern",
+      "loading": "Speichern..."
+    },
+    "signUpSuccess": {
+      "title": "Vielen Dank für Ihre Registrierung!",
+      "description": "Prüfen Sie Ihre E-Mail, um Ihr Konto zu bestätigen."
+    },
+    "error": {
+      "title": "Entschuldigung, etwas ist schiefgelaufen.",
+      "codeError": "Fehlercode:",
+      "unspecified": "Ein unbekannter Fehler ist aufgetreten."
+    },
+    "button": {
+      "greeting": "Hallo,",
+      "signIn": "Anmelden",
+      "signUp": "Registrieren",
+      "logout": "Abmelden"
+    }
+  },
+  "organizations": {
+    "create": {
+      "title": "Organisation erstellen",
+      "name": "Name",
+      "submit": "Organisation erstellen",
+      "loading": "Wird erstellt...",
+      "error": "Beim Erstellen der Organisation ist ein Fehler aufgetreten"
+    },
+    "switcher": {
+      "label": "Organisationen",
+      "select": "Organisation auswählen",
+      "noOrganizations": "Keine Organisationen gefunden"
+    },
+    "members": {
+      "title": "Organisationsmitglieder",
+      "description": "{count, plural, one {# Mitglied} other {# Mitglieder}}",
+      "email": "E-Mail",
+      "role": "Rolle",
+      "joined": "Beigetreten",
+      "status": "Status",
+      "active": "Aktiv"
+    },
+    "roles": {
+      "owner": "Inhaber",
+      "admin": "Administrator",
+      "member": "Mitglied"
+    },
+    "welcome": {
+      "title": "Willkommen bei {orgName}!",
+      "description": "Sie sind der Organisation erfolgreich beigetreten",
+      "asRole": "als {role}",
+      "accessMessage": "Sie haben jetzt Zugriff auf alle Funktionen und Ressourcen Ihrer Organisation.",
+      "goToDashboard": "Zum Dashboard",
+      "betaFeature": {
+        "title": "Beta-Funktion: KI-Assistent",
+        "description": "Diese Funktion befindet sich derzeit in der Beta-Phase und ist nur für ausgewählte Organisationen verfügbar.",
+        "tryIt": "KI-Assistent ausprobieren"
+      }
+    },
+    "activity": {
+      "title": "Aktivitäts-Dashboard",
+      "upgradeDescription": "Wechseln Sie zu Pro, um auf das Aktivitäts-Dashboard zuzugreifen",
+      "upgradeMessage": "Das Aktivitäts-Dashboard bietet ein vollständiges Protokoll aller Organisationsereignisse, einschließlich Mitgliederbeitritten, Einladungen, Rollenänderungen und Abrechnungsereignissen.",
+      "upgradeToPro": "Zu Pro wechseln",
+      "noActivity": "Noch keine Aktivitäten aufgezeichnet",
+      "event": "Ereignis",
+      "actor": "Akteur",
+      "details": "Details",
+      "time": "Zeit",
+      "system": "System",
+      "events": "{count, plural, one {# Ereignis} other {# Ereignisse}}",
+      "types": {
+        "member_joined": "Mitglied beigetreten",
+        "member_invited": "Mitglied eingeladen",
+        "role_changed": "Rolle geändert",
+        "subscription_created": "Abonnement erstellt",
+        "subscription_canceled": "Abonnement gekündigt"
+      }
+    }
+  },
+  "invites": {
+    "title": "Mitglied einladen",
+    "description": "Senden Sie eine Einladung, Ihrer Organisation beizutreten.",
+    "email": "E-Mail-Adresse",
+    "submit": "Einladung erstellen",
+    "loading": "Wird gesendet...",
+    "success": "Einladung erfolgreich erstellt!",
+    "linkLabel": "Link:",
+    "accept": {
+      "title": "Organisations-Einladung",
+      "loading": "Einladung wird geladen...",
+      "accepting": "Wird angenommen...",
+      "submit": "Einladung annehmen",
+      "notFound": "Einladung nicht gefunden oder abgelaufen"
+    }
+  },
+  "billing": {
+    "title": "Abrechnung & Pläne",
+    "successMessage": "Zahlung erfolgreich! Ihr Plan wurde aktualisiert.",
+    "canceledMessage": "Zahlung abgebrochen. Keine Kosten entstanden.",
+    "free": {
+      "title": "Kostenloser Plan",
+      "description": "Gut für den Einstieg",
+      "price": "0 €",
+      "perMonth": "/Monat",
+      "features": {
+        "members": "Bis zu 5 Mitglieder",
+        "basic": "Grundfunktionen"
+      }
+    },
+    "pro": {
+      "title": "Pro-Plan",
+      "description": "Für wachsende Teams",
+      "price": "20 €",
+      "perMonth": "/Monat",
+      "features": {
+        "members": "Unbegrenzte Mitglieder",
+        "analytics": "Erweiterte Analysen",
+        "support": "Prioritäts-Support"
+      }
+    },
+    "included": "Enthalten",
+    "currentPlan": "Aktueller Plan",
+    "manageSubscription": "Abonnement verwalten",
+    "upgradeToPro": "Zu Pro wechseln"
+  },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "markAllAsRead": "Alle als gelesen markieren",
+    "empty": "Noch keine Benachrichtigungen",
+    "unreadCount": "{count} ungelesene Benachrichtigungen"
+  },
+  "cookies": {
+    "title": "Cookie-Einstellungen",
+    "description": "Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten. Weitere Informationen finden Sie in unserer",
+    "privacyPolicy": "Datenschutzerklärung",
+    "acceptAll": "Alle akzeptieren",
+    "savePreferences": "Auswahl speichern",
+    "settings": "Einstellungen",
+    "necessaryOnly": "Nur notwendige",
+    "required": "(Erforderlich)",
+    "categories": {
+      "necessary": {
+        "name": "Notwendig",
+        "description": "Diese Cookies sind für die Grundfunktionen der Website erforderlich und können nicht deaktiviert werden."
+      },
+      "analytics": {
+        "name": "Analyse",
+        "description": "Diese Cookies helfen uns zu verstehen, wie Besucher mit der Website interagieren."
+      },
+      "marketing": {
+        "name": "Marketing",
+        "description": "Diese Cookies werden verwendet, um Werbung relevanter für Sie zu gestalten."
+      }
+    }
+  },
+  "theme": {
+    "light": "Hell",
+    "dark": "Dunkel",
+    "system": "System"
+  },
+  "legal": {
+    "impressum": "Impressum",
+    "datenschutz": "Datenschutz",
+    "agb": "AGB"
+  },
+  "language": {
+    "label": "Sprache",
+    "en": "English",
+    "de": "Deutsch"
+  }
+}

@@ -9,10 +9,19 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: ['./vitest.setup.ts'],
+    exclude: ['**/node_modules/**', '**/e2e/**'],
+    deps: {
+      optimizer: {
+        web: {
+          include: ['next-intl'],
+        },
+      },
+    },
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './'),
+      'next/navigation': path.resolve(__dirname, './node_modules/next/navigation.js'),
     },
   },
 })

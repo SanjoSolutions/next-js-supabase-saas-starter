@@ -1,6 +1,27 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextResponse, type NextRequest } from "next/server"
 import { hasEnvVars } from "../utils"
+import { locales, defaultLocale } from "@/i18n/config"
+
+// Get the pathname without locale prefix
+function getPathnameWithoutLocale(pathname: string): string {
+  for (const locale of locales) {
+    if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
+      return pathname.slice(locale.length + 1) || "/"
+    }
+  }
+  return pathname
+}
+
+// Get the locale from the pathname
+function getLocaleFromPathname(pathname: string): string {
+  for (const locale of locales) {
+    if (pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`) {
+      return locale
+    }
+  }
+  return defaultLocale
+}
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -25,17 +46,17 @@ export async function updateSession(request: NextRequest) {
         },
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
+            request.cookies.set(name, value)
           )
           supabaseResponse = NextResponse.next({
             request,
           })
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options),
+            supabaseResponse.cookies.set(name, value, options)
           )
         },
       },
-    },
+    }
   )
 
   // Do not run code between createServerClient and
@@ -47,20 +68,24 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims()
   const user = data?.claims
 
+  const pathname = request.nextUrl.pathname
+  const pathnameWithoutLocale = getPathnameWithoutLocale(pathname)
+  const locale = getLocaleFromPathname(pathname)
+
   if (
-    request.nextUrl.pathname !== "/" &&
+    pathnameWithoutLocale !== "/" &&
     !user &&
-    !request.nextUrl.pathname.startsWith("/login") &&
-    !request.nextUrl.pathname.startsWith("/auth") &&
-    !request.nextUrl.pathname.startsWith("/invites") &&
-    !request.nextUrl.pathname.startsWith("/api") &&
-    !request.nextUrl.pathname.startsWith("/impressum") &&
-    !request.nextUrl.pathname.startsWith("/datenschutz") &&
-    !request.nextUrl.pathname.startsWith("/agb")
+    !pathnameWithoutLocale.startsWith("/login") &&
+    !pathnameWithoutLocale.startsWith("/auth") &&
+    !pathnameWithoutLocale.startsWith("/invites") &&
+    !pathnameWithoutLocale.startsWith("/api") &&
+    !pathnameWithoutLocale.startsWith("/impressum") &&
+    !pathnameWithoutLocale.startsWith("/datenschutz") &&
+    !pathnameWithoutLocale.startsWith("/agb")
   ) {
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
-    url.pathname = "/auth/login"
+    url.pathname = `/${locale}/auth/login`
     return NextResponse.redirect(url)
   }
 

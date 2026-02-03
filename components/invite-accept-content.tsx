@@ -1,13 +1,21 @@
 "use client"
 
-import { acceptInviteAction } from "@/app/(authenticated)/organizations/actions"
+import { acceptInviteAction } from "@/app/[locale]/(authenticated)/organizations/actions"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import { useTranslations } from "next-intl"
 
 export function InviteAcceptContent({ token }: { token: string }) {
+  const t = useTranslations("invites.accept")
   const [invite, setInvite] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -22,33 +30,36 @@ export function InviteAcceptContent({ token }: { token: string }) {
         .single()
 
       if (fetchError || !inviteData) {
-        console.error('Fetch invite error:', fetchError)
-        setError("Invite not found or expired")
+        console.error("Fetch invite error:", fetchError)
+        setError(t("notFound"))
       } else {
         const data = inviteData as any
-        console.log('DEBUG: invite_token=' + token)
         setInvite({
           id: data.id,
           email: data.email,
           role: data.role,
-          organizations: { name: data.organization_name }
+          organizations: { name: data.organization_name },
         })
       }
       setLoading(false)
     }
 
     fetchInvite()
-  }, [token, supabase])
+  }, [token, supabase, t])
 
   const handleAccept = async () => {
     setIsProcessing(true)
     setError(null)
 
     try {
-      const { data: { user } } = await supabase.auth.getUser()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
       if (!user) {
         setIsProcessing(false)
-        router.push(`/auth/sign-up?return_url=${encodeURIComponent(window.location.href)}`)
+        router.push(
+          `/auth/sign-up?return_url=${encodeURIComponent(window.location.href)}`
+        )
         return
       }
 
@@ -62,28 +73,30 @@ export function InviteAcceptContent({ token }: { token: string }) {
   }
 
   if (loading) {
-    console.log('InviteAcceptContent: Still loading...');
-    return <div>Loading invitation...</div>
+    return <div>{t("loading")}</div>
   }
-
-  console.log('InviteAcceptContent: Rendering with state:', { invite, error, loading, isProcessing });
 
   return (
     <Card className="max-w-md w-full">
       <CardHeader>
-        <CardTitle>Organization Invitation</CardTitle>
+        <CardTitle>{t("title")}</CardTitle>
         {invite && (
           <CardDescription>
-            You have been invited to join <strong>{invite.organizations.name}</strong> as a {invite.role}.
+            You have been invited to join{" "}
+            <strong>{invite.organizations.name}</strong> as a {invite.role}.
           </CardDescription>
         )}
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         {error && <p className="text-sm text-red-500">{error}</p>}
-        {!invite && !error && <p>No invite found.</p>}
+        {!invite && !error && <p>{t("notFound")}</p>}
         {invite && (
-          <Button onClick={handleAccept} className="w-full" disabled={isProcessing}>
-            {isProcessing ? "Accepting..." : "Accept Invitation"}
+          <Button
+            onClick={handleAccept}
+            className="w-full"
+            disabled={isProcessing}
+          >
+            {isProcessing ? t("accepting") : t("submit")}
           </Button>
         )}
       </CardContent>

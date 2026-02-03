@@ -1,18 +1,19 @@
 "use client"
 
-import { setActiveOrganizationAction } from "@/app/(authenticated)/organizations/actions"
+import { setActiveOrganizationAction } from "@/app/[locale]/(authenticated)/organizations/actions"
 import { Button } from "@/components/ui/button"
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Building2, Check, ChevronsUpDown } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { useTranslations } from "next-intl"
 
 interface Organization {
   id: string
@@ -25,6 +26,7 @@ interface OrgSwitcherProps {
 }
 
 export function OrgSwitcher({ organizations, activeOrgId }: OrgSwitcherProps) {
+  const t = useTranslations("organizations.switcher")
   const router = useRouter()
   const activeOrg = organizations.find((org) => org.id === activeOrgId)
   const [isPending, setIsPending] = useState(false)
@@ -52,13 +54,13 @@ export function OrgSwitcher({ organizations, activeOrgId }: OrgSwitcherProps) {
         >
           <Building2 className="h-4 w-4" />
           <span className="max-w-[150px] truncate font-medium">
-            {activeOrg?.name || "Select Organization"}
+            {activeOrg?.name || t("select")}
           </span>
           <ChevronsUpDown className="h-4 w-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="w-[200px]">
-        <DropdownMenuLabel>Organizations</DropdownMenuLabel>
+        <DropdownMenuLabel>{t("label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {organizations.map((org) => (
           <DropdownMenuItem
@@ -72,7 +74,7 @@ export function OrgSwitcher({ organizations, activeOrgId }: OrgSwitcherProps) {
         ))}
         {organizations.length === 0 && (
           <DropdownMenuItem disabled className="text-muted-foreground italic">
-            No organizations found
+            {t("noOrganizations")}
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>

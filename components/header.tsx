@@ -5,11 +5,13 @@ import { createClient } from "@/lib/supabase/server"
 import { hasEnvVars } from "@/lib/utils"
 import { cookies } from "next/headers"
 import { Suspense } from "react"
+import { getTranslations } from "next-intl/server"
 import NavLink from "./nav-link"
 import { NotificationCenter } from "./notification-center"
 import { OrgSwitcher } from "./org-switcher"
 
 export async function Header() {
+  const t = await getTranslations()
   const supabase = await createClient()
   const { data } = await supabase.auth.getUser()
   const user = data?.user
@@ -39,7 +41,7 @@ export async function Header() {
       <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
         <div className="flex gap-5 items-center font-semibold">
           <NavLink href={"/"} className="font-semibold">
-            Next.js Supabase SaaS Starter
+            {t("common.appName")}
           </NavLink>
           {user && (
             <div className="flex items-center gap-4 ml-4 font-normal">
@@ -58,7 +60,7 @@ export async function Header() {
               {organizations.length > 0 ? (
                 <>
                   <NavLink href={"/invites/new"} className="">
-                    Invite
+                    {t("nav.invite")}
                   </NavLink>
                   {activeOrgId && (
                     <>
@@ -66,28 +68,28 @@ export async function Header() {
                         href={`/organizations/${activeOrgId}/members`}
                         className=""
                       >
-                        Members
+                        {t("nav.members")}
                       </NavLink>
                       {hasActivityDashboard && (
                         <NavLink
                           href={`/organizations/${activeOrgId}/activity`}
                           className=""
                         >
-                          Activity
+                          {t("nav.activity")}
                         </NavLink>
                       )}
                       <NavLink
                         href={`/organizations/${activeOrgId}/billing`}
                         className=""
                       >
-                        Billing
+                        {t("nav.billing")}
                       </NavLink>
                     </>
                   )}
                 </>
               ) : null}
               <NavLink href={"/organizations/new"} className="">
-                Create Organization
+                {t("nav.createOrganization")}
               </NavLink>
             </div>
           )}

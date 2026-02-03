@@ -23,6 +23,8 @@ Save time on your next SaaS idea and start with this starter kit!
 - Feature Flags
   - Per-organization feature toggles
   - Gate features behind subscription plans
+- Internationalization (i18n) / Multi-language
+  - English and German are shipped out of the box.
 - Notifications
   - In-app notification system
   - Mark as read/unread
