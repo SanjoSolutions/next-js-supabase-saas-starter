@@ -1,6 +1,6 @@
 # Next.js and Supabase SaaS Starter Kit
 
-Safe time on your next SaaS idea and start with this starter kit!
+Save time on your next SaaS idea and start with this starter kit!
 
 - The whole code base is MIT licensed. So you can do almost anything with it.
 - Includes automated tests
