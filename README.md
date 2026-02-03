@@ -33,7 +33,8 @@ Save time on your next SaaS idea and start with this starter kit!
   - Imprint
   - Privacy policy
   - Cookie consent
-- Terms of service 
+- Lead magnet page
+- Terms of service
 
 ## Buy
 
