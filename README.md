@@ -30,7 +30,7 @@ Safe time on your next SaaS idea and start with this starter kit!
 
 ## Buy
 
-[![Buy Now](https://img.shields.io/badge/Buy%20Now-blue?style=for-the-badge)](https://5332164700848.gumroad.com/l/next-js-supabase-saas-starter)
+[![Buy Now](https://img.shields.io/badge/Buy%20Now-blue?style=for-the-badge)](https://sanjosolutions.gumroad.com/l/next-js-supabase-saas-starter)
 
 You can always test it first and buy it later.<br>
 And yes, this project is MIT licensed. You can use it for free. Buying it is just a way to say thanks.
