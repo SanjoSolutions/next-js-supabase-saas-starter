@@ -383,7 +383,8 @@
   "landing": {
     "hero": {
       "badge": "SaaS Starter Kit",
-      "title": "Build your SaaS product faster",
+      "title": "Build your SaaS product faster.",
+      "titleHighlight": "Way faster.",
       "description": "A production-ready starter kit with authentication, team management, billing, and everything you need to launch your SaaS product.",
       "cta": "Get Started Free",
       "ctaSecondary": "View Demo",

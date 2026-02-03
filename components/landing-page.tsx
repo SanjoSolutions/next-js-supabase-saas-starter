@@ -33,7 +33,8 @@ export async function LandingPage() {
             {t("hero.badge")}
           </Badge>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-            {t("hero.title")}
+            {t("hero.title")}{" "}
+            <span className="text-primary">{t("hero.titleHighlight")}</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             {t("hero.description")}
