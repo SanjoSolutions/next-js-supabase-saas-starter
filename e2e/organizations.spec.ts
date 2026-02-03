@@ -50,9 +50,9 @@ test("should create an invite link", async ({ page }) => {
   // 5. Accept the invite
   await acceptInvite(page, inviteLink)
 
-  // 6. Verify welcome message
-  await expect(page.locator("text=Welcome to")).toBeVisible()
-  await expect(page.locator("text=successfully joined")).toBeVisible()
+  // 6. Verify welcome message (supports English and German)
+  await expect(page.locator("text=Welcome to").or(page.locator("text=Willkommen bei"))).toBeVisible()
+  await expect(page.locator("text=successfully joined").or(page.locator("text=erfolgreich beigetreten"))).toBeVisible()
 
   // 7. Verify Membership
   const header = page.getByRole("navigation").first()
@@ -77,8 +77,9 @@ test("should only show organizations where user is a member", async ({
   const org2Name = await createOrganization(page, "User1 Another Org")
   await page.waitForTimeout(1000)
 
-  // 5. Verify both orgs appear in switcher
-  await page.click('button:has-text("User1 Another Org")')
+  // 5. Verify both orgs appear in switcher - click on org switcher button
+  // The button should contain the new org name (created in step 4)
+  await page.locator("nav").getByText(org2Name).first().click()
   await expect(page.getByRole("menu").getByText(org1Name)).toBeVisible()
   await expect(page.getByRole("menu").getByText(org2Name)).toBeVisible()
   await page.keyboard.press("Escape") // Close switcher
@@ -88,12 +89,21 @@ test("should only show organizations where user is a member", async ({
 
   // 7. Sign up as a different user
   const otherUserEmail = generateTestEmail("other")
-  await signUp(page, { email: otherUserEmail, firstName: "Other User" })
+  const otherUserPassword = "password123"
+  await signUp(page, { email: otherUserEmail, firstName: "Other User", password: otherUserPassword })
 
-  // Navigate to protected page if not already there
+  // Ensure we're logged in as the new user - wait for protected page redirect or login if needed
+  await page.waitForTimeout(1000)
   if (!page.url().includes("/protected")) {
+    // Try to navigate to protected page
     await page.goto("/protected")
     await page.waitForLoadState("networkidle")
+    await page.waitForTimeout(500)
+
+    // If still on login page, login the new user
+    if (page.url().includes("/auth/")) {
+      await login(page, otherUserEmail, otherUserPassword)
+    }
   }
 
   // 8. Create organization as other user
@@ -117,10 +127,13 @@ test("should only show organizations where user is a member", async ({
   await page.waitForTimeout(2000)
 
   // 12. Verify first user still sees only their organizations
-  try {
-    await page.click('button:has-text("Select Organization")')
-  } catch {
-    await page.click("nav button")
+  // Click the org switcher (supports English and German)
+  const orgSwitcher = page.locator('button:has-text("Select Organization")').or(page.locator('button:has-text("Organisation auswählen")'))
+  if (await orgSwitcher.isVisible({ timeout: 2000 }).catch(() => false)) {
+    await orgSwitcher.click()
+  } else {
+    // Fallback: click the first button in nav that looks like org switcher
+    await page.locator("nav button").first().click()
   }
   await page.waitForTimeout(500)
   await expect(
@@ -129,7 +142,7 @@ test("should only show organizations where user is a member", async ({
   await expect(page.getByRole("menu").getByText(org2Name).first()).toBeVisible()
 
   // 13. Verify first user does NOT see the other user's organization
-  await expect(page.locator("nav").getByText(org3Name)).not.toBeVisible()
+  await expect(page.getByRole("menu").getByText(org3Name)).not.toBeVisible()
 })
 
 test("members page shows owner and invited member", async ({ page }) => {
@@ -156,8 +169,11 @@ test("members page shows owner and invited member", async ({ page }) => {
   await page.waitForLoadState("networkidle")
   await page.waitForTimeout(1000)
 
-  // 6. Open Members page via header
-  await page.click('a:has-text("Members")')
+  // 6. Open Members page via user menu
+  await page.locator("nav button").last().click()
+  await page.waitForTimeout(300)
+  const membersItem = page.getByRole("menuitem", { name: "Members" }).or(page.getByRole("menuitem", { name: "Mitglieder" }))
+  await membersItem.click()
   await page.waitForLoadState("networkidle")
   await page.waitForTimeout(1000)
 

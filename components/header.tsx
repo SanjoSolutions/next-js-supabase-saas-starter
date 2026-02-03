@@ -1,4 +1,3 @@
-import { AuthButton } from "@/components/auth-button"
 import { EnvVarWarning } from "@/components/env-var-warning"
 import { isFeatureEnabled } from "@/lib/feature-flags"
 import { createClient } from "@/lib/supabase/server"
@@ -6,9 +5,11 @@ import { hasEnvVars } from "@/lib/utils"
 import { cookies } from "next/headers"
 import { Suspense } from "react"
 import { getTranslations } from "next-intl/server"
-import NavLink from "./nav-link"
+import { Link } from "@/i18n/navigation"
 import { NotificationCenter } from "./notification-center"
 import { OrgSwitcher } from "./org-switcher"
+import { UserMenu } from "./user-menu"
+import { Button } from "./ui/button"
 
 export async function Header() {
   const t = await getTranslations()
@@ -37,75 +38,56 @@ export async function Header() {
     : false
 
   return (
-    <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-      <div className="w-full max-w-5xl flex justify-between items-center p-3 px-5 text-sm">
-        <div className="flex gap-5 items-center font-semibold">
-          <NavLink href={"/"} className="font-semibold">
+    <nav className="w-full flex justify-center border-b border-b-foreground/10 h-14">
+      <div className="w-full max-w-5xl flex justify-between items-center px-4 text-sm">
+        {/* Left: Logo */}
+        <div className="flex items-center">
+          <Link href="/" className="font-semibold text-base">
             {t("common.appName")}
-          </NavLink>
-          {user && (
-            <div className="flex items-center gap-4 ml-4 font-normal">
+          </Link>
+        </div>
+
+        {/* Right: Org Switcher, Notifications, User Menu */}
+        {!hasEnvVars ? (
+          <EnvVarWarning />
+        ) : user ? (
+          <div className="flex items-center gap-2">
+            {organizations.length > 0 && (
               <Suspense
                 fallback={
                   <div className="h-8 w-32 bg-accent animate-pulse rounded" />
                 }
               >
-                {organizations.length > 0 ? (
-                  <OrgSwitcher
-                    organizations={organizations}
-                    activeOrgId={activeOrgId}
-                  />
-                ) : null}
+                <OrgSwitcher
+                  organizations={organizations}
+                  activeOrgId={activeOrgId}
+                />
               </Suspense>
-              {organizations.length > 0 ? (
-                <>
-                  <NavLink href={"/invites/new"} className="">
-                    {t("nav.invite")}
-                  </NavLink>
-                  {activeOrgId && (
-                    <>
-                      <NavLink
-                        href={`/organizations/${activeOrgId}/members`}
-                        className=""
-                      >
-                        {t("nav.members")}
-                      </NavLink>
-                      {hasActivityDashboard && (
-                        <NavLink
-                          href={`/organizations/${activeOrgId}/activity`}
-                          className=""
-                        >
-                          {t("nav.activity")}
-                        </NavLink>
-                      )}
-                      <NavLink
-                        href={`/organizations/${activeOrgId}/billing`}
-                        className=""
-                      >
-                        {t("nav.billing")}
-                      </NavLink>
-                    </>
-                  )}
-                </>
-              ) : null}
-              <NavLink href={"/organizations/new"} className="">
-                {t("nav.createOrganization")}
-              </NavLink>
-            </div>
-          )}
-        </div>
-        {!hasEnvVars ? (
-          <EnvVarWarning />
-        ) : (
-          <div className="flex items-center gap-4">
-            {user && <NotificationCenter />}
+            )}
+            <NotificationCenter />
             <Suspense
               fallback={
-                <div className="h-8 w-20 bg-accent animate-pulse rounded" />
+                <div className="h-8 w-8 bg-accent animate-pulse rounded-full" />
               }
             >
-              <AuthButton />
+              <UserMenu
+                user={{
+                  email: user.email,
+                  user_metadata: user.user_metadata,
+                }}
+                activeOrgId={activeOrgId}
+                hasActivityDashboard={hasActivityDashboard}
+              />
             </Suspense>
+          </div>
+        ) : (
+          <div className="flex gap-2">
+            <Button asChild size="sm" variant="ghost">
+              <Link href="/auth/login">{t("auth.button.signIn")}</Link>
+            </Button>
+            <Button asChild size="sm">
+              <Link href="/auth/sign-up">{t("auth.button.signUp")}</Link>
+            </Button>
           </div>
         )}
       </div>

@@ -114,9 +114,10 @@ test.describe("Activity Dashboard", () => {
     await page.waitForLoadState("networkidle")
 
     // Should show upgrade prompt (CardTitle renders as div, not h3)
-    await expect(page.getByText("Activity Dashboard", { exact: true })).toBeVisible()
-    await expect(page.getByRole("link", { name: "Upgrade to Pro" })).toBeVisible()
-    await expect(page.getByText("complete audit log")).toBeVisible()
+    // Support both English and German
+    await expect(page.getByText("Activity Dashboard", { exact: true }).or(page.getByText("Aktivitäts-Dashboard", { exact: true }))).toBeVisible()
+    await expect(page.getByRole("link", { name: "Upgrade to Pro" }).or(page.getByRole("link", { name: "Zu Pro wechseln" }))).toBeVisible()
+    await expect(page.getByText("complete audit log").or(page.getByText("vollständiges Protokoll"))).toBeVisible()
   })
 
   test("should display activity logs for Pro users", async ({ page }) => {
@@ -146,21 +147,23 @@ test.describe("Activity Dashboard", () => {
     await page.waitForLoadState("networkidle")
 
     // Should show activity dashboard with logs (CardTitle renders as div, not h3)
-    await expect(page.getByText("Activity Dashboard", { exact: true })).toBeVisible()
+    // Support both English and German
+    await expect(page.getByText("Activity Dashboard", { exact: true }).or(page.getByText("Aktivitäts-Dashboard", { exact: true }))).toBeVisible()
 
     // Verify activity logs are displayed (use first() since there can be multiple with same text)
-    await expect(page.getByText("Member joined").first()).toBeVisible()
-    await expect(page.getByText("Invitation sent").first()).toBeVisible()
-    await expect(page.getByText("Upgraded to Pro").first()).toBeVisible()
+    // Support both English and German activity type translations
+    await expect(page.getByText("Member Joined").or(page.getByText("Mitglied beigetreten")).first()).toBeVisible()
+    await expect(page.getByText("Member Invited").or(page.getByText("Mitglied eingeladen")).first()).toBeVisible()
+    await expect(page.getByText("Subscription Created").or(page.getByText("Abonnement erstellt")).first()).toBeVisible()
 
-    // Verify table structure
-    await expect(page.locator("th:has-text('Event')")).toBeVisible()
-    await expect(page.locator("th:has-text('Actor')")).toBeVisible()
+    // Verify table structure (supports English and German headers)
+    await expect(page.locator("th:has-text('Event')").or(page.locator("th:has-text('Ereignis')"))).toBeVisible()
+    await expect(page.locator("th:has-text('Actor')").or(page.locator("th:has-text('Akteur')"))).toBeVisible()
     await expect(page.locator("th:has-text('Details')")).toBeVisible()
-    await expect(page.locator("th:has-text('Time')")).toBeVisible()
+    await expect(page.locator("th:has-text('Time')").or(page.locator("th:has-text('Zeit')"))).toBeVisible()
   })
 
-  test("should show Activity link in header only when feature enabled", async ({ page }) => {
+  test("should show Activity link in user menu only when feature enabled", async ({ page }) => {
     enableConsoleLogs(page)
 
     const email = generateTestEmail("activity-nav")
@@ -175,21 +178,33 @@ test.describe("Activity Dashboard", () => {
     const url = page.url()
     const orgId = url.split("/organizations/")[1].split("/")[0]
 
-    // Activity link should NOT be visible (feature not enabled)
-    await expect(page.locator('nav a:has-text("Activity")')).not.toBeVisible()
+    // Open user menu
+    await page.locator("nav button").last().click()
+    await page.waitForTimeout(300)
 
-    // Members and Billing links should be visible
-    await expect(page.locator('nav a:has-text("Members")')).toBeVisible()
-    await expect(page.locator('nav a:has-text("Billing")')).toBeVisible()
+    // Activity link should NOT be visible (feature not enabled) - support English and German
+    await expect(page.getByRole("menuitem", { name: "Activity" }).or(page.getByRole("menuitem", { name: "Aktivität" }))).not.toBeVisible()
+
+    // Members and Billing links should be visible in the menu - support English and German
+    await expect(page.getByRole("menuitem", { name: "Members" }).or(page.getByRole("menuitem", { name: "Mitglieder" }))).toBeVisible()
+    await expect(page.getByRole("menuitem", { name: "Billing" }).or(page.getByRole("menuitem", { name: "Abrechnung" }))).toBeVisible()
+
+    // Close menu
+    await page.keyboard.press("Escape")
 
     // Enable feature flag
     await enableActivityDashboard(orgId)
 
-    // Reload and check Activity link appears
+    // Reload and check Activity link appears in user menu
     await page.reload()
     await page.waitForLoadState("networkidle")
 
-    await expect(page.locator('nav a:has-text("Activity")')).toBeVisible()
+    // Open user menu again
+    await page.locator("nav button").last().click()
+    await page.waitForTimeout(300)
+
+    // Now Activity link should be visible - support English and German
+    await expect(page.getByRole("menuitem", { name: "Activity" }).or(page.getByRole("menuitem", { name: "Aktivität" }))).toBeVisible()
   })
 
   test("should record member join activity automatically", async ({ page }) => {
@@ -201,7 +216,15 @@ test.describe("Activity Dashboard", () => {
 
     // Sign up and create org
     await signUp(page, { email, firstName: "TriggerUser", password })
-    await login(page, email, password)
+
+    // Wait briefly for signup to complete, then check if we need to login
+    await page.waitForTimeout(1000)
+
+    // If already redirected to protected page after signup, skip login
+    if (!page.url().includes("/protected")) {
+      await login(page, email, password)
+    }
+
     await createOrganization(page, "Trigger Org")
 
     await page.waitForURL(/\/organizations\/.*\/welcome/)
@@ -216,7 +239,7 @@ test.describe("Activity Dashboard", () => {
     await page.waitForLoadState("networkidle")
 
     // The trigger should have recorded the owner joining when org was created
-    // Look for "Member joined" activity
-    await expect(page.locator("text=Member joined")).toBeVisible()
+    // Look for "Member Joined" activity (supports English and German)
+    await expect(page.locator("text=Member Joined").or(page.locator("text=Mitglied beigetreten"))).toBeVisible()
   })
 })

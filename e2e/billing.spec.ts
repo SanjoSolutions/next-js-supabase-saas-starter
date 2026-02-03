@@ -12,6 +12,13 @@ import {
 
 
 test("should define organization billing plan", async ({ page }) => {
+  // Skip if Stripe is not configured (test API key)
+  const stripeKey = process.env.STRIPE_SECRET_KEY ?? ""
+  if (!stripeKey || stripeKey.includes("your-") || stripeKey === "sk_test_xxx") {
+    test.skip(true, "Skipping: Stripe is not configured")
+    return
+  }
+
   test.setTimeout(180000)
   enableConsoleLogs(page)
 
@@ -39,16 +46,22 @@ test("should define organization billing plan", async ({ page }) => {
   const orgId = orgIdMatch?.[1]
   console.log("Created Org ID:", orgId)
   
-  // Navigate to billing
-  await page.click('a:has-text("Billing")')
-  await expect(page.locator("h1")).toContainText("Billing & Plans")
+  // Navigate to billing - click via user menu (supports English and German)
+  await page.locator("nav button").last().click()
+  await page.waitForTimeout(300)
+  const billingMenuItem = page.getByRole("menuitem", { name: "Billing" }).or(page.getByRole("menuitem", { name: "Abrechnung" }))
+  await billingMenuItem.click()
+  // Support both English and German page title
+  await expect(page.locator("h1")).toContainText(/Billing & Plans|Abrechnung & Pläne/)
 
-  // 4. Verify Free Plan is active
-  await expect(page.locator("text=Current Plan")).toBeVisible()
-  await expect(page.locator("text=$0")).toBeVisible()
+  // 4. Verify Free Plan is active (supports English and German)
+  await expect(page.locator("text=Current Plan").or(page.locator("text=Aktueller Plan"))).toBeVisible()
+  // Price format differs: $0/month in English, 0 €/Monat in German - use exact match to avoid matching "20 €/Monat"
+  await expect(page.getByText("$0/month", { exact: true }).or(page.getByText("0 €/Monat", { exact: true }))).toBeVisible()
 
-  // 5. Click Upgrade
+  // 5. Click Upgrade (supports English and German)
   console.log("Step 5: Click Upgrade")
+  const upgradeButton = page.locator('button:has-text("Upgrade to Pro")').or(page.locator('button:has-text("Zu Pro wechseln")'))
   await Promise.all([
     page
       .waitForResponse(
@@ -60,7 +73,7 @@ test("should define organization billing plan", async ({ page }) => {
         console.log("Wait response failed:", e)
         return null
       }),
-    page.click('button:has-text("Upgrade to Pro")'),
+    upgradeButton.click(),
   ])
 
   // Wait for Stripe Checkout to load
@@ -89,7 +102,9 @@ test("should define organization billing plan", async ({ page }) => {
     await page.fill('input[id="email"]', testEmail)
     await page.fill('input[id="password"]', testPassword)
     console.log("Filled credentials, clicking login...")
-    await page.click('button:has-text("Login")')
+    // Support both English and German login button
+    const loginButton = page.locator('button:has-text("Login")').or(page.locator('button:has-text("Anmelden")'))
+    await loginButton.click()
     await page.waitForURL(/\/protected/)
 
     // Go directly to billing page using the saved org ID
@@ -102,7 +117,8 @@ test("should define organization billing plan", async ({ page }) => {
       console.log("Still on login page, filling credentials again...")
       await page.fill('input[id="email"]', testEmail)
       await page.fill('input[id="password"]', testPassword)
-      await page.click('button:has-text("Login")')
+      const loginBtn = page.locator('button:has-text("Login")').or(page.locator('button:has-text("Anmelden")'))
+      await loginBtn.click()
       await page.waitForURL(/\/protected/)
       await page.goto(`/organizations/${orgId}/billing`)
     }
@@ -131,9 +147,10 @@ test("should define organization billing plan", async ({ page }) => {
   await expect(async () => {
     console.log("Reloading to check plan...")
     await page.reload()
-    await expect(page.locator("text=Pro Plan")).toBeVisible()
+    // Support both English and German
+    await expect(page.locator("text=Pro Plan").or(page.locator("text=Pro-Plan"))).toBeVisible()
     await expect(
-      page.locator('button:has-text("Manage Subscription")')
+      page.locator('button:has-text("Manage Subscription")').or(page.locator('button:has-text("Abonnement verwalten")'))
     ).toBeVisible()
   }).toPass({ timeout: 45000 })
 })

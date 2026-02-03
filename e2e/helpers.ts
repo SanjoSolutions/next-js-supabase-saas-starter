@@ -1,6 +1,29 @@
 import { Page, expect } from "@playwright/test"
 
 /**
+ * Accept cookie consent banner if visible
+ */
+export async function acceptCookiesIfVisible(page: Page): Promise<void> {
+  // Wait a moment for the banner to potentially appear
+  await page.waitForTimeout(500)
+
+  // Support both English and German button text
+  const acceptButton = page.getByRole("button", { name: "Accept all" }).or(page.getByRole("button", { name: "Alle akzeptieren" }))
+
+  try {
+    // Check if banner is visible
+    if (await acceptButton.isVisible({ timeout: 2000 })) {
+      await acceptButton.click()
+      // Wait for banner to disappear
+      await acceptButton.waitFor({ state: "hidden", timeout: 3000 }).catch(() => {})
+      await page.waitForTimeout(300)
+    }
+  } catch {
+    // Banner not visible, continue
+  }
+}
+
+/**
  * Default test user credentials
  */
 export const TEST_USER = {
@@ -25,9 +48,28 @@ export async function login(
   password: string
 ): Promise<void> {
   await page.goto("/auth/login")
+  await page.waitForLoadState("networkidle")
+
+  // Accept cookie consent if visible (blocks other interactions)
+  await acceptCookiesIfVisible(page)
+
   await page.fill('input[id="email"]', email)
   await page.fill('input[id="password"]', password)
-  await page.click('button:has-text("Login")')
+
+  // Support both English "Login" and German "Anmelden"
+  const loginButton = page.locator('button:has-text("Login")').or(page.locator('button:has-text("Anmelden")'))
+
+  // Scroll button into view to avoid cookie banner overlap
+  await loginButton.scrollIntoViewIfNeeded()
+
+  // Try normal click, then force click if intercepted
+  try {
+    await loginButton.click({ timeout: 5000 })
+  } catch {
+    await acceptCookiesIfVisible(page)
+    await loginButton.click({ force: true })
+  }
+
   await expect(page).toHaveURL(/\/protected/)
 }
 
@@ -45,11 +87,31 @@ export async function signUp(
   const password = options.password ?? "password123"
 
   await page.goto("/auth/sign-up")
+  await page.waitForLoadState("networkidle")
+
+  // Accept cookie consent if visible (blocks other interactions)
+  await acceptCookiesIfVisible(page)
+
   await page.fill('input[id="first-name"]', options.firstName)
   await page.fill('input[id="email"]', options.email)
   await page.fill('input[id="password"]', password)
   await page.fill('input[id="repeat-password"]', password)
-  await page.click('button:has-text("Sign up")')
+
+  // Support both English "Sign up" and German "Registrieren"
+  const signUpButton = page.locator('button:has-text("Sign up")').or(page.locator('button:has-text("Registrieren")'))
+
+  // Scroll the button into view to avoid cookie banner overlap
+  await signUpButton.scrollIntoViewIfNeeded()
+
+  // Try normal click first, then force click if intercepted
+  try {
+    await signUpButton.click({ timeout: 5000 })
+  } catch {
+    // If intercepted, dismiss cookie consent again and retry with force
+    await acceptCookiesIfVisible(page)
+    await signUpButton.click({ force: true })
+  }
+
   await page.waitForLoadState("networkidle")
 }
 
@@ -57,8 +119,14 @@ export async function signUp(
  * Logout the current user
  */
 export async function logout(page: Page): Promise<void> {
-  await page.click('button:has-text("Logout")')
-  await page.waitForURL(/\/auth\/login/)
+  // Open user menu first (logout is now in dropdown)
+  await page.locator("nav button").last().click()
+  await page.waitForTimeout(300)
+  // Support both English "Logout" and German "Abmelden"
+  const logoutItem = page.getByRole("menuitem", { name: "Logout" }).or(page.getByRole("menuitem", { name: "Abmelden" }))
+  await logoutItem.click()
+  // After logout, user is redirected to home page (with locale prefix)
+  await page.waitForLoadState("networkidle")
 }
 
 /**
@@ -69,10 +137,17 @@ export async function createOrganization(
   page: Page,
   namePrefix: string = "E2E Org"
 ): Promise<string> {
-  await page.click('a:has-text("Create Organization")')
+  // Click user avatar to open menu
+  await page.locator("nav button").last().click()
+  await page.waitForTimeout(300)
+  // Support both English "Create Organization" and German "Organisation erstellen"
+  const createOrgItem = page.getByRole("menuitem", { name: "Create Organization" }).or(page.getByRole("menuitem", { name: "Organisation erstellen" }))
+  await createOrgItem.click()
   const orgName = `${namePrefix} ${Date.now()}`
   await page.fill('input[id="name"]', orgName)
-  await page.click('button:has-text("Create Organization")')
+  // Support both English and German button text
+  const submitButton = page.locator('button:has-text("Create Organization")').or(page.locator('button:has-text("Organisation erstellen")'))
+  await submitButton.click()
   await page.waitForLoadState("networkidle")
   return orgName
 }
@@ -82,15 +157,24 @@ export async function createOrganization(
  * Returns the invite link
  */
 export async function createInvite(page: Page, email: string): Promise<string> {
-  await page.click('a:has-text("Invite")')
+  // Click user avatar to open menu
+  await page.locator("nav button").last().click()
+  await page.waitForTimeout(300)
+  // Support both English "Invite" and German "Einladen"
+  const inviteItem = page.getByRole("menuitem", { name: "Invite" }).or(page.getByRole("menuitem", { name: "Einladen" }))
+  await inviteItem.click()
   await page.waitForLoadState("networkidle")
   await page.waitForTimeout(1000) // Give time for form to render
 
   await page.fill('input[id="email"]', email)
-  await page.click('button:has-text("Create Invite")')
+  // Support both English and German button text
+  const submitButton = page.locator('button:has-text("Create Invite")').or(page.locator('button:has-text("Einladung erstellen")'))
+  await submitButton.click()
   await page.waitForLoadState("networkidle")
 
-  await page.waitForSelector("text=Invite created successfully!")
+  // Support both English and German success message
+  const successMessage = page.locator("text=Invite created successfully!").or(page.locator("text=Einladung erfolgreich erstellt!"))
+  await successMessage.waitFor({ timeout: 10000 })
   const linkText = await page
     .locator(".bg-green-500\\/10 .font-mono")
     .textContent()
@@ -121,10 +205,10 @@ export async function acceptInvite(
   }
 
   try {
-    await page.waitForSelector('button:has-text("Accept Invitation")', {
-      timeout: 60000,
-    })
-    await page.click('button:has-text("Accept Invitation")')
+    // Support both English and German button text
+    const acceptButton = page.locator('button:has-text("Accept Invitation")').or(page.locator('button:has-text("Einladung annehmen")'))
+    await acceptButton.waitFor({ timeout: 60000 })
+    await acceptButton.click()
   } catch (e) {
     console.log("Failed to find Accept Invitation button. Page URL:", page.url())
     throw e

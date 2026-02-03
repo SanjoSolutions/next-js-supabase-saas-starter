@@ -59,7 +59,7 @@ export function OrgSwitcher({ organizations, activeOrgId }: OrgSwitcherProps) {
           <ChevronsUpDown className="h-4 w-4 opacity-50" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" className="w-[200px]">
+      <DropdownMenuContent align="end" className="w-[200px]">
         <DropdownMenuLabel>{t("label")}</DropdownMenuLabel>
         <DropdownMenuSeparator />
         {organizations.map((org) => (

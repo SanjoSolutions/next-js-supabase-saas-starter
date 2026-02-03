@@ -126,9 +126,11 @@ test.describe("Cookie Consent Banner", () => {
     await page.goto("/")
     await page.waitForTimeout(500)
 
-    const privacyLink = page.getByRole("link", { name: "Datenschutzerklärung" })
+    // Support both English and German link text
+    const privacyLink = page.getByRole("link", { name: "Datenschutzerklärung" }).or(page.getByRole("link", { name: "Privacy Policy" }))
     await expect(privacyLink).toBeVisible()
-    await expect(privacyLink).toHaveAttribute("href", "/datenschutz")
+    // The link will have locale prefix, e.g., /de/datenschutz or /en/datenschutz
+    await expect(privacyLink).toHaveAttribute("href", /\/datenschutz$/)
   })
 })
 
