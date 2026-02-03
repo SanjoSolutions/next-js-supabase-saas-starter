@@ -1,5 +1,4 @@
 import { Link } from "@/i18n/navigation"
-import { ThemeSwitcher } from "@/components/theme-switcher"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { getTranslations } from "next-intl/server"
 
@@ -7,7 +6,7 @@ export async function Footer() {
   const t = await getTranslations()
 
   return (
-    <footer className="w-full flex flex-wrap items-center justify-center border-t mx-auto text-center text-xs gap-x-8 gap-y-4 py-16 px-4">
+    <footer className="w-full flex items-center justify-between border-t mx-auto text-xs py-8 px-4 max-w-5xl">
       <nav className="flex gap-4">
         <Link
           href="/impressum"
@@ -29,7 +28,6 @@ export async function Footer() {
         </Link>
       </nav>
       <LanguageSwitcher />
-      <ThemeSwitcher />
     </footer>
   )
 }

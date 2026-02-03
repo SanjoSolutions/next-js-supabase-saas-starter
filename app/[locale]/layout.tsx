@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
-import { ThemeProvider } from "next-themes"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
@@ -50,21 +49,14 @@ export default async function LocaleLayout({
   const messages = await getMessages()
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale}>
       <body className={`${geistSans.className} antialiased`}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            <CookieConsentProvider>
-              {children}
-              <CookieConsentBanner />
-            </CookieConsentProvider>
-          </NextIntlClientProvider>
-        </ThemeProvider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <CookieConsentProvider>
+            {children}
+            <CookieConsentBanner />
+          </CookieConsentProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   )
