@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { Geist } from "next/font/google"
 import { ThemeProvider } from "next-themes"
+import { CookieConsentProvider } from "@/components/cookie-consent/cookie-consent-provider"
+import { CookieConsentBanner } from "@/components/cookie-consent/cookie-consent-banner"
 import "./globals.css"
 
 const defaultUrl = process.env.VERCEL_URL
@@ -25,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="de" suppressHydrationWarning>
       <body className={`${geistSans.className} antialiased`}>
         <ThemeProvider
           attribute="class"
@@ -33,7 +35,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <CookieConsentProvider>
+            {children}
+            <CookieConsentBanner />
+          </CookieConsentProvider>
         </ThemeProvider>
       </body>
     </html>
