@@ -379,5 +379,80 @@
     "label": "Sprache",
     "en": "English",
     "de": "Deutsch"
+  },
+  "landing": {
+    "hero": {
+      "badge": "SaaS Starter Kit",
+      "title": "Bauen Sie Ihr SaaS-Produkt schneller",
+      "description": "Ein produktionsbereites Starter-Kit mit Authentifizierung, Team-Management, Abrechnung und allem, was Sie brauchen, um Ihr SaaS-Produkt zu starten.",
+      "cta": "Kostenlos starten",
+      "ctaSecondary": "Demo ansehen",
+      "trustedBy": "Von Entwicklern weltweit vertraut"
+    },
+    "features": {
+      "title": "Alles, was Sie zum Start brauchen",
+      "description": "Hören Sie auf, die gleichen Funktionen immer wieder zu bauen. Konzentrieren Sie sich auf das, was Ihr Produkt einzigartig macht.",
+      "auth": {
+        "title": "Authentifizierung",
+        "description": "Sichere E-Mail/Passwort-Authentifizierung mit E-Mail-Verifizierung, Passwort-Zurücksetzen und Sitzungsverwaltung."
+      },
+      "teams": {
+        "title": "Team-Verwaltung",
+        "description": "Multi-Tenant-Organisationen mit rollenbasierter Zugriffskontrolle. Mitglieder einladen, Rollen verwalten und Aktivitäten verfolgen."
+      },
+      "billing": {
+        "title": "Abonnement-Abrechnung",
+        "description": "Stripe-Integration mit Unterstützung für kostenlose und kostenpflichtige Pläne, Kundenportal und automatische Rechnungsverarbeitung."
+      },
+      "i18n": {
+        "title": "Internationalisierung",
+        "description": "Integrierte Unterstützung für mehrere Sprachen mit URL-basiertem Locale-Routing und automatischer Erkennung."
+      },
+      "database": {
+        "title": "Datenbank & Sicherheit",
+        "description": "PostgreSQL mit Row-Level-Security-Richtlinien zur Gewährleistung der Datenisolierung zwischen Organisationen."
+      },
+      "notifications": {
+        "title": "In-App-Benachrichtigungen",
+        "description": "Echtzeit-Benachrichtigungssystem, um Benutzer über wichtige Ereignisse und Updates zu informieren."
+      }
+    },
+    "pricing": {
+      "title": "Einfache, transparente Preise",
+      "description": "Starten Sie kostenlos, upgraden Sie bei Bedarf.",
+      "monthly": "Monatlich",
+      "annually": "Jährlich",
+      "perMonth": "/Monat",
+      "getStarted": "Jetzt starten",
+      "currentPlan": "Aktueller Plan",
+      "free": {
+        "name": "Kostenlos",
+        "description": "Perfekt zum Ausprobieren der Plattform",
+        "features": {
+          "1": "Bis zu 5 Teammitglieder",
+          "2": "Grundfunktionen",
+          "3": "Community-Support",
+          "4": "1 Organisation"
+        }
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "Für wachsende Teams und Unternehmen",
+        "popular": "Am beliebtesten",
+        "features": {
+          "1": "Unbegrenzte Teammitglieder",
+          "2": "Erweiterte Analysen",
+          "3": "Prioritäts-Support",
+          "4": "Unbegrenzte Organisationen",
+          "5": "Aktivitäts-Dashboard",
+          "6": "Benutzerdefinierte Integrationen"
+        }
+      }
+    },
+    "cta": {
+      "title": "Bereit loszulegen?",
+      "description": "Schließen Sie sich Tausenden von Entwicklern an, die mit unserem SaaS-Starter-Kit bauen.",
+      "button": "Heute mit dem Bauen beginnen"
+    }
   }
 }

@@ -379,5 +379,80 @@
     "label": "Language",
     "en": "English",
     "de": "Deutsch"
+  },
+  "landing": {
+    "hero": {
+      "badge": "SaaS Starter Kit",
+      "title": "Build your SaaS product faster",
+      "description": "A production-ready starter kit with authentication, team management, billing, and everything you need to launch your SaaS product.",
+      "cta": "Get Started Free",
+      "ctaSecondary": "View Demo",
+      "trustedBy": "Trusted by developers worldwide"
+    },
+    "features": {
+      "title": "Everything you need to launch",
+      "description": "Stop building the same features over and over. Focus on what makes your product unique.",
+      "auth": {
+        "title": "Authentication",
+        "description": "Secure email/password auth with email verification, password reset, and session management built-in."
+      },
+      "teams": {
+        "title": "Team Management",
+        "description": "Multi-tenant organizations with role-based access control. Invite members, manage roles, and track activity."
+      },
+      "billing": {
+        "title": "Subscription Billing",
+        "description": "Stripe integration with support for free and paid plans, customer portal, and automatic invoice handling."
+      },
+      "i18n": {
+        "title": "Internationalization",
+        "description": "Built-in support for multiple languages with URL-based locale routing and automatic detection."
+      },
+      "database": {
+        "title": "Database & Security",
+        "description": "PostgreSQL with row-level security policies ensuring data isolation between organizations."
+      },
+      "notifications": {
+        "title": "In-App Notifications",
+        "description": "Real-time notification system to keep users informed about important events and updates."
+      }
+    },
+    "pricing": {
+      "title": "Simple, transparent pricing",
+      "description": "Start for free, upgrade when you need more.",
+      "monthly": "Monthly",
+      "annually": "Annually",
+      "perMonth": "/month",
+      "getStarted": "Get Started",
+      "currentPlan": "Current Plan",
+      "free": {
+        "name": "Free",
+        "description": "Perfect for trying out the platform",
+        "features": {
+          "1": "Up to 5 team members",
+          "2": "Basic features",
+          "3": "Community support",
+          "4": "1 organization"
+        }
+      },
+      "pro": {
+        "name": "Pro",
+        "description": "For growing teams and businesses",
+        "popular": "Most Popular",
+        "features": {
+          "1": "Unlimited team members",
+          "2": "Advanced analytics",
+          "3": "Priority support",
+          "4": "Unlimited organizations",
+          "5": "Activity dashboard",
+          "6": "Custom integrations"
+        }
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "description": "Join thousands of developers building with our SaaS starter kit.",
+      "button": "Start Building Today"
+    }
   }
 }
