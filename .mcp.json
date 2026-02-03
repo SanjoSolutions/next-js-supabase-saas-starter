@@ -6,14 +6,14 @@
     },
     "next-devtools": {
       "type": "stdio",
-      "command": "cmd",
-      "args": ["/c", "npx", "next-devtools-mcp@latest"],
+      "command": "npx",
+      "args": ["next-devtools-mcp@latest"],
       "env": {}
     },
     "playwright": {
       "type": "stdio",
-      "command": "cmd",
-      "args": ["/c", "npx", "@playwright/mcp@latest"],
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"],
       "env": {}
     },
     "stripe": {
@@ -22,8 +22,8 @@
     },
     "chrome-dev-tools": {
       "type": "stdio",
-      "command": "cmd",
-      "args": ["/c", "npx", "chrome-devtools-mcp@latest"],
+      "command": "npx",
+      "args": ["chrome-devtools-mcp@latest"],
       "env": {}
     }
   }
