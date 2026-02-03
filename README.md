@@ -27,6 +27,11 @@ Safe time on your next SaaS idea and start with this starter kit!
   - In-app notification system
   - Mark as read/unread
   - Notification bell with unread count
+- Law compliance for Germany (This is not a guarantee. Please make sure that it is so yourself.)
+  - Imprint
+  - Privacy policy
+  - Cookie consent
+- Terms of service 
 
 ## Buy
 
