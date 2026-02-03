@@ -2,12 +2,12 @@ import { expect, test } from "@playwright/test"
 
 test.describe("Internationalization (i18n)", () => {
   test.describe("Locale Routing", () => {
-    test("should redirect root URL to default locale (de)", async ({ page }) => {
+    test("should redirect root URL to default locale (en)", async ({ page }) => {
       await page.goto("/")
       await page.waitForTimeout(500)
 
-      // Should redirect to /de (just /de or /de/ with optional trailing content)
-      await expect(page).toHaveURL(/\/de($|\/)/)
+      // Should redirect to /en (just /en or /en/ with optional trailing content)
+      await expect(page).toHaveURL(/\/en($|\/)/)
     })
 
     test("should set lang attribute to 'de' for German routes", async ({ page }) => {
@@ -28,8 +28,8 @@ test.describe("Internationalization (i18n)", () => {
       await page.goto("/fr/auth/login")
       await page.waitForTimeout(500)
 
-      // Should redirect to default locale (the path /fr/auth/login becomes /de/auth/login)
-      await expect(page).toHaveURL(/\/de\/auth\/login/)
+      // Should redirect to default locale (the path /fr/auth/login becomes /en/auth/login)
+      await expect(page).toHaveURL(/\/en\/auth\/login/)
     })
 
     test("should preserve path when accessing locale route", async ({ page }) => {
@@ -41,11 +41,11 @@ test.describe("Internationalization (i18n)", () => {
 
   test.describe("Language Switcher", () => {
     test("should show language switcher in header", async ({ page }) => {
-      await page.goto("/de")
+      await page.goto("/en")
       await page.waitForTimeout(500)
 
       // Accept cookies first to clear the banner
-      const acceptButton = page.getByRole("button", { name: "Alle akzeptieren" })
+      const acceptButton = page.getByRole("button", { name: "Accept all" })
       if (await acceptButton.isVisible()) {
         await acceptButton.click()
       }
@@ -56,17 +56,17 @@ test.describe("Internationalization (i18n)", () => {
     })
 
     test("should show locale options when clicking switcher", async ({ page }) => {
-      await page.goto("/de")
+      await page.goto("/en")
       await page.waitForTimeout(500)
 
       // Accept cookies first
-      const acceptButton = page.getByRole("button", { name: "Alle akzeptieren" })
+      const acceptButton = page.getByRole("button", { name: "Accept all" })
       if (await acceptButton.isVisible()) {
         await acceptButton.click()
       }
 
       // Click language switcher
-      const switcher = page.getByRole("button", { name: "Deutsch" })
+      const switcher = page.getByRole("button", { name: "English" })
       await switcher.click()
 
       // Should show both locale options
@@ -75,37 +75,37 @@ test.describe("Internationalization (i18n)", () => {
     })
 
     test("should navigate to new locale when selecting different language", async ({ page }) => {
-      await page.goto("/de")
+      await page.goto("/en")
       await page.waitForTimeout(500)
 
       // Accept cookies first
-      const acceptButton = page.getByRole("button", { name: "Alle akzeptieren" })
+      const acceptButton = page.getByRole("button", { name: "Accept all" })
       if (await acceptButton.isVisible()) {
         await acceptButton.click()
       }
 
       // Click language switcher
-      const switcher = page.getByRole("button", { name: "Deutsch" })
+      const switcher = page.getByRole("button", { name: "English" })
       await switcher.click()
 
-      // Select English
-      await page.getByRole("menuitemradio", { name: "English" }).click()
+      // Select German
+      await page.getByRole("menuitemradio", { name: "Deutsch" }).click()
 
-      // URL should change to English locale
-      await expect(page).toHaveURL(/\/en/)
+      // URL should change to German locale
+      await expect(page).toHaveURL(/\/de/)
 
       // HTML lang should update
       const htmlLang = await page.locator("html").getAttribute("lang")
-      expect(htmlLang).toBe("en")
+      expect(htmlLang).toBe("de")
     })
 
     test("should preserve current path when switching locale", async ({ page }) => {
-      // Use impressum page which has footer with language switcher
-      await page.goto("/de/impressum")
+      // Use legal-notice page which has footer with language switcher
+      await page.goto("/en/legal-notice")
       await page.waitForTimeout(500)
 
       // Accept cookies first to clear the banner
-      const acceptButton = page.getByRole("button", { name: "Alle akzeptieren" })
+      const acceptButton = page.getByRole("button", { name: "Accept all" })
       if (await acceptButton.isVisible()) {
         await acceptButton.click()
         await page.waitForTimeout(300)
@@ -113,15 +113,15 @@ test.describe("Internationalization (i18n)", () => {
 
       // Click language switcher (in footer)
       const footer = page.locator("footer")
-      const switcher = footer.getByRole("button", { name: "Deutsch" })
+      const switcher = footer.getByRole("button", { name: "English" })
       await switcher.click()
 
-      // Select English
-      await page.getByRole("menuitemradio", { name: "English" }).click()
+      // Select German
+      await page.getByRole("menuitemradio", { name: "Deutsch" }).click()
       await page.waitForTimeout(500)
 
-      // Should be on English impressum page
-      await expect(page).toHaveURL(/\/en\/impressum/)
+      // Should be on German legal-notice page
+      await expect(page).toHaveURL(/\/de\/legal-notice/)
     })
   })
 
@@ -211,8 +211,8 @@ test.describe("Internationalization (i18n)", () => {
 
       // Check English cookie consent text
       await expect(page.getByText("Cookie Settings")).toBeVisible()
-      await expect(page.getByRole("button", { name: "Accept All" })).toBeVisible()
-      await expect(page.getByRole("button", { name: "Necessary Only" })).toBeVisible()
+      await expect(page.getByRole("button", { name: "Accept all" })).toBeVisible()
+      await expect(page.getByRole("button", { name: "Necessary only" })).toBeVisible()
       await expect(page.getByRole("button", { name: "Settings" })).toBeVisible()
     })
 
@@ -221,7 +221,7 @@ test.describe("Internationalization (i18n)", () => {
       await page.waitForTimeout(500)
 
       // Accept cookies first
-      const acceptButton = page.getByRole("button", { name: "Accept All" })
+      const acceptButton = page.getByRole("button", { name: "Accept all" })
       if (await acceptButton.isVisible()) {
         await acceptButton.click()
       }
@@ -234,34 +234,46 @@ test.describe("Internationalization (i18n)", () => {
   })
 
   test.describe("Legal Pages in Both Locales", () => {
-    test("should display German Impressum page", async ({ page }) => {
-      await page.goto("/de/impressum")
+    test("should display German Legal Notice page", async ({ page }) => {
+      await page.goto("/de/legal-notice")
       await page.waitForTimeout(500)
 
       await expect(page.locator("h1")).toContainText("Impressum")
     })
 
-    test("should display English Imprint page", async ({ page }) => {
-      await page.goto("/en/impressum")
+    test("should display English Legal Notice page", async ({ page }) => {
+      await page.goto("/en/legal-notice")
       await page.waitForTimeout(500)
 
-      // Even on English, the legal content is in German (legal requirement)
-      // But the page should load without error
-      await expect(page.locator("h1")).toContainText("Impressum")
+      await expect(page.locator("h1")).toContainText("Legal Notice")
     })
 
-    test("should display German Datenschutz page", async ({ page }) => {
-      await page.goto("/de/datenschutz")
+    test("should display German Privacy Policy page", async ({ page }) => {
+      await page.goto("/de/privacy-policy")
       await page.waitForTimeout(500)
 
       await expect(page.locator("h1")).toContainText("Datenschutzerklärung")
     })
 
-    test("should display German AGB page", async ({ page }) => {
-      await page.goto("/de/agb")
+    test("should display English Privacy Policy page", async ({ page }) => {
+      await page.goto("/en/privacy-policy")
+      await page.waitForTimeout(500)
+
+      await expect(page.locator("h1")).toContainText("Privacy Policy")
+    })
+
+    test("should display German Terms page", async ({ page }) => {
+      await page.goto("/de/terms")
       await page.waitForTimeout(500)
 
       await expect(page.locator("h1")).toContainText("Allgemeine Geschäftsbedingungen")
+    })
+
+    test("should display English Terms page", async ({ page }) => {
+      await page.goto("/en/terms")
+      await page.waitForTimeout(500)
+
+      await expect(page.locator("h1")).toContainText("Terms and Conditions")
     })
   })
 
@@ -292,30 +304,30 @@ test.describe("Internationalization (i18n)", () => {
 
   test.describe("Locale Persistence", () => {
     test("should remember locale preference via cookie", async ({ page }) => {
-      // Start on German
-      await page.goto("/de")
+      // Start on English
+      await page.goto("/en")
       await page.waitForTimeout(500)
 
       // Accept cookies
-      const acceptButton = page.getByRole("button", { name: "Alle akzeptieren" })
+      const acceptButton = page.getByRole("button", { name: "Accept all" })
       if (await acceptButton.isVisible()) {
         await acceptButton.click()
       }
 
-      // Switch to English
-      const switcher = page.getByRole("button", { name: "Deutsch" })
+      // Switch to German
+      const switcher = page.getByRole("button", { name: "English" })
       await switcher.click()
-      await page.getByRole("menuitemradio", { name: "English" }).click()
+      await page.getByRole("menuitemradio", { name: "Deutsch" }).click()
 
-      await expect(page).toHaveURL(/\/en/)
+      await expect(page).toHaveURL(/\/de/)
 
       // Navigate to a different page
-      await page.goto("/en/auth/login")
+      await page.goto("/de/auth/login")
       await page.waitForTimeout(500)
 
-      // Should still be in English
+      // Should still be in German
       const htmlLang = await page.locator("html").getAttribute("lang")
-      expect(htmlLang).toBe("en")
+      expect(htmlLang).toBe("de")
     })
 
     test("should show translated login page content based on locale", async ({ page }) => {
@@ -348,7 +360,7 @@ test.describe("Internationalization (i18n)", () => {
       await page.waitForTimeout(500)
 
       // Accept cookies first
-      const acceptButton = page.getByRole("button", { name: "Accept All" })
+      const acceptButton = page.getByRole("button", { name: "Accept all" })
       if (await acceptButton.isVisible()) {
         await acceptButton.click()
       }

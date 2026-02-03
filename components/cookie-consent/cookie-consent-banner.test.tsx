@@ -93,6 +93,6 @@ describe("CookieConsentBanner", () => {
     )
 
     const privacyLink = screen.getByText("Privacy Policy")
-    expect(privacyLink).toHaveAttribute("href", "/datenschutz")
+    expect(privacyLink).toHaveAttribute("href", "/privacy-policy")
   })
 })

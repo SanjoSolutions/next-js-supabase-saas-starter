@@ -42,7 +42,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
-    locale: 'de-DE', // Set German locale for consistent i18n test behavior
+    locale: 'en-US', // Set English locale for consistent i18n test behavior
   },
   projects: [
     {

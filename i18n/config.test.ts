@@ -8,8 +8,8 @@ describe("i18n config", () => {
     expect(locales).toHaveLength(2)
   })
 
-  it("should have de as default locale", () => {
-    expect(defaultLocale).toBe("de")
+  it("should have en as default locale", () => {
+    expect(defaultLocale).toBe("en")
   })
 
   it("should have locale names for all locales", () => {

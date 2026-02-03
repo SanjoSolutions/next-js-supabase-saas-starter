@@ -9,19 +9,19 @@ export async function Footer() {
     <footer className="w-full flex items-center justify-between border-t mx-auto text-xs py-8 px-4 max-w-5xl">
       <nav className="flex gap-4">
         <Link
-          href="/impressum"
+          href="/legal-notice"
           className="text-muted-foreground hover:text-foreground transition-colors"
         >
           {t("legal.impressum")}
         </Link>
         <Link
-          href="/datenschutz"
+          href="/privacy-policy"
           className="text-muted-foreground hover:text-foreground transition-colors"
         >
           {t("legal.datenschutz")}
         </Link>
         <Link
-          href="/agb"
+          href="/terms"
           className="text-muted-foreground hover:text-foreground transition-colors"
         >
           {t("legal.agb")}

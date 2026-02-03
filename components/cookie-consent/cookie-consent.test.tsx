@@ -312,7 +312,7 @@ describe("CookieConsentBanner", () => {
     await waitFor(() => {
       const link = screen.getByRole("link", { name: "Datenschutzerklärung" })
       expect(link).toBeInTheDocument()
-      expect(link).toHaveAttribute("href", "/datenschutz")
+      expect(link).toHaveAttribute("href", "/privacy-policy")
     })
   })
 })

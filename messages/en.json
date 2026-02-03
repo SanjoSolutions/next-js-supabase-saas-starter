@@ -221,7 +221,159 @@
   "legal": {
     "impressum": "Legal Notice",
     "datenschutz": "Privacy Policy",
-    "agb": "Terms & Conditions"
+    "agb": "Terms & Conditions",
+    "asOf": "As of: [Date]",
+    "impressumPage": {
+      "title": "Legal Notice",
+      "description": "Legal notice and company information",
+      "accordingToLaw": "Information according to § 5 TMG",
+      "companyName": "[Company Name]",
+      "streetAddress": "[Street and Number]",
+      "cityZip": "[ZIP Code and City]",
+      "representedBy": "Represented by",
+      "representativeName": "[Name of Legal Representative]",
+      "contact": "Contact",
+      "phone": "Phone: [Phone Number]",
+      "email": "Email: [Email Address]",
+      "registration": "Registration",
+      "registrationInfo": "Entry in the Commercial Register.",
+      "registryCourt": "Registry Court: [Registry Court]",
+      "registryNumber": "Registration Number: [Registration Number]",
+      "vatId": "VAT ID",
+      "vatIdInfo": "VAT identification number according to § 27 a of the German VAT Act:",
+      "vatIdNumber": "[VAT ID Number]",
+      "responsibleForContent": "Responsible for content according to § 55 Abs. 2 RStV",
+      "responsibleName": "[Name]",
+      "responsibleAddress": "[Address]",
+      "disputeResolution": "Dispute Resolution",
+      "disputeResolutionText": "The European Commission provides a platform for online dispute resolution (ODR):",
+      "disputeResolutionNotWilling": "We are not willing or obligated to participate in dispute resolution proceedings before a consumer arbitration board."
+    },
+    "datenschutzPage": {
+      "title": "Privacy Policy",
+      "description": "Privacy policy and information about data processing",
+      "section1": {
+        "title": "1. Privacy at a Glance",
+        "generalInfo": "General Information",
+        "generalInfoText": "The following information provides a simple overview of what happens to your personal data when you visit this website. Personal data is any data that can be used to personally identify you."
+      },
+      "section2": {
+        "title": "2. Responsible Party",
+        "phone": "Phone: [Phone Number]",
+        "email": "Email: [Email Address]"
+      },
+      "section3": {
+        "title": "3. Data Collection on This Website",
+        "cookies": "Cookies",
+        "cookiesText": "Our website uses cookies. These are small text files that your web browser stores on your device. Cookies help us make our website more user-friendly, effective, and secure.",
+        "cookiesText2": "Some cookies are \"session cookies.\" Such cookies are automatically deleted after your browser session. Other cookies remain on your device until you delete them yourself. Such cookies help us recognize you when you return to our website.",
+        "serverLogs": "Server Log Files",
+        "serverLogsText": "The provider of the pages automatically collects and stores information in so-called server log files, which your browser automatically transmits to us. These are:",
+        "serverLogsList": {
+          "browserType": "Browser type and version",
+          "os": "Operating system used",
+          "referrer": "Referrer URL",
+          "hostname": "Hostname of the accessing computer",
+          "time": "Time of the server request",
+          "ip": "IP address"
+        }
+      },
+      "section4": {
+        "title": "4. Your Rights as a Data Subject",
+        "intro": "You have the following rights:",
+        "rights": {
+          "access": "Right of Access (Art. 15 GDPR): You have the right to request confirmation as to whether personal data concerning you is being processed.",
+          "rectification": "Right to Rectification (Art. 16 GDPR): You have the right to request the correction of inaccurate personal data concerning you.",
+          "erasure": "Right to Erasure (Art. 17 GDPR): You have the right to request the deletion of your personal data.",
+          "restriction": "Right to Restriction (Art. 18 GDPR): You have the right to request the restriction of processing of your personal data.",
+          "portability": "Right to Data Portability (Art. 20 GDPR): You have the right to receive your personal data in a structured, commonly used, and machine-readable format.",
+          "objection": "Right to Object (Art. 21 GDPR): You have the right to object at any time to the processing of your personal data for reasons arising from your particular situation."
+        }
+      },
+      "section5": {
+        "title": "5. Right to Lodge a Complaint",
+        "text": "Without prejudice to any other administrative or judicial remedy, you have the right to lodge a complaint with a supervisory authority if you believe that the processing of personal data concerning you violates the GDPR."
+      },
+      "section6": {
+        "title": "6. Hosting",
+        "text": "This website is hosted externally. The personal data collected on this website is stored on the host's servers. This may include IP addresses, contact requests, meta and communication data, contract data, contact details, names, website access, and other data generated through a website."
+      },
+      "section7": {
+        "title": "7. Registration and User Account",
+        "text": "When you register on our website, we store your email address and, if applicable, your name. This data is used to manage your user account and to communicate with you.",
+        "legalBasis": "The legal basis for processing is Art. 6 (1) (b) GDPR (performance of contract) and Art. 6 (1) (f) GDPR (legitimate interest in the secure provision of our services)."
+      },
+      "section8": {
+        "title": "8. Payment Processing",
+        "text": "For payment processing, we use the Stripe service. Your payment data is transmitted directly to Stripe. Stripe is certified according to the Payment Card Industry Data Security Standard (PCI-DSS).",
+        "moreInfo": "For more information, see Stripe's privacy policy:"
+      }
+    },
+    "agbPage": {
+      "title": "Terms and Conditions",
+      "description": "General terms and conditions for the use of our services",
+      "section1": {
+        "title": "§ 1 Scope",
+        "para1": "(1) These General Terms and Conditions (hereinafter \"GTC\") apply to all contracts concluded between [Company Name] (hereinafter \"Provider\") and the customer (hereinafter \"Customer\") via the website [Website URL].",
+        "para2": "(2) Deviating conditions of the Customer will not be recognized unless the Provider expressly agrees to their validity in writing."
+      },
+      "section2": {
+        "title": "§ 2 Subject of Contract",
+        "para1": "(1) The subject of the contract is the provision of a Software-as-a-Service (SaaS) solution by the Provider.",
+        "para2": "(2) The exact scope of services is determined by the respective service description at the time of contract conclusion."
+      },
+      "section3": {
+        "title": "§ 3 Contract Formation",
+        "para1": "(1) The presentation of products on the website does not constitute a legally binding offer, but an invitation to order.",
+        "para2": "(2) By submitting the order, the Customer makes a binding offer to conclude a contract.",
+        "para3": "(3) The Provider may accept the Customer's offer within five business days by sending an order confirmation via email or by activating access."
+      },
+      "section4": {
+        "title": "§ 4 Prices and Payment Terms",
+        "para1": "(1) The stated prices include statutory VAT unless otherwise indicated.",
+        "para2": "(2) Payment is made via the offered payment methods (credit card via Stripe). The invoice amount is due upon contract conclusion.",
+        "para3": "(3) For recurring payments (subscriptions), the invoice amount is automatically debited at the respective billing date."
+      },
+      "section5": {
+        "title": "§ 5 Contract Duration and Termination",
+        "para1": "(1) The contract begins with the activation of access and runs for an indefinite period unless otherwise agreed.",
+        "para2": "(2) For monthly billing, the contract can be terminated at any time at the end of the current billing period.",
+        "para3": "(3) For annual billing, the contract can be terminated with one month's notice at the end of the contract period.",
+        "para4": "(4) The right to extraordinary termination for good cause remains unaffected."
+      },
+      "section6": {
+        "title": "§ 6 Right of Withdrawal for Consumers",
+        "para1": "(1) Consumers generally have a right of withdrawal for distance contracts. Details are regulated in the withdrawal policy.",
+        "para2": "(2) The right of withdrawal does not apply to contracts for the supply of digital content not on a physical medium if the entrepreneur has begun performance after the consumer has expressly consented and acknowledged that they lose their right of withdrawal."
+      },
+      "section7": {
+        "title": "§ 7 Rights of Use",
+        "para1": "(1) The Provider grants the Customer a simple, non-transferable right to use the software for the duration of the contract in accordance with these GTC.",
+        "para2": "(2) The Customer may not reproduce, distribute, make publicly available, or transfer the software to third parties for use unless expressly permitted."
+      },
+      "section8": {
+        "title": "§ 8 Warranty",
+        "para1": "(1) The Provider warrants the contractual quality of the software during the contract period.",
+        "para2": "(2) Defects will be remedied at the Provider's discretion by repair or replacement."
+      },
+      "section9": {
+        "title": "§ 9 Limitation of Liability",
+        "para1": "(1) The Provider is fully liable for intent and gross negligence.",
+        "para2": "(2) In the case of slight negligence, the Provider is only liable for the breach of essential contractual obligations (cardinal obligations), limited to the typical foreseeable damage.",
+        "para3": "(3) The above limitations of liability do not apply to damages arising from injury to life, body, or health."
+      },
+      "section10": {
+        "title": "§ 10 Data Protection",
+        "text": "The Provider processes personal data of the Customer exclusively in accordance with applicable data protection regulations. Details are regulated in the",
+        "privacyPolicy": "Privacy Policy"
+      },
+      "section11": {
+        "title": "§ 11 Final Provisions",
+        "para1": "(1) The law of the Federal Republic of Germany applies, excluding the UN Convention on Contracts for the International Sale of Goods.",
+        "para2": "(2) If the Customer is a merchant, a legal entity under public law, or a special fund under public law, the exclusive place of jurisdiction is the Provider's registered office.",
+        "para3": "(3) Should individual provisions of these GTC be or become invalid, the validity of the remaining provisions shall remain unaffected."
+      }
+    }
   },
   "language": {
     "label": "Language",

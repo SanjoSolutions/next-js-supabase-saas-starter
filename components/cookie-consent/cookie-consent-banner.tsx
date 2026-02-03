@@ -47,7 +47,7 @@ export function CookieConsentBanner() {
           <CardTitle className="text-lg">{t("title")}</CardTitle>
           <CardDescription>
             {t("description")}{" "}
-            <Link href="/datenschutz" className="underline hover:no-underline">
+            <Link href="/privacy-policy" className="underline hover:no-underline">
               {t("privacyPolicy")}
             </Link>
             .
