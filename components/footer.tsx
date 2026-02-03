@@ -8,17 +8,6 @@ export async function Footer() {
 
   return (
     <footer className="w-full flex flex-wrap items-center justify-center border-t mx-auto text-center text-xs gap-x-8 gap-y-4 py-16 px-4">
-      <p>
-        {t("common.poweredBy")}{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>
-      </p>
       <nav className="flex gap-4">
         <Link
           href="/impressum"

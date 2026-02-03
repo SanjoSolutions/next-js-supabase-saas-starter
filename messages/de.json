@@ -1,7 +1,6 @@
 {
   "common": {
     "appName": "Next.js Supabase SaaS Starter",
-    "poweredBy": "Unterstützt von",
     "loading": "Lädt...",
     "error": "Ein Fehler ist aufgetreten",
     "save": "Speichern",
