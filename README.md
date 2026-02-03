@@ -1,4 +1,4 @@
-# Next.js and Supabase SaaS Starter Kit
+# Next.js + Supabase SaaS Starter
 
 Save time on your next SaaS idea and start with this starter kit!
 
