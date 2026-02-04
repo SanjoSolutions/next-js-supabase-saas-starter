@@ -12,7 +12,7 @@ test.describe("Feature Flags", () => {
 
     // 1. Sign up and create org
     await signUp(page, { email, firstName: "FeatureUser", password })
-    const orgName = await createOrganization(page, "Feature Org")
+    await createOrganization(page, "Feature Org")
     
     // 2. We should be at the welcome page now
     await page.waitForURL(/\/organizations\/.*\/welcome/)

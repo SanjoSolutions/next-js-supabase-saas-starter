@@ -27,10 +27,15 @@ export async function Header() {
         .eq("user_id", user.id)
     : { data: null }
 
-  const organizations =
-    (memberships
-      ?.map((m: any) => m.organizations)
-      .filter(Boolean) as any[]) || []
+  interface Organization {
+    id: string
+    name: string
+  }
+
+  const organizations: Organization[] =
+    memberships
+      ?.map((m) => (m as unknown as { organizations: Organization | null }).organizations)
+      .filter((org): org is Organization => org !== null) || []
 
   // Check if activity dashboard is enabled for the active organization
   const hasActivityDashboard = activeOrgId

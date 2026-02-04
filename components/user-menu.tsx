@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/dropdown-menu"
 import {
   Users,
-  Settings,
   CreditCard,
   Activity,
   UserPlus,

@@ -1,6 +1,6 @@
 "use client"
 
-import { useLocale, useTranslations } from "next-intl"
+import { useLocale } from "next-intl"
 import { usePathname as useNextPathname } from "next/navigation"
 import { useRouter } from "@/i18n/navigation"
 import { locales, localeNames, type Locale } from "@/i18n/config"
@@ -15,7 +15,6 @@ import {
 import { Globe } from "lucide-react"
 
 export function LanguageSwitcher() {
-  const t = useTranslations("language")
   const locale = useLocale()
   const router = useRouter()
   const rawPathname = useNextPathname()

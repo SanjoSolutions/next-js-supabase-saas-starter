@@ -133,7 +133,11 @@ export async function ActivityDashboardContent({
                             activity.activity_type
                           )}
                         >
-                          {t(`types.${activity.activity_type}` as any) ||
+                          {t(
+                            `types.${activity.activity_type}` as Parameters<
+                              typeof t
+                            >[0]
+                          ) ||
                             activity.title}
                         </Badge>
                       </TableCell>

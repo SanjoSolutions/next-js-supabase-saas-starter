@@ -14,14 +14,23 @@ import {
 import { createClient } from "@/lib/supabase/client"
 import { Bell } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
+
+interface Notification {
+  id: string
+  title: string
+  content: string
+  is_read: boolean
+  link?: string
+  created_at: string
+}
 
 export function NotificationCenter() {
   const t = useTranslations("notifications")
-  const [notifications, setNotifications] = useState<any[]>([])
+  const [notifications, setNotifications] = useState<Notification[]>([])
   const [unreadCount, setUnreadCount] = useState(0)
-  const supabase = createClient()
+  const supabase = useMemo(() => createClient(), [])
   const router = useRouter()
 
   const fetchNotifications = async () => {
@@ -46,7 +55,7 @@ export function NotificationCenter() {
           table: "notifications",
         },
         (payload) => {
-          setNotifications((prev) => [payload.new, ...prev])
+          setNotifications((prev) => [payload.new as Notification, ...prev])
           setUnreadCount((prev) => prev + 1)
         }
       )
@@ -55,7 +64,7 @@ export function NotificationCenter() {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [])
+  }, [supabase])
 
   const handleMarkAsRead = async (id: string, link?: string) => {
     await markAsRead(id)

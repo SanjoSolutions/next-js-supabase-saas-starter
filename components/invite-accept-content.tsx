@@ -14,9 +14,23 @@ import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 
+interface Invite {
+  id: string
+  email: string
+  role: string
+  organizations: { name: string }
+}
+
+interface InviteData {
+  id: string
+  email: string
+  role: string
+  organization_name: string
+}
+
 export function InviteAcceptContent({ token }: { token: string }) {
   const t = useTranslations("invites.accept")
-  const [invite, setInvite] = useState<any>(null)
+  const [invite, setInvite] = useState<Invite | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isProcessing, setIsProcessing] = useState(false)
@@ -33,7 +47,7 @@ export function InviteAcceptContent({ token }: { token: string }) {
         console.error("Fetch invite error:", fetchError)
         setError(t("notFound"))
       } else {
-        const data = inviteData as any
+        const data = inviteData as InviteData
         setInvite({
           id: data.id,
           email: data.email,

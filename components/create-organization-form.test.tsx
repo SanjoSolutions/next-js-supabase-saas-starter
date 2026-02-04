@@ -22,7 +22,7 @@ vi.mock("next/navigation", () => ({
 }))
 
 vi.mock("@/app/[locale]/(authenticated)/organizations/actions", () => ({
-  setActiveOrganizationAction: (...args: any[]) => mockSetActiveOrg(...args),
+  setActiveOrganizationAction: (...args: unknown[]) => mockSetActiveOrg(...args),
 }))
 
 describe("CreateOrganizationForm", () => {
@@ -31,9 +31,9 @@ describe("CreateOrganizationForm", () => {
 
   beforeEach(() => {
     vi.clearAllMocks()
-    ;(createClient as any).mockReturnValue({
+    vi.mocked(createClient).mockReturnValue({
       from: mockFrom,
-    })
+    } as unknown as ReturnType<typeof createClient>)
     mockFrom.mockReturnValue({
       insert: mockInsert,
     })

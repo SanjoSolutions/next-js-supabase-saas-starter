@@ -152,7 +152,7 @@ test("members page shows owner and invited member", async ({ page }) => {
   await loginAsTestUser(page)
 
   // 2. Create organization
-  const orgName = await createOrganization(page, "Members Test Org")
+  await createOrganization(page, "Members Test Org")
   await page.waitForTimeout(1000)
 
   // 3. Create invite for other user

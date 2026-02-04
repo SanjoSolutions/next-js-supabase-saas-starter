@@ -20,6 +20,14 @@ import { formatDistanceToNow } from "@/lib/date"
 import { getTranslations, getLocale } from "next-intl/server"
 import { type Locale } from "@/i18n/config"
 
+interface Member {
+  id: string
+  user_id: string
+  email: string
+  role: string
+  created_at: string
+}
+
 export default async function MembersPage({
   params,
 }: {
@@ -47,7 +55,7 @@ export default async function MembersPage({
 
   // Ensure the current user appears in the members list.
   if (user && membership) {
-    const hasSelf = (membersWithEmails as any[]).some(
+    const hasSelf = (membersWithEmails as Member[]).some(
       (m) => m.user_id === user.id
     )
     if (!hasSelf) {
@@ -96,7 +104,7 @@ export default async function MembersPage({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {membersWithEmails.map((member: any) => (
+              {membersWithEmails.map((member: Member) => (
                 <TableRow key={member.id}>
                   <TableCell className="font-medium">{member.email}</TableCell>
                   <TableCell>
