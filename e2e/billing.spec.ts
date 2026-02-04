@@ -14,7 +14,7 @@ import {
 test("should define organization billing plan", async ({ page }) => {
   // Skip if Stripe is not configured (test API key)
   const stripeKey = process.env.STRIPE_SECRET_KEY ?? ""
-  if (!stripeKey || stripeKey.includes("your-") || stripeKey === "sk_test_xxx") {
+  if (!stripeKey || stripeKey.includes("your-") || stripeKey === "sk_test_xxx" || stripeKey === "sk_test_placeholder") {
     test.skip(true, "Skipping: Stripe is not configured")
     return
   }
