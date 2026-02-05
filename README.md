@@ -36,6 +36,10 @@ Save time on your next SaaS idea and start with this starter kit!
 - Lead magnet page
 - Terms of service
 
+## Getting started
+
+[Getting started](/GETTING_STARTED.md)
+
 ## Buy
 
 [![Buy Now](https://img.shields.io/badge/Buy%20Now-blue?style=for-the-badge)](https://sanjosolutions.gumroad.com/l/next-js-supabase-saas-starter)
