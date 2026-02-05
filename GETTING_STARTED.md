@@ -13,7 +13,8 @@ Claude Code is an AI coding assistant that runs in your terminal or Visual Studi
 
 ## Start Claude Code with Your Idea
 
-Open your terminal and run `claude` to start Claude Code. Then give it a prompt like this:
+Create a folder for your project.
+Open your terminal, switch to your project folder (`cd <FOLDER>`) and run `claude` to start Claude Code. Then give it a prompt like this:
 
 ```
 I'd like to build a SaaS for [describe your idea].
