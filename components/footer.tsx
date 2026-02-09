@@ -26,6 +26,12 @@ export async function Footer() {
         >
           {t("legal.agb")}
         </Link>
+        <Link
+          href="/marketplace-terms"
+          className="text-muted-foreground hover:text-foreground transition-colors"
+        >
+          {t("legal.marketplaceTermsLink")}
+        </Link>
       </nav>
       <LanguageSwitcher />
     </footer>

@@ -42,6 +42,18 @@ export async function Header() {
     ? await isFeatureEnabled("advanced_analytics", activeOrgId)
     : false
 
+  // Check if org has a marketplace profile
+  const hasMarketplace = activeOrgId
+    ? await (async () => {
+        const { data } = await supabase
+          .from("marketplace_profiles")
+          .select("id")
+          .eq("organization_id", activeOrgId)
+          .single()
+        return !!data
+      })()
+    : false
+
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-14">
       <div className="w-full max-w-5xl flex justify-between items-center px-4 text-sm">
@@ -82,6 +94,7 @@ export async function Header() {
                 }}
                 activeOrgId={activeOrgId}
                 hasActivityDashboard={hasActivityDashboard}
+                hasMarketplace={hasMarketplace}
               />
             </Suspense>
           </div>
