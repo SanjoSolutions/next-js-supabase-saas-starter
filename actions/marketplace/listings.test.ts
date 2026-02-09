@@ -54,7 +54,8 @@ describe("marketplace listing actions", () => {
     deliveryPostalCode: "80331",
     deliveryCity: "Munich",
     packageSize: "medium" as const,
-    priceCents: 15000,
+    priceMinCents: 12000,
+    priceMaxCents: 18000,
     deliveryDate: "2026-03-01",
     expiresAt: "2026-02-28T23:59:59Z",
   }
@@ -161,6 +162,23 @@ describe("marketplace listing actions", () => {
 
       const result = await createListing(validListingInput)
       expect(result).toEqual({ id: "listing-1", title: validListingInput.title })
+    })
+
+    it("throws when priceMinCents exceeds priceMaxCents", async () => {
+      let callCount = 0
+      mockSingle.mockImplementation(() => {
+        callCount++
+        if (callCount === 1) {
+          return Promise.resolve({ data: { role: "member" } })
+        }
+        return Promise.resolve({
+          data: { marketplace_role: "buyer", stripe_connect_onboarded: false },
+        })
+      })
+
+      await expect(
+        createListing({ ...validListingInput, priceMinCents: 20000, priceMaxCents: 10000 })
+      ).rejects.toThrow("Minimum price must not exceed maximum price")
     })
 
     it("creates listing for 'both' role creating offer with Stripe", async () => {

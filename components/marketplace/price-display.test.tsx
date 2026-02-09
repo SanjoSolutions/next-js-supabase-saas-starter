@@ -54,6 +54,42 @@ describe("PriceDisplay", () => {
     expect(screen.getByText(/7%/)).toBeInTheDocument()
   })
 
+  it("renders price range when priceMaxCents differs", () => {
+    render(
+      <I18nTestWrapper locale="en">
+        <PriceDisplay netCents={10000} priceMaxCents={15000} />
+      </I18nTestWrapper>
+    )
+
+    // Should show two gross amounts (range)
+    const status = screen.getByRole("status")
+    expect(status.textContent).toContain("-")
+  })
+
+  it("renders single price when priceMaxCents equals netCents", () => {
+    render(
+      <I18nTestWrapper locale="en">
+        <PriceDisplay netCents={10000} priceMaxCents={10000} />
+      </I18nTestWrapper>
+    )
+
+    // Should not show a range
+    const grossLine = screen.getByText(/Gross/)
+    expect(grossLine.textContent).not.toMatch(/-.*€/)
+  })
+
+  it("renders range without breakdown when showBreakdown is false", () => {
+    render(
+      <I18nTestWrapper locale="en">
+        <PriceDisplay netCents={10000} priceMaxCents={20000} showBreakdown={false} />
+      </I18nTestWrapper>
+    )
+
+    const status = screen.getByRole("status")
+    expect(status.textContent).toContain("-")
+    expect(screen.queryByText(/Net/)).not.toBeInTheDocument()
+  })
+
   it("renders in German locale", () => {
     render(
       <I18nTestWrapper locale="de">

@@ -107,7 +107,7 @@ describe("SignUpForm", () => {
           },
         },
       })
-      expect(mockPush).toHaveBeenCalledWith("/protected")
+      expect(mockPush).toHaveBeenCalledWith("/marketplace")
     })
   })
 

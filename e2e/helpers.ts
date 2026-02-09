@@ -70,7 +70,8 @@ export async function login(
     await loginButton.click({ force: true })
   }
 
-  await expect(page).toHaveURL(/\/protected/)
+  // After login, user is redirected to marketplace or org creation if no org exists
+  await expect(page).toHaveURL(/\/(marketplace|organizations|protected)/, { timeout: 10000 })
 }
 
 /**

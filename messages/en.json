@@ -646,7 +646,9 @@
         "weight": "Weight (kg)",
         "packageDescription": "Package Description",
         "priceAndSchedule": "Price & Schedule",
-        "priceEur": "Price (EUR net)",
+        "priceMin": "Min Price (EUR net)",
+        "priceMax": "Max Price (EUR net)",
+        "priceMinExceedsMax": "Minimum price must not exceed maximum price",
         "deliveryDate": "Delivery Date",
         "timeStart": "Time From",
         "timeEnd": "Time To",
@@ -660,7 +662,8 @@
       "vat": "VAT ({rate}%)",
       "gross": "Gross",
       "grossPrice": "Gross price",
-      "priceBreakdown": "Price breakdown"
+      "priceBreakdown": "Price breakdown",
+      "range": "{min} - {max}"
     },
     "matches": {
       "title": "Matches",

@@ -92,7 +92,10 @@ export default async function ListingDetailPage({
                   ` (${listing.delivery_time_start} - ${listing.delivery_time_end})`}
               </span>
             </div>
-            <PriceDisplay netCents={listing.price_cents} />
+            <PriceDisplay
+              netCents={listing.price_min_cents ?? listing.price_cents}
+              priceMaxCents={listing.price_max_cents ?? undefined}
+            />
           </CardContent>
         </Card>
       </div>

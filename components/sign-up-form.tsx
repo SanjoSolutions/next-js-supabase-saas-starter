@@ -52,7 +52,7 @@ export function SignUpForm({
       if (returnUrl) {
         router.push(returnUrl)
       } else {
-        router.push("/protected")
+        router.push("/marketplace")
       }
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")

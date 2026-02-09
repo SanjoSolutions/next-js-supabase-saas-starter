@@ -12,7 +12,7 @@ export default async function Home() {
 
   // Redirect logged-in users to protected area
   if (user) {
-    redirect("/protected")
+    redirect("/marketplace")
   }
 
   return (

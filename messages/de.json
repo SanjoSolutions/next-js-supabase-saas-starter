@@ -646,7 +646,9 @@
         "weight": "Gewicht (kg)",
         "packageDescription": "Paketbeschreibung",
         "priceAndSchedule": "Preis & Zeitplan",
-        "priceEur": "Preis (EUR netto)",
+        "priceMin": "Mindestpreis (EUR netto)",
+        "priceMax": "Höchstpreis (EUR netto)",
+        "priceMinExceedsMax": "Der Mindestpreis darf den Höchstpreis nicht überschreiten",
         "deliveryDate": "Lieferdatum",
         "timeStart": "Zeit von",
         "timeEnd": "Zeit bis",
@@ -660,7 +662,8 @@
       "vat": "MwSt. ({rate}%)",
       "gross": "Brutto",
       "grossPrice": "Bruttopreis",
-      "priceBreakdown": "Preisaufschlüsselung"
+      "priceBreakdown": "Preisaufschlüsselung",
+      "range": "{min} - {max}"
     },
     "matches": {
       "title": "Übereinstimmungen",

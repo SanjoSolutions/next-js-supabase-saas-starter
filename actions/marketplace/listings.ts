@@ -19,7 +19,8 @@ interface CreateListingInput {
   packageSize: "small" | "medium" | "large" | "pallet"
   packageWeightKg?: number
   packageDescription?: string
-  priceCents: number
+  priceMinCents: number
+  priceMaxCents: number
   deliveryDate: string
   deliveryTimeStart?: string
   deliveryTimeEnd?: string
@@ -66,6 +67,12 @@ export async function createListing(input: CreateListingInput) {
     throw new Error("Stripe Connect onboarding required to post offers")
   }
 
+  if (input.priceMinCents > input.priceMaxCents) {
+    throw new Error("Minimum price must not exceed maximum price")
+  }
+
+  const priceCents = Math.round((input.priceMinCents + input.priceMaxCents) / 2)
+
   const { data, error } = await supabase
     .from("service_listings")
     .insert({
@@ -84,7 +91,9 @@ export async function createListing(input: CreateListingInput) {
       package_size: input.packageSize,
       package_weight_kg: input.packageWeightKg || null,
       package_description: input.packageDescription || null,
-      price_cents: input.priceCents,
+      price_cents: priceCents,
+      price_min_cents: input.priceMinCents,
+      price_max_cents: input.priceMaxCents,
       delivery_date: input.deliveryDate,
       delivery_time_start: input.deliveryTimeStart || null,
       delivery_time_end: input.deliveryTimeEnd || null,
@@ -122,7 +131,14 @@ export async function updateListing(
   const updateData: Record<string, unknown> = {}
   if (updates.title) updateData.title = updates.title
   if (updates.description !== undefined) updateData.description = updates.description || null
-  if (updates.priceCents) updateData.price_cents = updates.priceCents
+  if (updates.priceMinCents && updates.priceMaxCents) {
+    if (updates.priceMinCents > updates.priceMaxCents) {
+      throw new Error("Minimum price must not exceed maximum price")
+    }
+    updateData.price_min_cents = updates.priceMinCents
+    updateData.price_max_cents = updates.priceMaxCents
+    updateData.price_cents = Math.round((updates.priceMinCents + updates.priceMaxCents) / 2)
+  }
   if (updates.deliveryDate) updateData.delivery_date = updates.deliveryDate
   if (updates.expiresAt) updateData.expires_at = updates.expiresAt
 

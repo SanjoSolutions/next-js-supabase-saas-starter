@@ -35,7 +35,8 @@ export function ListingForm({ organizationId, marketplaceRole }: ListingFormProp
     packageSize: "small" as "small" | "medium" | "large" | "pallet",
     packageWeightKg: "",
     packageDescription: "",
-    priceEur: "",
+    priceMinEur: "",
+    priceMaxEur: "",
     deliveryDate: "",
     deliveryTimeStart: "",
     deliveryTimeEnd: "",
@@ -45,7 +46,8 @@ export function ListingForm({ organizationId, marketplaceRole }: ListingFormProp
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
-  const priceCents = Math.round(parseFloat(formData.priceEur || "0") * 100)
+  const priceMinCents = Math.round(parseFloat(formData.priceMinEur || "0") * 100)
+  const priceMaxCents = Math.round(parseFloat(formData.priceMaxEur || "0") * 100)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -55,6 +57,12 @@ export function ListingForm({ organizationId, marketplaceRole }: ListingFormProp
     try {
       const expiresAt = new Date(formData.deliveryDate)
       expiresAt.setDate(expiresAt.getDate() + 1)
+
+      if (priceMinCents > priceMaxCents) {
+        setError(t("form.priceMinExceedsMax"))
+        setLoading(false)
+        return
+      }
 
       await createListing({
         organizationId,
@@ -72,7 +80,8 @@ export function ListingForm({ organizationId, marketplaceRole }: ListingFormProp
           ? parseFloat(formData.packageWeightKg)
           : undefined,
         packageDescription: formData.packageDescription || undefined,
-        priceCents,
+        priceMinCents,
+        priceMaxCents,
         deliveryDate: formData.deliveryDate,
         deliveryTimeStart: formData.deliveryTimeStart || undefined,
         deliveryTimeEnd: formData.deliveryTimeEnd || undefined,
@@ -263,23 +272,33 @@ export function ListingForm({ organizationId, marketplaceRole }: ListingFormProp
           <CardContent className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="priceEur">{t("form.priceEur")}</Label>
+                <Label htmlFor="priceMinEur">{t("form.priceMin")}</Label>
                 <Input
-                  id="priceEur"
+                  id="priceMinEur"
                   type="number"
                   step="0.01"
                   min="0.01"
-                  value={formData.priceEur}
-                  onChange={(e) => updateField("priceEur", e.target.value)}
+                  value={formData.priceMinEur}
+                  onChange={(e) => updateField("priceMinEur", e.target.value)}
                   required
                 />
               </div>
-              <div className="pt-6">
-                {priceCents > 0 && (
-                  <PriceDisplay netCents={priceCents} />
-                )}
+              <div className="space-y-2">
+                <Label htmlFor="priceMaxEur">{t("form.priceMax")}</Label>
+                <Input
+                  id="priceMaxEur"
+                  type="number"
+                  step="0.01"
+                  min="0.01"
+                  value={formData.priceMaxEur}
+                  onChange={(e) => updateField("priceMaxEur", e.target.value)}
+                  required
+                />
               </div>
             </div>
+            {priceMinCents > 0 && (
+              <PriceDisplay netCents={priceMinCents} priceMaxCents={priceMaxCents > 0 ? priceMaxCents : undefined} />
+            )}
             <div className="space-y-2">
               <Label htmlFor="deliveryDate">{t("form.deliveryDate")}</Label>
               <Input

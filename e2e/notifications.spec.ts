@@ -15,7 +15,7 @@ test.describe("Notification System", () => {
 
     // Sign up and create org
     await signUp(page, { email, firstName: "NotifUser", password })
-    await page.waitForURL(/\/protected/)
+    await page.waitForURL(/\/marketplace/)
     await createOrganization(page, "Notif Org")
     await page.waitForURL(/\/organizations\/.*\/welcome/)
 
@@ -40,7 +40,7 @@ test.describe("Notification System", () => {
     enableConsoleLogs(page)
 
     await signUp(page, { email, firstName: "NoBadgeUser", password })
-    await page.waitForURL(/\/protected/)
+    await page.waitForURL(/\/marketplace/)
     await createOrganization(page, "No Badge Org")
     await page.waitForURL(/\/organizations\/.*\/welcome/)
 

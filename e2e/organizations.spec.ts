@@ -94,9 +94,9 @@ test("should only show organizations where user is a member", async ({
 
   // Ensure we're logged in as the new user - wait for protected page redirect or login if needed
   await page.waitForTimeout(1000)
-  if (!page.url().includes("/protected")) {
+  if (!page.url().includes("/marketplace")) {
     // Try to navigate to protected page
-    await page.goto("/protected")
+    await page.goto("/marketplace")
     await page.waitForLoadState("networkidle")
     await page.waitForTimeout(500)
 

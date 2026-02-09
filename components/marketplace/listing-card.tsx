@@ -19,6 +19,8 @@ interface ListingCardProps {
     delivery_postal_code: string
     package_size: string
     price_cents: number
+    price_min_cents?: number | null
+    price_max_cents?: number | null
     delivery_date: string
     organizations?: { name: string } | null
   }
@@ -27,7 +29,10 @@ interface ListingCardProps {
 export function ListingCard({ listing }: ListingCardProps) {
   const t = useTranslations("marketplace.listings")
 
-  const grossCents = calculateGross(listing.price_cents)
+  const minCents = listing.price_min_cents ?? listing.price_cents
+  const maxCents = listing.price_max_cents ?? listing.price_cents
+  const grossMin = calculateGross(minCents)
+  const grossMax = calculateGross(maxCents)
   const orgName =
     listing.organizations && "name" in listing.organizations
       ? listing.organizations.name
@@ -70,7 +75,9 @@ export function ListingCard({ listing }: ListingCardProps) {
             </span>
           </div>
           <div className="text-right font-bold">
-            {formatEurCents(grossCents)}
+            {grossMin !== grossMax
+              ? `${formatEurCents(grossMin)} - ${formatEurCents(grossMax)}`
+              : formatEurCents(grossMin)}
           </div>
         </CardContent>
       </Card>
