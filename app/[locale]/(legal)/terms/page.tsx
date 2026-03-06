@@ -1,10 +1,12 @@
 import { Metadata } from "next"
 import { Link } from "@/i18n/navigation"
 import { getTranslations } from "next-intl/server"
+import { getAppUrl } from "@/lib/app-url"
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("legal.agbPage")
   return {
+    metadataBase: new URL(getAppUrl()),
     title: t("title"),
     description: t("description"),
   }
