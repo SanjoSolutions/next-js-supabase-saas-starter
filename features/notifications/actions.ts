@@ -4,7 +4,7 @@ import {
   getNotifications as getNotificationsImpl,
   markAllAsRead as markAllAsReadImpl,
   markAsRead as markAsReadImpl,
-} from "@/features/notifications/actions"
+} from "./actions/notifications"
 
 export async function getNotifications() {
   return getNotificationsImpl()

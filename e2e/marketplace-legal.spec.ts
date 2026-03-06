@@ -1,7 +1,13 @@
 import { expect, test } from "@playwright/test"
+import { FEATURE_MODULE_STATE } from "../features/module-state"
 import { enableConsoleLogs } from "./helpers"
 
 test.describe("Marketplace legal pages", () => {
+  test.skip(
+    !FEATURE_MODULE_STATE.marketplace,
+    "Marketplace module is disabled in code"
+  )
+
   test("@smoke marketplace terms page loads", async ({ page }) => {
     enableConsoleLogs(page)
 

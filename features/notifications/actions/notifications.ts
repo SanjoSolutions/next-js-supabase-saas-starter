@@ -1,0 +1,72 @@
+"use server"
+
+import { revalidatePath } from "next/cache"
+
+import { isFeatureModuleEnabledInCode } from "@/features/config"
+import { createClient } from "@/lib/supabase/server"
+
+export async function getNotifications() {
+  if (!isFeatureModuleEnabledInCode("notifications")) {
+    return { data: [], error: null }
+  }
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return { data: [], error: "Not authenticated" }
+
+  const { data, error } = await supabase
+    .from("notifications")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .limit(20)
+
+  return { data, error }
+}
+
+export async function markAsRead(id: string) {
+  if (!isFeatureModuleEnabledInCode("notifications")) {
+    return { error: "Notifications feature is disabled" }
+  }
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return { error: "Not authenticated" }
+
+  const { error } = await supabase
+    .from("notifications")
+    .update({ is_read: true })
+    .eq("id", id)
+    .eq("user_id", user.id)
+
+  revalidatePath("/")
+  return { error }
+}
+
+export async function markAllAsRead() {
+  if (!isFeatureModuleEnabledInCode("notifications")) {
+    return { error: "Notifications feature is disabled" }
+  }
+
+  const supabase = await createClient()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
+  if (!user) return { error: "Not authenticated" }
+
+  const { error } = await supabase
+    .from("notifications")
+    .update({ is_read: true })
+    .eq("user_id", user.id)
+    .eq("is_read", false)
+
+  revalidatePath("/")
+  return { error }
+}

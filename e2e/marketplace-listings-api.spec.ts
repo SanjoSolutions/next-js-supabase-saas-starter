@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test"
+import { FEATURE_MODULE_STATE } from "../features/module-state"
 import {
   acceptCookiesIfVisible,
   enableConsoleLogs,
@@ -35,6 +36,11 @@ async function getAccessToken(
 // ============================================================
 
 test.describe("Marketplace Listings API", () => {
+  test.skip(
+    !FEATURE_MODULE_STATE.marketplace,
+    "Marketplace module is disabled in code"
+  )
+
   const validBody = {
     organizationId: "00000000-0000-0000-0000-000000000000",
     listingType: "request",
@@ -185,6 +191,11 @@ test.describe("Default post-login redirect", () => {
 // ============================================================
 
 test.describe("Marketplace listing form price range", () => {
+  test.skip(
+    !FEATURE_MODULE_STATE.marketplace,
+    "Marketplace module is disabled in code"
+  )
+
   test("new listing form shows min and max price inputs instead of single price", async ({
     page,
   }) => {
@@ -271,6 +282,11 @@ test.describe("Marketplace listing form price range", () => {
 // ============================================================
 
 test.describe("Marketplace auth guard", () => {
+  test.skip(
+    !FEATURE_MODULE_STATE.marketplace,
+    "Marketplace module is disabled in code"
+  )
+
   test("unauthenticated user accessing /marketplace is redirected to login", async ({ page }) => {
     enableConsoleLogs(page)
 

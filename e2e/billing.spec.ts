@@ -105,7 +105,7 @@ test("should define organization billing plan", async ({ page }) => {
     // Support both English and German login button
     const loginButton = page.locator('button:has-text("Login")').or(page.locator('button:has-text("Anmelden")'))
     await loginButton.click()
-    await page.waitForURL(/\/marketplace/)
+    await page.waitForURL(/\/(protected|organizations)/)
 
     // Go directly to billing page using the saved org ID
     console.log(`Going to billing page for org: ${orgId}`)
@@ -119,7 +119,7 @@ test("should define organization billing plan", async ({ page }) => {
       await page.fill('input[id="password"]', testPassword)
       const loginBtn = page.locator('button:has-text("Login")').or(page.locator('button:has-text("Anmelden")'))
       await loginBtn.click()
-      await page.waitForURL(/\/marketplace/)
+      await page.waitForURL(/\/(protected|organizations)/)
       await page.goto(`/organizations/${orgId}/billing`)
     }
 

@@ -1,12 +1,12 @@
+export { FEATURE_MODULE_STATE } from "@/features/module-state"
+import { FEATURE_MODULE_STATE } from "@/features/module-state"
 import { getFeatureModule, type FeatureModuleKey } from "@/features/registry"
 
-// Enable optional feature bundles here when you want them included in the app shell.
-export const ENABLED_FEATURE_MODULES: FeatureModuleKey[] = []
+// Toggle optional feature bundles here when you want them included in the app shell.
+// Database-backed modules still need their backing feature flag enabled where applicable.
+const _featureModuleState: Record<FeatureModuleKey, boolean> = FEATURE_MODULE_STATE
 
 export function isFeatureModuleEnabledInCode(featureModule: FeatureModuleKey) {
-  const featureDefinition = getFeatureModule(featureModule)
-  return (
-    featureDefinition.defaultEnabled ||
-    ENABLED_FEATURE_MODULES.includes(featureModule)
-  )
+  getFeatureModule(featureModule)
+  return _featureModuleState[featureModule]
 }

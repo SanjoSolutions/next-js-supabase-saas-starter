@@ -1,7 +1,7 @@
 "use server"
 
 import { requireOrgMember } from "@/lib/auth"
-import { isFeatureEnabled } from "@/lib/feature-flags"
+import { isFeatureModuleEnabled } from "@/lib/feature-flags"
 import { createClient } from "@/lib/supabase/server"
 
 export interface ActivityLog {
@@ -30,7 +30,7 @@ export async function getActivityLogs(
   await requireOrgMember(orgId)
 
   // Check feature flag
-  const hasFeature = await isFeatureEnabled("advanced_analytics", orgId)
+  const hasFeature = await isFeatureModuleEnabled("activityDashboard", orgId)
   if (!hasFeature) {
     return { data: [], total: 0, hasMore: false, error: "Feature not enabled" }
   }

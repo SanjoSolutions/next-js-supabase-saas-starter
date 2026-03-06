@@ -7,8 +7,10 @@ test("@smoke should sign up with first name and display it", async ({ page }) =>
 
   await signUp(page, { email, firstName })
 
-  // Wait for navigation to marketplace (default post-login page)
-  await expect(page).toHaveURL(/\/marketplace/, { timeout: 10000 })
+  // Wait for navigation to the default authenticated experience
+  await expect(page).toHaveURL(/\/(protected|organizations)/, {
+    timeout: 10000,
+  })
 
   // Navigate to protected page which shows user metadata JSON
   await page.goto("/protected")

@@ -15,8 +15,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { requireOrgMember } from "@/lib/auth"
-import { isFeatureEnabled } from "@/lib/feature-flags"
 import { formatDistanceToNow } from "@/lib/date"
+import { isFeatureModuleEnabled } from "@/lib/feature-flags"
 import { Link } from "@/i18n/navigation"
 import { getActivityLogs } from "./actions"
 import { ActivityPagination } from "./pagination"
@@ -37,7 +37,7 @@ export async function ActivityDashboardContent({
   const { organization } = await requireOrgMember(orgId)
 
   // Check feature flag
-  const hasAnalytics = await isFeatureEnabled("advanced_analytics", orgId)
+  const hasAnalytics = await isFeatureModuleEnabled("activityDashboard", orgId)
 
   if (!hasAnalytics) {
     return (

@@ -1,12 +1,16 @@
 import { EnvVarWarning } from "@/components/env-var-warning"
-import { isFeatureEnabled, isMarketplaceEnabled } from "@/lib/feature-flags"
+import { isFeatureModuleEnabledInCode } from "@/features/config"
+import { NotificationCenter } from "@/features/notifications/components/notification-center"
+import {
+  isFeatureModuleEnabled,
+  isMarketplaceEnabled,
+} from "@/lib/feature-flags"
 import { createClient } from "@/lib/supabase/server"
 import { hasEnvVars } from "@/lib/utils"
 import { cookies } from "next/headers"
 import { Suspense } from "react"
 import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
-import { NotificationCenter } from "./notification-center"
 import { OrgSwitcher } from "./org-switcher"
 import { UserMenu } from "./user-menu"
 import { Button } from "./ui/button"
@@ -39,10 +43,11 @@ export async function Header() {
 
   // Check if activity dashboard is enabled for the active organization
   const hasActivityDashboard = activeOrgId
-    ? await isFeatureEnabled("advanced_analytics", activeOrgId)
+    ? await isFeatureModuleEnabled("activityDashboard", activeOrgId)
     : false
 
   const hasMarketplace = await isMarketplaceEnabled(activeOrgId)
+  const hasNotifications = isFeatureModuleEnabledInCode("notifications")
 
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-14">
@@ -71,7 +76,7 @@ export async function Header() {
                 />
               </Suspense>
             )}
-            <NotificationCenter />
+            {hasNotifications && <NotificationCenter />}
             <Suspense
               fallback={
                 <div className="h-8 w-8 bg-accent animate-pulse rounded-full" />

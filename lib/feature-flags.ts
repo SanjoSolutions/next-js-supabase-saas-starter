@@ -44,10 +44,14 @@ export async function isFeatureModuleEnabled(
     return false
   }
 
+  const featureDefinition = getFeatureModule(featureModule)
+  if (!featureDefinition.flagName) {
+    return true
+  }
+
   if (!organizationId) {
     return false
   }
 
-  const featureDefinition = getFeatureModule(featureModule)
   return isFeatureEnabled(featureDefinition.flagName, organizationId)
 }

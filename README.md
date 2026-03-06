@@ -87,12 +87,12 @@ app/
 components/                 # Shared React components
   ui/                       # shadcn/ui base components
 features/
-  marketplace/             # Self-contained marketplace feature bundle
-    actions/               # Marketplace server actions
-    api/                   # Marketplace API implementations
-    components/            # Marketplace-only UI
-    lib/                   # Marketplace business logic
-    routes/                # Marketplace page implementations
+  activity-dashboard/      # Activity dashboard feature bundle
+  admin/                   # Admin dashboard feature bundle
+  cookie-consent/          # Cookie consent feature bundle
+  credits/                 # Credits feature bundle
+  marketplace/             # Marketplace feature bundle
+  notifications/           # Notifications feature bundle
 lib/                        # Shared utilities
   supabase/                 # Supabase client factories
 messages/                   # i18n translation files (en, de)
@@ -187,21 +187,25 @@ pnpm build-storybook  # Build static Storybook
 
 The starter uses a feature flag system to control which modules are active:
 
+### Code-Level Module Toggles
+Toggle feature bundles in `features/config.ts` via `FEATURE_MODULE_STATE`.
+
 ### Database Feature Flags
-Toggle features per organization via the `feature_flags` table:
+For modules that are also plan- or org-gated, toggle access per organization via the `feature_flags` table:
 - `advanced_analytics` -- Activity dashboard (typically Pro-only)
 - `marketplace_access` -- B2B marketplace module
 
 ### Removing a Module
 Each module is self-contained. To remove a module, start with its manifest in `features/<feature>/module.ts`.
 
-Optional modules are also toggled in code via `features/config.ts`, so public app chrome and route wrappers only expose modules that are explicitly enabled there.
+Code-level toggles decide whether the app shell, route wrappers, and server actions expose a module at all. Database flags add a second layer for modules that need per-organization access control.
 
 For example, to remove marketplace:
 1. Delete `features/marketplace/`
 2. Delete the thin app and API wrapper paths listed in `features/marketplace/module.ts`
 3. Remove the `marketplace` entry from `features/registry.ts`
-4. Remove marketplace translation keys from `messages/`
+4. Remove the `marketplace` key from `FEATURE_MODULE_STATE` in `features/config.ts`
+5. Remove marketplace translation keys from `messages/`
 
 The core platform (auth, orgs, billing, credits, notifications) continues to work independently.
 

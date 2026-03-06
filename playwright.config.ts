@@ -31,6 +31,10 @@ try {
   console.error("Error loading .env.local in config", e);
 }
 
+const playwrightPort = process.env.PLAYWRIGHT_PORT || "3000";
+const playwrightBaseUrl =
+  process.env.PLAYWRIGHT_BASE_URL || `http://127.0.0.1:${playwrightPort}`;
+
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: false,
@@ -42,7 +46,7 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }], ['list']],
   timeout: 60 * 1000,
   use: {
-    baseURL: 'http://localhost:3000',
+    baseURL: playwrightBaseUrl,
     trace: 'on-first-retry',
     locale: 'en-US', // Set English locale for consistent i18n test behavior
   },
@@ -53,8 +57,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'pnpm dev',
-    url: 'http://localhost:3000',
+    command: `pnpm dev --port ${playwrightPort}`,
+    url: playwrightBaseUrl,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

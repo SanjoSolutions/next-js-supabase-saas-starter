@@ -1,9 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { isFeatureEnabled, isMarketplaceEnabled } from "./feature-flags"
+import {
+  isFeatureEnabled,
+  isFeatureModuleEnabled,
+  isMarketplaceEnabled,
+} from "./feature-flags"
 
 const mockIsFeatureModuleEnabledInCode = vi.fn()
 vi.mock("@/features/config", () => ({
-  ENABLED_FEATURE_MODULES: [],
+  FEATURE_MODULE_STATE: {},
   isFeatureModuleEnabledInCode: (...args: unknown[]) =>
     mockIsFeatureModuleEnabledInCode(...args),
 }))
@@ -184,6 +188,38 @@ describe("isMarketplaceEnabled", () => {
     expect(mockRpc).toHaveBeenCalledWith("is_feature_enabled", {
       org_id: "org-789",
       feature_name: "marketplace_access",
+    })
+  })
+})
+
+describe("isFeatureModuleEnabled", () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    mockIsFeatureModuleEnabledInCode.mockReturnValue(true)
+  })
+
+  it("returns true for code-only feature modules when enabled in code", async () => {
+    await expect(isFeatureModuleEnabled("cookieConsent")).resolves.toBe(true)
+    expect(mockRpc).not.toHaveBeenCalled()
+  })
+
+  it("returns false for database-backed feature modules without an organizationId", async () => {
+    await expect(isFeatureModuleEnabled("activityDashboard")).resolves.toBe(
+      false
+    )
+    expect(mockRpc).not.toHaveBeenCalled()
+  })
+
+  it("checks the backing feature flag for database-backed modules", async () => {
+    mockRpc.mockResolvedValue({ data: true, error: null })
+
+    await expect(
+      isFeatureModuleEnabled("activityDashboard", "org-123")
+    ).resolves.toBe(true)
+
+    expect(mockRpc).toHaveBeenCalledWith("is_feature_enabled", {
+      org_id: "org-123",
+      feature_name: "advanced_analytics",
     })
   })
 })

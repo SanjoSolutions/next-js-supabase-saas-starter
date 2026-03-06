@@ -5,7 +5,6 @@ export const marketplaceFeatureModule = {
   flagName: "marketplace_access",
   name: "Marketplace",
   description: "B2B marketplace module with listings, matching, contracts, disputes, and compliance flows.",
-  defaultEnabled: false,
   ownedPaths: [
     "features/marketplace",
     "app/[locale]/(authenticated)/marketplace",
