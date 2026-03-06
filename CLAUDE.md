@@ -11,6 +11,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Workflow
 
 - **Auto-commit**: Commit changes automatically as work progresses. Don't wait to be asked.
+- **Auto-commit enforcement**: After any meaningful change set is verified and in a good state, create a local commit immediately in the same session. Do not wait for an explicit user prompt to commit, and do not leave completed work uncommitted at the end of a turn unless the user explicitly says not to commit.
 
 ## Commands
 
