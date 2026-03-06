@@ -44,8 +44,11 @@ export function CookieConsentBanner() {
   const categoryKeys = Object.keys(COOKIE_CATEGORIES) as CookieCategory[]
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4">
-      <Card className="max-w-2xl mx-auto shadow-lg">
+    <div
+      data-testid="cookie-consent-banner"
+      className="fixed inset-x-4 bottom-4 z-50 md:inset-x-auto md:right-4 md:w-[28rem] lg:right-6 lg:bottom-6"
+    >
+      <Card className="ml-auto border shadow-2xl backdrop-blur supports-[backdrop-filter]:bg-background/95">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg">{t("title")}</CardTitle>
           <CardDescription>
@@ -56,7 +59,7 @@ export function CookieConsentBanner() {
             .
           </CardDescription>
         </CardHeader>
-        <CardContent className="space-y-4">
+        <CardContent className="max-h-[min(32rem,calc(100vh-10rem))] space-y-4 overflow-y-auto">
           {showSettings && (
             <div className="space-y-3 border-t pt-4">
               {categoryKeys.map((key) => {

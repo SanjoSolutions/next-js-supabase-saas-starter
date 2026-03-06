@@ -128,7 +128,7 @@ test.describe("Cookie Consent Banner", () => {
     await page.waitForTimeout(500)
 
     // Default is English now - look specifically within the cookie banner
-    const cookieBanner = page.locator('[class*="fixed bottom-0"]')
+    const cookieBanner = page.getByTestId("cookie-consent-banner")
     const privacyLink = cookieBanner.getByRole("link", { name: "Privacy Policy" })
     await expect(privacyLink).toBeVisible()
     // The link will have locale prefix, e.g., /en/privacy-policy

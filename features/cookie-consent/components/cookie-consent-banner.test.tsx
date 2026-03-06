@@ -94,4 +94,23 @@ describe("CookieConsentBanner", () => {
     const privacyLink = screen.getByText("Privacy Policy")
     expect(privacyLink).toHaveAttribute("href", "/privacy-policy")
   })
+
+  it("renders as a floating banner", () => {
+    mockUseCookieConsent.mockReturnValue({
+      showBanner: true,
+      acceptAll: vi.fn(),
+      acceptNecessaryOnly: vi.fn(),
+      updateConsent: vi.fn(),
+    })
+
+    render(
+      <I18nTestWrapper locale="en">
+        <CookieConsentBanner />
+      </I18nTestWrapper>
+    )
+
+    const banner = screen.getByTestId("cookie-consent-banner")
+    expect(banner).toHaveClass("fixed", "bottom-4", "inset-x-4")
+    expect(banner).toHaveClass("md:right-4", "md:w-[28rem]")
+  })
 })

@@ -50,11 +50,12 @@ export function SocialAuthButtons() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Button
           variant="outline"
           type="button"
           onClick={() => handleSocialLogin("google")}
+          className="h-auto min-h-11 justify-start whitespace-normal px-4 py-3 text-left leading-tight"
         >
           <GoogleIcon />
           {t("google")}
@@ -63,6 +64,7 @@ export function SocialAuthButtons() {
           variant="outline"
           type="button"
           onClick={() => handleSocialLogin("github")}
+          className="h-auto min-h-11 justify-start whitespace-normal px-4 py-3 text-left leading-tight"
         >
           <GitHubIcon />
           {t("github")}
