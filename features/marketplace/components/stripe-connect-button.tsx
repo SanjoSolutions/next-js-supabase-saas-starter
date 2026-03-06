@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import {
   createConnectOnboardingLink,
   createConnectLoginLink,
-} from "@/actions/marketplace/stripe-connect"
+} from "@/features/marketplace/actions/stripe-connect"
 
 interface StripeConnectButtonProps {
   organizationId: string

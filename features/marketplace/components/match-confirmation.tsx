@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { useRouter } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
-import { confirmMatch, rejectMatch } from "@/actions/marketplace/matches"
+import { confirmMatch, rejectMatch } from "@/features/marketplace/actions/matches"
 
 interface MatchConfirmationProps {
   matchId: string

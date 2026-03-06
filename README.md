@@ -71,7 +71,7 @@ app/
   [locale]/
     (authenticated)/        # Protected routes (requires login)
       admin/                # Platform admin dashboard
-      marketplace/          # B2B marketplace module
+      marketplace/          # Thin route wrappers for the marketplace module
       organizations/[id]/   # Org settings, billing, members, activity
       invites/              # Invite acceptance flow
       protected/            # Post-login landing
@@ -79,17 +79,21 @@ app/
     auth/                   # Login, signup, password reset, OAuth callback
   api/
     account/export/         # GDPR data export
-    marketplace/listings/   # REST API for listings
-    matching-engine/        # Cron-triggered matching
-    dac7/export/            # DAC7 tax reporting
+    marketplace/listings/   # Thin API wrappers for marketplace endpoints
+    matching-engine/        # Thin wrapper for marketplace matching cron
+    dac7/export/            # Thin wrapper for marketplace DAC7 export
     webhooks/stripe/        # Stripe billing webhooks
-    webhooks/stripe-connect/# Stripe Connect webhooks
-actions/                    # Server Actions
-  marketplace/              # Marketplace-specific actions
-components/                 # React components
+    webhooks/stripe-connect/# Thin wrapper for marketplace Connect webhooks
+components/                 # Shared React components
   ui/                       # shadcn/ui base components
+features/
+  marketplace/             # Self-contained marketplace feature bundle
+    actions/               # Marketplace server actions
+    api/                   # Marketplace API implementations
+    components/            # Marketplace-only UI
+    lib/                   # Marketplace business logic
+    routes/                # Marketplace page implementations
 lib/                        # Shared utilities
-  marketplace/              # Marketplace business logic
   supabase/                 # Supabase client factories
 messages/                   # i18n translation files (en, de)
 stories/                    # Storybook stories
@@ -192,9 +196,10 @@ Toggle features per organization via the `feature_flags` table:
 Each module is self-contained. To remove a module, start with its manifest in `features/<feature>/module.ts`.
 
 For example, to remove marketplace:
-1. Delete the paths listed in `features/marketplace/module.ts`
-2. Remove the `marketplace` entry from `features/registry.ts`
-3. Remove marketplace translation keys from `messages/`
+1. Delete `features/marketplace/`
+2. Delete the thin app and API wrapper paths listed in `features/marketplace/module.ts`
+3. Remove the `marketplace` entry from `features/registry.ts`
+4. Remove marketplace translation keys from `messages/`
 
 The core platform (auth, orgs, billing, credits, notifications) continues to work independently.
 

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/navigation"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { formatEurCents, calculateGross } from "@/lib/marketplace/price"
+import { formatEurCents, calculateGross } from "@/features/marketplace/lib/price"
 import { MapPin, Package, Calendar, ArrowRight } from "lucide-react"
 
 interface ListingCardProps {

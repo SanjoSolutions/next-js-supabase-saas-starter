@@ -2,44 +2,43 @@
 
 import { useState } from "react"
 import { useTranslations } from "next-intl"
+import { useRouter } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { createP2bComplaint } from "@/actions/marketplace/p2b"
+import { createContentReport } from "@/features/marketplace/actions/reports"
 
-export function P2bComplaintForm() {
-  const t = useTranslations("legal.p2b.form")
+export function ReportForm() {
+  const t = useTranslations("marketplace.reports")
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const [organizationId, setOrganizationId] = useState("")
-  const [complaintType, setComplaintType] = useState<"listing_removed" | "account_restricted" | "ranking" | "other">("other")
-  const [subject, setSubject] = useState("")
+  const [listingId, setListingId] = useState("")
+  const [reportType, setReportType] = useState<"illegal_content" | "fraud" | "misleading" | "other">("other")
   const [description, setDescription] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!organizationId) return
-
     setLoading(true)
     setError(null)
     setSuccess(false)
 
     try {
-      await createP2bComplaint({
-        organizationId,
-        complaintType,
-        subject,
+      await createContentReport({
+        listingId: listingId || undefined,
+        reportType,
         description,
       })
       setSuccess(true)
-      setSubject("")
       setDescription("")
+      setListingId("")
+      router.refresh()
     } catch (err) {
-      setError(err instanceof Error ? err.message : t("error"))
+      setError(err instanceof Error ? err.message : t("form.error"))
     } finally {
       setLoading(false)
     }
@@ -49,7 +48,7 @@ export function P2bComplaintForm() {
     <form onSubmit={handleSubmit}>
       <Card>
         <CardHeader>
-          <CardTitle>{t("title")}</CardTitle>
+          <CardTitle>{t("form.title")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {error && (
@@ -59,30 +58,30 @@ export function P2bComplaintForm() {
           )}
           {success && (
             <div className="bg-green-500/10 text-green-600 p-3 rounded-md text-sm">
-              {t("success")}
+              {t("form.success")}
             </div>
           )}
 
           <div className="space-y-2">
-            <Label htmlFor="orgId">{t("organizationId")}</Label>
+            <Label htmlFor="listingId">{t("form.listingId")}</Label>
             <Input
-              id="orgId"
-              value={organizationId}
-              onChange={(e) => setOrganizationId(e.target.value)}
-              required
+              id="listingId"
+              value={listingId}
+              onChange={(e) => setListingId(e.target.value)}
+              placeholder={t("form.optional")}
             />
           </div>
 
           <div className="space-y-2">
-            <Label>{t("type")}</Label>
+            <Label>{t("form.type")}</Label>
             <div className="flex gap-2 flex-wrap">
-              {(["listing_removed", "account_restricted", "ranking", "other"] as const).map((type) => (
+              {(["illegal_content", "fraud", "misleading", "other"] as const).map((type) => (
                 <Button
                   key={type}
                   type="button"
-                  variant={complaintType === type ? "default" : "outline"}
+                  variant={reportType === type ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setComplaintType(type)}
+                  onClick={() => setReportType(type)}
                 >
                   {t(`types.${type}`)}
                 </Button>
@@ -91,28 +90,18 @@ export function P2bComplaintForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="subject">{t("subject")}</Label>
-            <Input
-              id="subject"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              required
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="p2bDescription">{t("description")}</Label>
+            <Label htmlFor="reportDescription">{t("form.description")}</Label>
             <Textarea
-              id="p2bDescription"
+              id="reportDescription"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              rows={5}
+              rows={4}
               required
             />
           </div>
 
           <Button type="submit" disabled={loading}>
-            {loading ? t("submitting") : t("submit")}
+            {loading ? t("form.submitting") : t("form.submit")}
           </Button>
         </CardContent>
       </Card>

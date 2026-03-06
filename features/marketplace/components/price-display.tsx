@@ -1,7 +1,7 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { formatEurCents, calculateVat, calculateGross } from "@/lib/marketplace/price"
+import { formatEurCents, calculateVat, calculateGross } from "@/features/marketplace/lib/price"
 
 interface PriceDisplayProps {
   netCents: number

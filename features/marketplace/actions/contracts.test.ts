@@ -7,7 +7,7 @@ vi.mock("@/lib/auth", () => ({
 }))
 
 // Mock price utility
-vi.mock("@/lib/marketplace/price", () => ({
+vi.mock("@/features/marketplace/lib/price", () => ({
   calculatePriceBreakdown: vi.fn().mockReturnValue({
     netCents: 10000,
     vatRate: 19,

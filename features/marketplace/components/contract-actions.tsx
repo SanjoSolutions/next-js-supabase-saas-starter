@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { useRouter } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
-import { updateContractStatus } from "@/actions/marketplace/contracts"
+import { updateContractStatus } from "@/features/marketplace/actions/contracts"
 
 interface ContractActionsProps {
   contractId: string

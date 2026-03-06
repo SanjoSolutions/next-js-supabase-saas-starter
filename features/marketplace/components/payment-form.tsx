@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl"
 import { useRouter } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { createPaymentForContract } from "@/actions/marketplace/payments"
+import { createPaymentForContract } from "@/features/marketplace/actions/payments"
 
 interface PaymentFormProps {
   contractId: string

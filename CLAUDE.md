@@ -86,7 +86,7 @@ This is a **Next.js 16 + Supabase SaaS Starter** with multi-tenant organizations
 
 - Located in `actions/` and page-level `actions.ts` files
 - Use `"use server"` directive at file top
-- Marketplace actions organized in `actions/marketplace/` subdirectory
+- Marketplace code is bundled under `features/marketplace/`
 
 **Billing:**
 
@@ -134,18 +134,18 @@ The marketplace is a **request-offer matching system** for B2B delivery services
 - Agreed price = midpoint of the overlapping range
 - Run via cron: `POST /api/matching-engine` (auth: `CRON_SECRET` bearer token)
 
-**Contract status transitions** (enforced in `actions/marketplace/contracts.ts`):
+**Contract status transitions** (enforced in `features/marketplace/actions/contracts.ts`):
 
 - Seller-only: `paid→in_progress`, `in_progress→pickup_confirmed`, `pickup_confirmed→delivered`
 - Buyer-only: `delivered→completed`
 
 **Stripe Connect integration:**
 
-- Sellers onboard via `actions/marketplace/stripe-connect.ts`
+- Sellers onboard via `features/marketplace/actions/stripe-connect.ts`
 - Payments use destination charges (buyer pays, platform takes fee, seller gets payout)
 - Webhook at `app/api/webhooks/stripe-connect/route.ts` handles async events
 
-**Price utilities** (`lib/marketplace/price.ts`):
+**Price utilities** (`features/marketplace/lib/price.ts`):
 
 - `calculateVat()`, `calculateGross()`, `calculatePlatformFee()`, `calculateSellerPayout()`, `calculatePriceBreakdown()`
 - `formatEurCents()` — German locale EUR formatting

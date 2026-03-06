@@ -2,7 +2,7 @@
 
 import { createClient } from "@/lib/supabase/server"
 import { requireUser } from "@/lib/auth"
-import { calculatePriceBreakdown } from "@/lib/marketplace/price"
+import { calculatePriceBreakdown } from "@/features/marketplace/lib/price"
 
 export async function createContractFromMatch(matchId: string) {
   const user = await requireUser()
