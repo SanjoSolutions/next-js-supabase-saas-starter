@@ -20,6 +20,7 @@ import {
   UserPlus,
   Plus,
   LogOut,
+  Store,
 } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 
@@ -32,12 +33,14 @@ interface UserMenuProps {
   }
   activeOrgId?: string
   hasActivityDashboard?: boolean
+  hasMarketplace?: boolean
 }
 
 export function UserMenu({
   user,
   activeOrgId,
   hasActivityDashboard,
+  hasMarketplace,
 }: UserMenuProps) {
   const t = useTranslations()
   const router = useRouter()
@@ -111,6 +114,14 @@ export function UserMenu({
                 <CreditCard className="mr-2 h-4 w-4" />
                 <span>{t("nav.billing")}</span>
               </DropdownMenuItem>
+              {hasMarketplace && (
+                <DropdownMenuItem
+                  onClick={() => router.push("/marketplace")}
+                >
+                  <Store className="mr-2 h-4 w-4" />
+                  <span>{t("nav.marketplace")}</span>
+                </DropdownMenuItem>
+              )}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
           </>

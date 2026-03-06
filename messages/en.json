@@ -15,7 +15,8 @@
     "members": "Members",
     "activity": "Activity",
     "billing": "Billing",
-    "createOrganization": "Create Organization"
+    "createOrganization": "Create Organization",
+    "marketplace": "Marketplace"
   },
   "auth": {
     "login": {
@@ -69,6 +70,11 @@
       "title": "Sorry, something went wrong.",
       "codeError": "Code error:",
       "unspecified": "An unspecified error occurred."
+    },
+    "social": {
+      "google": "Continue with Google",
+      "github": "Continue with GitHub",
+      "divider": "or continue with email"
     },
     "button": {
       "greeting": "Hey,",
@@ -222,6 +228,7 @@
     "impressum": "Legal Notice",
     "datenschutz": "Privacy Policy",
     "agb": "Terms & Conditions",
+    "marketplaceTermsLink": "Marketplace Terms",
     "asOf": "As of: [Date]",
     "impressumPage": {
       "title": "Legal Notice",
@@ -373,6 +380,72 @@
         "para2": "(2) If the Customer is a merchant, a legal entity under public law, or a special fund under public law, the exclusive place of jurisdiction is the Provider's registered office.",
         "para3": "(3) Should individual provisions of these GTC be or become invalid, the validity of the remaining provisions shall remain unaffected."
       }
+    },
+    "marketplaceTerms": {
+      "title": "Marketplace Terms & Conditions",
+      "scope": {
+        "title": "1. Scope and Platform Description",
+        "text": "These Marketplace Terms apply to the use of the B2B delivery marketplace platform. The platform enables businesses to post delivery requests and offers, which are matched via an automated double-auction system."
+      },
+      "services": {
+        "title": "2. Services",
+        "text": "The platform provides a marketplace for B2B delivery services. It facilitates the matching of delivery requests (bids) with delivery offers (asks) based on location, timing, package specifications, and price. The platform operator is not a party to delivery contracts."
+      },
+      "matching": {
+        "title": "3. Matching Algorithm Transparency",
+        "text": "Listings are matched based on objective criteria without manual prioritization or paid ranking.",
+        "criteria": "Matching criteria: same pickup and delivery postal codes, same package size, same delivery date, and price compatibility (request price >= offer price). The agreed price is the midpoint between bid and ask. Matches are ranked by smallest price gap."
+      },
+      "fees": {
+        "title": "4. Fees",
+        "text": "The platform charges a service fee calculated as a percentage of the net contract value. The current fee rate is displayed during listing creation and before contract confirmation. All prices are displayed including applicable VAT in compliance with PAngV."
+      },
+      "payments": {
+        "title": "5. Payments",
+        "text": "Payments are processed securely via Stripe Connect. The buyer pays the gross amount (net + VAT). The platform fee is deducted and the remainder is transferred to the seller's Stripe account upon contract completion."
+      },
+      "disputes": {
+        "title": "6. Dispute Resolution",
+        "text": "Either party may file a dispute through the platform's dispute resolution system. The platform will review disputes and facilitate resolution.",
+        "odr": "EU Online Dispute Resolution platform:"
+      },
+      "content": {
+        "title": "7. Content Moderation (DSA Compliance)",
+        "text": "In accordance with the Digital Services Act (EU) 2022/2065, users can report illegal or fraudulent content through the platform's notice-and-action mechanism. Reports are reviewed and appropriate action is taken within a reasonable timeframe. Users are notified of the outcome."
+      },
+      "dac7": {
+        "title": "8. Tax Reporting (DAC7 / PStTG)",
+        "text": "In compliance with EU Directive 2021/514 (DAC7) and the German Plattformen-Steuertransparenzgesetz (PStTG), the platform collects and reports seller income data to the competent tax authority (Bundeszentralamt für Steuern) when reporting thresholds are met."
+      },
+      "p2b": {
+        "title": "9. Platform-to-Business Transparency (P2B Regulation)",
+        "text": "In accordance with EU Regulation 2019/1150, business users have the right to file complaints about platform decisions affecting their business, including listing removals, account restrictions, and ranking changes. Complaints are handled through the P2B internal complaint system."
+      },
+      "liability": {
+        "title": "10. Limitation of Liability",
+        "text": "The platform operator acts as an intermediary and is not liable for the delivery services themselves. Liability is limited to intent and gross negligence. The platform ensures technical availability but does not guarantee successful matching or completion of deliveries."
+      }
+    },
+    "p2b": {
+      "title": "P2B Complaint (Business User)",
+      "description": "As a business user of the marketplace platform, you have the right to file complaints about platform decisions that affect your business, in accordance with EU Regulation 2019/1150.",
+      "form": {
+        "title": "File a Complaint",
+        "organizationId": "Organization ID",
+        "type": "Complaint Type",
+        "types": {
+          "listing_removed": "Listing Removed",
+          "account_restricted": "Account Restricted",
+          "ranking": "Ranking Issue",
+          "other": "Other"
+        },
+        "subject": "Subject",
+        "description": "Description",
+        "submit": "Submit Complaint",
+        "submitting": "Submitting...",
+        "error": "Failed to submit complaint",
+        "success": "Complaint submitted successfully. We will review it and respond within 30 days."
+      }
     }
   },
   "language": {
@@ -391,11 +464,12 @@
       "trustedBy": "Trusted by developers worldwide"
     },
     "features": {
+      "badge": "Features",
       "title": "Everything you need to launch",
       "description": "Stop building the same features over and over. Focus on what makes your product unique.",
       "auth": {
         "title": "Authentication",
-        "description": "Secure email/password auth with email verification, password reset, and session management built-in."
+        "description": "Secure email/password auth with social login (Google, GitHub), email verification, password reset, and session management."
       },
       "teams": {
         "title": "Team Management",
@@ -404,6 +478,10 @@
       "billing": {
         "title": "Subscription Billing",
         "description": "Stripe integration with support for free and paid plans, customer portal, and automatic invoice handling."
+      },
+      "credits": {
+        "title": "Usage-Based Credits",
+        "description": "Atomic credit system with purchase, deduction, and refund operations. Transaction audit trail included."
       },
       "i18n": {
         "title": "Internationalization",
@@ -416,9 +494,45 @@
       "notifications": {
         "title": "In-App Notifications",
         "description": "Real-time notification system to keep users informed about important events and updates."
+      },
+      "admin": {
+        "title": "Admin Dashboard",
+        "description": "Platform-wide admin panel with user stats, revenue metrics, and recent activity monitoring."
+      },
+      "modular": {
+        "title": "Modular Architecture",
+        "description": "Feature flag system lets you enable or disable modules per organization. Keep the core SaaS on by default and turn on optional modules only where needed."
       }
     },
+    "showcase": {
+      "badge": "Built-in Modules",
+      "title": "Production-ready modules included",
+      "description": "Each module is fully implemented with database migrations, server actions, UI components, and tests, and can be enabled independently.",
+      "marketplace": {
+        "title": "B2B Marketplace",
+        "feature1": "Request-offer matching engine with price negotiation",
+        "feature2": "Stripe Connect payments with platform fees",
+        "feature3": "Contract lifecycle with delivery tracking",
+        "feature4": "Dispute resolution and compliance (DSA, DAC7, P2B)"
+      },
+      "compliance": {
+        "title": "Legal & Compliance",
+        "feature1": "GDPR-compliant privacy policy and data export",
+        "feature2": "German legal templates (Impressum, AGB, Datenschutz)",
+        "feature3": "Cookie consent banner with granular controls",
+        "feature4": "EU marketplace regulations (DSA, DAC7, P2B)"
+      }
+    },
+    "techStack": {
+      "title": "Built on a modern stack",
+      "description": "Production-tested technologies that scale with your business.",
+      "nextjs": "React framework with App Router",
+      "supabase": "Postgres, Auth, Realtime, Storage",
+      "stripe": "Subscriptions and Connect",
+      "typescript": "End-to-end type safety"
+    },
     "pricing": {
+      "badge": "Pricing",
       "title": "Simple, transparent pricing",
       "description": "Start for free, upgrade when you need more.",
       "monthly": "Monthly",
@@ -450,10 +564,326 @@
         }
       }
     },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": {
+        "question": "Can I use this for commercial projects?",
+        "answer": "Yes! The codebase is MIT licensed. You can use it for any commercial project, modify it freely, and keep all the revenue."
+      },
+      "q2": {
+        "question": "What's included in the starter?",
+        "answer": "Authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n (English & German), admin dashboard, in-app notifications, legal pages, cookie consent, an optional B2B marketplace module, and comprehensive test suites."
+      },
+      "q3": {
+        "question": "Do I need to use all the features?",
+        "answer": "No. The modular architecture lets you enable or disable features via feature flags. Remove the marketplace module and keep the core SaaS features, or use everything out of the box."
+      },
+      "q4": {
+        "question": "How do I deploy it?",
+        "answer": "Deploy to Vercel with one click, or any platform that supports Next.js. The database runs on Supabase (hosted or self-hosted). Full setup instructions are included."
+      }
+    },
     "cta": {
       "title": "Ready to get started?",
       "description": "Join thousands of developers building with our SaaS starter kit.",
       "button": "Start Building Today"
+    }
+  },
+  "marketplace": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "listings": "Listings",
+      "matches": "Matches",
+      "contracts": "Contracts",
+      "disputes": "Disputes"
+    },
+    "roles": {
+      "buyer": "Buyer",
+      "seller": "Seller",
+      "both": "Buyer & Seller"
+    },
+    "dashboard": {
+      "title": "Marketplace Dashboard",
+      "newListing": "New Listing",
+      "activeListings": "Active Listings",
+      "pendingMatches": "Pending Matches",
+      "activeContracts": "Active Contracts",
+      "viewAll": "View all"
+    },
+    "profile": {
+      "setup": {
+        "title": "Marketplace Profile Setup",
+        "description": "Set up your marketplace profile to start posting delivery requests or offers.",
+        "step": "Step {current} of {total}",
+        "roleDescription": "What would you like to do on the marketplace?",
+        "roles": {
+          "buyer": "Request Deliveries",
+          "buyerDescription": "Post delivery requests for goods you need transported",
+          "seller": "Offer Deliveries",
+          "sellerDescription": "Offer delivery services to fulfill requests",
+          "both": "Both",
+          "bothDescription": "Both request and offer delivery services"
+        },
+        "businessTypes": {
+          "company": "Company",
+          "sole_proprietor": "Sole Proprietor"
+        },
+        "companyName": "Company Name",
+        "taxId": "Tax ID",
+        "vatId": "VAT ID",
+        "streetAddress": "Street Address",
+        "postalCode": "Postal Code",
+        "city": "City",
+        "country": "Country",
+        "contactEmail": "Contact Email",
+        "contactPhone": "Contact Phone",
+        "optional": "Optional",
+        "next": "Next",
+        "back": "Back",
+        "submit": "Create Profile",
+        "saving": "Creating..."
+      },
+      "error": "An error occurred"
+    },
+    "seller": {
+      "onboarding": {
+        "title": "Seller Onboarding",
+        "stripeConnect": "Stripe Connect",
+        "description": "Connect your Stripe account to receive payments for deliveries.",
+        "returnSuccess": "Stripe onboarding progress saved. Please check the status below.",
+        "connected": "Connected",
+        "active": "Active",
+        "incomplete": "Onboarding Incomplete",
+        "pending": "Pending",
+        "notStarted": "Not Started",
+        "chargesEnabled": "Charges Enabled",
+        "payoutsEnabled": "Payouts Enabled",
+        "yes": "Yes",
+        "no": "No",
+        "startOnboarding": "Start Stripe Onboarding",
+        "manageDashboard": "Open Stripe Dashboard",
+        "loading": "Loading..."
+      }
+    },
+    "listings": {
+      "title": "Service Listings",
+      "newListing": "New Listing",
+      "empty": "No listings found",
+      "tabs": {
+        "all": "All",
+        "requests": "Requests",
+        "offers": "Offers",
+        "mine": "My Listings"
+      },
+      "types": {
+        "request": "Delivery Request",
+        "offer": "Delivery Offer"
+      },
+      "status": {
+        "open": "Open",
+        "matched": "Matched",
+        "expired": "Expired",
+        "cancelled": "Cancelled"
+      },
+      "packageSizes": {
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
+        "pallet": "Pallet"
+      },
+      "detail": {
+        "route": "Route",
+        "details": "Details"
+      },
+      "form": {
+        "createTitle": "Create Listing",
+        "basicInfo": "Basic Information",
+        "listingType": "Listing Type",
+        "title": "Title",
+        "description": "Description",
+        "pickup": "Pickup Location",
+        "delivery": "Delivery Location",
+        "street": "Street",
+        "postalCode": "Postal Code",
+        "city": "City",
+        "packageDetails": "Package Details",
+        "packageSize": "Package Size",
+        "weight": "Weight (kg)",
+        "packageDescription": "Package Description",
+        "priceAndSchedule": "Price & Schedule",
+        "priceMin": "Min Price (EUR net)",
+        "priceMax": "Max Price (EUR net)",
+        "priceMinExceedsMax": "Minimum price must not exceed maximum price",
+        "deliveryDate": "Delivery Date",
+        "timeStart": "Time From",
+        "timeEnd": "Time To",
+        "submit": "Create Listing",
+        "saving": "Creating...",
+        "error": "Failed to create listing"
+      }
+    },
+    "price": {
+      "net": "Net",
+      "vat": "VAT ({rate}%)",
+      "gross": "Gross",
+      "grossPrice": "Gross price",
+      "priceBreakdown": "Price breakdown",
+      "range": "{min} - {max}"
+    },
+    "matches": {
+      "title": "Matches",
+      "empty": "No matches found yet",
+      "matchFound": "Match Found",
+      "status": {
+        "proposed": "Proposed",
+        "buyer_confirmed": "Buyer Confirmed",
+        "seller_confirmed": "Seller Confirmed",
+        "confirmed": "Confirmed",
+        "rejected": "Rejected"
+      },
+      "confirm": "Confirm Match",
+      "confirming": "Confirming...",
+      "reject": "Reject",
+      "rejecting": "Rejecting...",
+      "waitingForOther": "Waiting for the other party to confirm",
+      "detail": {
+        "title": "Match Details",
+        "agreedPrice": "Agreed Price",
+        "request": "Delivery Request",
+        "offer": "Delivery Offer"
+      }
+    },
+    "contracts": {
+      "title": "Contracts",
+      "empty": "No contracts yet",
+      "tracking": "Tracking",
+      "counterparty": "Counterparty",
+      "role": "Role",
+      "amount": "Amount",
+      "statusLabel": "Status",
+      "invoice": "Invoice",
+      "buyer": "Buyer",
+      "seller": "Seller",
+      "parties": "Parties",
+      "priceBreakdown": "Price Breakdown",
+      "platformFee": "Platform Fee",
+      "sellerPayout": "Seller Payout",
+      "statusTimeline": "Contract status timeline",
+      "status": {
+        "pending_payment": "Pending Payment",
+        "paid": "Paid",
+        "in_progress": "In Progress",
+        "pickup_confirmed": "Pickup Confirmed",
+        "delivered": "Delivered",
+        "completed": "Completed",
+        "disputed": "Disputed",
+        "resolved": "Resolved",
+        "refunded": "Refunded",
+        "cancelled": "Cancelled"
+      },
+      "actions": {
+        "startWork": "Start Work",
+        "confirmPickup": "Confirm Pickup",
+        "markDelivered": "Mark as Delivered",
+        "confirmComplete": "Confirm Delivery Complete",
+        "fileDispute": "File Dispute"
+      }
+    },
+    "payments": {
+      "title": "Payment",
+      "description": "Secure payment processed via Stripe.",
+      "payNow": "Pay Now ({amount} EUR)",
+      "processing": "Processing...",
+      "error": "Payment failed"
+    },
+    "disputes": {
+      "title": "File a Dispute",
+      "odrNotice": "You may also use the EU Online Dispute Resolution platform:",
+      "status": {
+        "open": "Open",
+        "under_review": "Under Review",
+        "resolved": "Resolved",
+        "dismissed": "Dismissed"
+      },
+      "detail": {
+        "title": "Dispute Details",
+        "contract": "Contract",
+        "resolution": "Resolution"
+      },
+      "form": {
+        "title": "Dispute Details",
+        "contract": "Select Contract",
+        "selectContract": "Choose a contract...",
+        "reason": "Reason",
+        "description": "Detailed Description",
+        "submit": "Submit Dispute",
+        "submitting": "Submitting...",
+        "error": "Failed to submit dispute",
+        "noContracts": "No contracts eligible for dispute"
+      }
+    },
+    "reports": {
+      "title": "Report Content",
+      "myReports": "My Reports",
+      "relatedListing": "Related listing",
+      "types": {
+        "illegal_content": "Illegal Content",
+        "fraud": "Fraud",
+        "misleading": "Misleading",
+        "other": "Other"
+      },
+      "status": {
+        "pending": "Pending",
+        "reviewing": "Under Review",
+        "action_taken": "Action Taken",
+        "dismissed": "Dismissed"
+      },
+      "form": {
+        "title": "Report a Listing",
+        "listingId": "Listing ID",
+        "optional": "Optional",
+        "type": "Report Type",
+        "description": "Description",
+        "submit": "Submit Report",
+        "submitting": "Submitting...",
+        "error": "Failed to submit report",
+        "success": "Report submitted successfully"
+      }
+    }
+  },
+  "onboarding": {
+    "title": "Get Started",
+    "description": "Complete these steps to set up your workspace.",
+    "progress": "{completed} of {total} steps completed",
+    "steps": {
+      "createAccount": "Create your account",
+      "createOrg": "Create an organization",
+      "inviteTeam": "Invite team members",
+      "setupBilling": "Set up billing"
+    },
+    "orgPlaceholder": "Organization name",
+    "create": "Create",
+    "creating": "Creating..."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "description": "Platform-wide statistics and recent activity.",
+    "stats": {
+      "totalUsers": "Total Users",
+      "totalOrganizations": "Total Organizations",
+      "totalRevenue": "Estimated Revenue",
+      "perMonth": "/mo",
+      "activeSubscriptions": "Active Subscriptions"
+    },
+    "recentSignups": {
+      "title": "Recent Signups",
+      "description": "Last 10 users who signed up.",
+      "empty": "No signups yet."
+    },
+    "recentOrganizations": {
+      "title": "Recent Organizations",
+      "description": "Last 10 organizations created.",
+      "empty": "No organizations yet."
     }
   }
 }

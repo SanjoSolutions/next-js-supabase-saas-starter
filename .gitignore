@@ -18,6 +18,8 @@
 /e2e_*.txt
 /test_result.json
 /test_output.log
+/.playwright-cli/
+/.playwright-mcp/
 
 # next.js
 /.next/
@@ -47,5 +49,17 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# storybook
+/storybook-static
+
 # claude code local settings
 .claude/settings.local.json
+
+# sandbox artifacts
+/HEAD
+/config
+/hooks
+/objects
+/refs
+
+/output/

@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test"
 
 test.describe("Internationalization (i18n)", () => {
   test.describe("Locale Routing", () => {
-    test("should redirect root URL to default locale (en)", async ({ page }) => {
+    test("@smoke should redirect root URL to default locale (en)", async ({ page }) => {
       await page.goto("/")
       await page.waitForTimeout(500)
 
@@ -175,7 +175,9 @@ test.describe("Internationalization (i18n)", () => {
       const footer = page.locator("footer")
       await expect(footer.getByRole("link", { name: "Impressum" })).toBeVisible()
       await expect(footer.getByRole("link", { name: "Datenschutz" })).toBeVisible()
-      await expect(footer.getByRole("link", { name: "AGB" })).toBeVisible()
+      await expect(
+        footer.getByRole("link", { name: "AGB", exact: true })
+      ).toBeVisible()
     })
   })
 
@@ -378,7 +380,9 @@ test.describe("Internationalization (i18n)", () => {
       // Check footer links are in German
       await expect(footer.getByRole("link", { name: "Impressum" })).toBeVisible()
       await expect(footer.getByRole("link", { name: "Datenschutz" })).toBeVisible()
-      await expect(footer.getByRole("link", { name: "AGB" })).toBeVisible()
+      await expect(
+        footer.getByRole("link", { name: "AGB", exact: true })
+      ).toBeVisible()
     })
   })
 })

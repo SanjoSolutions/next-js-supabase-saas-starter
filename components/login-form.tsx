@@ -1,6 +1,7 @@
 "use client"
 
 import { FormCard } from "@/components/form-card"
+import { SocialAuthButtons } from "@/components/social-auth-buttons"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -51,6 +52,7 @@ export function LoginForm({
       className={className}
       {...props}
     >
+      <SocialAuthButtons />
       <form onSubmit={handleLogin}>
         <div className="flex flex-col gap-6">
           <div className="grid gap-2">

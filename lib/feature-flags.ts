@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/server"
+import { isFeatureModuleEnabledInCode } from "@/features/config"
+import { getFeatureModule, type FeatureModuleKey } from "@/features/registry"
 
 export async function isFeatureEnabled(featureName: string, organizationId?: string) {
   const supabase = await createClient()
@@ -24,4 +26,28 @@ export async function isFeatureEnabled(featureName: string, organizationId?: str
   }
 
   return !!data
+}
+
+export async function isMarketplaceEnabled(organizationId?: string) {
+  if (!organizationId) {
+    return false
+  }
+
+  return isFeatureModuleEnabled("marketplace", organizationId)
+}
+
+export async function isFeatureModuleEnabled(
+  featureModule: FeatureModuleKey,
+  organizationId?: string
+) {
+  if (!isFeatureModuleEnabledInCode(featureModule)) {
+    return false
+  }
+
+  if (!organizationId) {
+    return false
+  }
+
+  const featureDefinition = getFeatureModule(featureModule)
+  return isFeatureEnabled(featureDefinition.flagName, organizationId)
 }

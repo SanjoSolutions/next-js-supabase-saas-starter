@@ -36,7 +36,9 @@ export default defineConfig({
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 1 : undefined,
+  // Turbopack gets flaky under high local parallelism, so keep the worker
+  // count modest for more stable end-to-end runs.
+  workers: process.env.CI ? 1 : 4,
   reporter: [['html', { open: 'never' }], ['list']],
   timeout: 60 * 1000,
   use: {

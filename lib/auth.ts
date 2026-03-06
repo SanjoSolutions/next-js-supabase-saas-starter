@@ -51,3 +51,41 @@ export async function requireOrgMember(orgId: string) {
 
   return { user, membership, organization }
 }
+
+/**
+ * Checks if the org has a marketplace profile. Redirects to profile setup if not.
+ * Returns user, membership, organization, and marketplace profile.
+ */
+export async function requireMarketplaceProfile(orgId: string) {
+  const { user, membership, organization } = await requireOrgMember(orgId)
+  const supabase = await createClient()
+
+  const { data: profile } = await supabase
+    .from("marketplace_profiles")
+    .select("*")
+    .eq("organization_id", orgId)
+    .single()
+
+  if (!profile) {
+    redirect("/marketplace/profile/setup")
+  }
+
+  return { user, membership, organization, profile }
+}
+
+/**
+ * Checks if the org has an active seller marketplace profile with Stripe Connect.
+ * Redirects to seller onboarding if not ready.
+ */
+export async function requireSellerProfile(orgId: string) {
+  const result = await requireMarketplaceProfile(orgId)
+
+  if (
+    result.profile.marketplace_role === "buyer" ||
+    !result.profile.stripe_connect_onboarded
+  ) {
+    redirect("/marketplace/seller/onboarding")
+  }
+
+  return result
+}

@@ -70,7 +70,8 @@ export async function login(
     await loginButton.click({ force: true })
   }
 
-  await expect(page).toHaveURL(/\/protected/)
+  // After login, user is redirected to marketplace or org creation if no org exists
+  await expect(page).toHaveURL(/\/(marketplace|organizations|protected)/, { timeout: 10000 })
 }
 
 /**
@@ -148,6 +149,9 @@ export async function createOrganization(
   // Support both English and German button text
   const submitButton = page.locator('button:has-text("Create Organization")').or(page.locator('button:has-text("Organisation erstellen")'))
   await submitButton.click()
+  await expect(page).toHaveURL(/\/organizations\/[^/]+\/welcome/, {
+    timeout: 60000,
+  })
   await page.waitForLoadState("networkidle")
   return orgName
 }

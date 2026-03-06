@@ -12,7 +12,7 @@ import {
     TEST_USER,
 } from "./helpers"
 
-test("should create a new organization", async ({ page }) => {
+test("@smoke should create a new organization", async ({ page }) => {
   enableConsoleLogs(page)
 
   // 1. Login
@@ -95,7 +95,6 @@ test("should only show organizations where user is a member", async ({
   // Ensure we're logged in as the new user - wait for protected page redirect or login if needed
   await page.waitForTimeout(1000)
   if (!page.url().includes("/protected")) {
-    // Try to navigate to protected page
     await page.goto("/protected")
     await page.waitForLoadState("networkidle")
     await page.waitForTimeout(500)

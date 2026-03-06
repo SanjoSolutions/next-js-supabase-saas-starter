@@ -15,7 +15,8 @@
     "members": "Mitglieder",
     "activity": "Aktivität",
     "billing": "Abrechnung",
-    "createOrganization": "Organisation erstellen"
+    "createOrganization": "Organisation erstellen",
+    "marketplace": "Marktplatz"
   },
   "auth": {
     "login": {
@@ -69,6 +70,11 @@
       "title": "Entschuldigung, etwas ist schiefgelaufen.",
       "codeError": "Fehlercode:",
       "unspecified": "Ein unbekannter Fehler ist aufgetreten."
+    },
+    "social": {
+      "google": "Weiter mit Google",
+      "github": "Weiter mit GitHub",
+      "divider": "oder weiter mit E-Mail"
     },
     "button": {
       "greeting": "Hallo,",
@@ -222,6 +228,7 @@
     "impressum": "Impressum",
     "datenschutz": "Datenschutz",
     "agb": "AGB",
+    "marketplaceTermsLink": "Marktplatz-AGB",
     "asOf": "Stand: [Datum]",
     "impressumPage": {
       "title": "Impressum",
@@ -373,6 +380,72 @@
         "para2": "(2) Ist der Kunde Kaufmann, juristische Person des öffentlichen Rechts oder öffentlich-rechtliches Sondervermögen, ist ausschließlicher Gerichtsstand der Sitz des Anbieters.",
         "para3": "(3) Sollten einzelne Bestimmungen dieser AGB unwirksam sein oder werden, bleibt die Wirksamkeit der übrigen Bestimmungen unberührt."
       }
+    },
+    "marketplaceTerms": {
+      "title": "Marktplatz-Nutzungsbedingungen",
+      "scope": {
+        "title": "1. Geltungsbereich und Plattformbeschreibung",
+        "text": "Diese Marktplatz-Nutzungsbedingungen gelten für die Nutzung der B2B-Liefermarktplatz-Plattform. Die Plattform ermöglicht es Unternehmen, Lieferanfragen und -angebote zu veröffentlichen, die über ein automatisiertes Doppelauktionssystem abgeglichen werden."
+      },
+      "services": {
+        "title": "2. Leistungen",
+        "text": "Die Plattform bietet einen Marktplatz für B2B-Lieferdienste. Sie ermöglicht den Abgleich von Lieferanfragen (Gebote) mit Lieferangeboten (Offerten) basierend auf Standort, Zeitplanung, Paketspezifikationen und Preis. Der Plattformbetreiber ist nicht Vertragspartei der Lieferverträge."
+      },
+      "matching": {
+        "title": "3. Transparenz des Matching-Algorithmus",
+        "text": "Angebote werden auf Basis objektiver Kriterien ohne manuelle Priorisierung oder bezahltes Ranking abgeglichen.",
+        "criteria": "Abgleichskriterien: gleiche Abhol- und Lieferpostleitzahlen, gleiche Paketgröße, gleiches Lieferdatum und Preiskompatibilität (Anfragepreis >= Angebotspreis). Der vereinbarte Preis ist der Mittelwert zwischen Gebot und Angebot. Übereinstimmungen werden nach kleinstem Preisunterschied sortiert."
+      },
+      "fees": {
+        "title": "4. Gebühren",
+        "text": "Die Plattform erhebt eine Servicegebühr, die als Prozentsatz des Nettovertragswerts berechnet wird. Der aktuelle Gebührensatz wird bei der Angebotserstellung und vor der Vertragsbestätigung angezeigt. Alle Preise werden einschließlich der geltenden MwSt. gemäß PAngV angezeigt."
+      },
+      "payments": {
+        "title": "5. Zahlungen",
+        "text": "Zahlungen werden sicher über Stripe Connect abgewickelt. Der Käufer zahlt den Bruttobetrag (Netto + MwSt.). Die Plattformgebühr wird abgezogen und der Rest wird nach Vertragsabschluss auf das Stripe-Konto des Verkäufers überwiesen."
+      },
+      "disputes": {
+        "title": "6. Streitbeilegung",
+        "text": "Beide Parteien können über das Streitbeilegungssystem der Plattform einen Streitfall melden. Die Plattform prüft Streitfälle und unterstützt bei der Lösung.",
+        "odr": "EU-Plattform zur Online-Streitbeilegung:"
+      },
+      "content": {
+        "title": "7. Inhaltsmoderation (DSA-Konformität)",
+        "text": "Gemäß dem Digital Services Act (EU) 2022/2065 können Nutzer illegale oder betrügerische Inhalte über den Notice-and-Action-Mechanismus der Plattform melden. Meldungen werden geprüft und innerhalb angemessener Frist bearbeitet. Nutzer werden über das Ergebnis informiert."
+      },
+      "dac7": {
+        "title": "8. Steuerliche Meldepflichten (DAC7 / PStTG)",
+        "text": "In Übereinstimmung mit der EU-Richtlinie 2021/514 (DAC7) und dem deutschen Plattformen-Steuertransparenzgesetz (PStTG) erfasst und meldet die Plattform Verkäufereinkommensdaten an die zuständige Steuerbehörde (Bundeszentralamt für Steuern), wenn die Meldeschwellen erreicht werden."
+      },
+      "p2b": {
+        "title": "9. Plattform-zu-Unternehmen-Transparenz (P2B-Verordnung)",
+        "text": "Gemäß der EU-Verordnung 2019/1150 haben gewerbliche Nutzer das Recht, Beschwerden über Plattformentscheidungen einzureichen, die ihr Geschäft betreffen, einschließlich Angebotsentfernungen, Kontobeschränkungen und Ranking-Änderungen."
+      },
+      "liability": {
+        "title": "10. Haftungsbeschränkung",
+        "text": "Der Plattformbetreiber handelt als Vermittler und haftet nicht für die Lieferdienste selbst. Die Haftung ist auf Vorsatz und grobe Fahrlässigkeit beschränkt."
+      }
+    },
+    "p2b": {
+      "title": "P2B-Beschwerde (Gewerblicher Nutzer)",
+      "description": "Als gewerblicher Nutzer der Marktplatz-Plattform haben Sie das Recht, Beschwerden über Plattformentscheidungen einzureichen, die Ihr Geschäft betreffen, gemäß EU-Verordnung 2019/1150.",
+      "form": {
+        "title": "Beschwerde einreichen",
+        "organizationId": "Organisations-ID",
+        "type": "Beschwerdetyp",
+        "types": {
+          "listing_removed": "Angebot entfernt",
+          "account_restricted": "Konto eingeschränkt",
+          "ranking": "Ranking-Problem",
+          "other": "Sonstiges"
+        },
+        "subject": "Betreff",
+        "description": "Beschreibung",
+        "submit": "Beschwerde einreichen",
+        "submitting": "Wird eingereicht...",
+        "error": "Beschwerde konnte nicht eingereicht werden",
+        "success": "Beschwerde erfolgreich eingereicht. Wir werden sie prüfen und innerhalb von 30 Tagen antworten."
+      }
     }
   },
   "language": {
@@ -391,11 +464,12 @@
       "trustedBy": "Von Entwicklern weltweit vertraut"
     },
     "features": {
+      "badge": "Funktionen",
       "title": "Alles, was Sie zum Start brauchen",
       "description": "Hören Sie auf, die gleichen Funktionen immer wieder zu bauen. Konzentrieren Sie sich auf das, was Ihr Produkt einzigartig macht.",
       "auth": {
         "title": "Authentifizierung",
-        "description": "Sichere E-Mail/Passwort-Authentifizierung mit E-Mail-Verifizierung, Passwort-Zurücksetzen und Sitzungsverwaltung."
+        "description": "Sichere E-Mail/Passwort-Authentifizierung mit Social Login (Google, GitHub), E-Mail-Verifizierung, Passwort-Zurücksetzen und Sitzungsverwaltung."
       },
       "teams": {
         "title": "Team-Verwaltung",
@@ -404,6 +478,10 @@
       "billing": {
         "title": "Abonnement-Abrechnung",
         "description": "Stripe-Integration mit Unterstützung für kostenlose und kostenpflichtige Pläne, Kundenportal und automatische Rechnungsverarbeitung."
+      },
+      "credits": {
+        "title": "Nutzungsbasierte Credits",
+        "description": "Atomares Credit-System mit Kauf-, Abbuchungs- und Erstattungsoperationen. Transaktions-Audit-Trail inklusive."
       },
       "i18n": {
         "title": "Internationalisierung",
@@ -416,9 +494,45 @@
       "notifications": {
         "title": "In-App-Benachrichtigungen",
         "description": "Echtzeit-Benachrichtigungssystem, um Benutzer über wichtige Ereignisse und Updates zu informieren."
+      },
+      "admin": {
+        "title": "Admin-Dashboard",
+        "description": "Plattformweites Admin-Panel mit Benutzerstatistiken, Umsatzkennzahlen und Aktivitätsüberwachung."
+      },
+      "modular": {
+        "title": "Modulare Architektur",
+        "description": "Feature-Flag-System ermöglicht das Aktivieren oder Deaktivieren von Modulen pro Organisation. Der SaaS-Kern bleibt Standard, optionale Module schalten Sie nur dort frei, wo sie gebraucht werden."
       }
     },
+    "showcase": {
+      "badge": "Enthaltene Module",
+      "title": "Produktionsfertige Module inklusive",
+      "description": "Jedes Modul ist vollständig implementiert mit Datenbankmigrationen, Server Actions, UI-Komponenten und Tests und kann unabhängig aktiviert werden.",
+      "marketplace": {
+        "title": "B2B-Marktplatz",
+        "feature1": "Angebot-Nachfrage-Matching mit Preisverhandlung",
+        "feature2": "Stripe Connect Zahlungen mit Plattformgebühren",
+        "feature3": "Vertragslebenszyklus mit Lieferverfolgung",
+        "feature4": "Streitbeilegung und Compliance (DSA, DAC7, P2B)"
+      },
+      "compliance": {
+        "title": "Recht & Compliance",
+        "feature1": "DSGVO-konforme Datenschutzerklärung und Datenexport",
+        "feature2": "Deutsche Rechtstexte (Impressum, AGB, Datenschutz)",
+        "feature3": "Cookie-Consent-Banner mit granularen Einstellungen",
+        "feature4": "EU-Marktplatzregulierungen (DSA, DAC7, P2B)"
+      }
+    },
+    "techStack": {
+      "title": "Auf modernem Stack aufgebaut",
+      "description": "Produktionserprobte Technologien, die mit Ihrem Unternehmen skalieren.",
+      "nextjs": "React-Framework mit App Router",
+      "supabase": "Postgres, Auth, Realtime, Storage",
+      "stripe": "Abonnements und Connect",
+      "typescript": "Durchgängige Typsicherheit"
+    },
     "pricing": {
+      "badge": "Preise",
       "title": "Einfache, transparente Preise",
       "description": "Starten Sie kostenlos, upgraden Sie bei Bedarf.",
       "monthly": "Monatlich",
@@ -450,10 +564,326 @@
         }
       }
     },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": {
+        "question": "Kann ich das für kommerzielle Projekte nutzen?",
+        "answer": "Ja! Die Codebasis ist MIT-lizenziert. Sie können sie für jedes kommerzielle Projekt verwenden, frei modifizieren und alle Einnahmen behalten."
+      },
+      "q2": {
+        "question": "Was ist im Starter enthalten?",
+        "answer": "Authentifizierung, Multi-Tenant-Organisationen, Stripe-Abrechnung, nutzungsbasierte Credits, i18n (Englisch & Deutsch), Admin-Dashboard, In-App-Benachrichtigungen, Rechtstexte, Cookie-Consent, ein optionales B2B-Marktplatz-Modul und umfassende Test-Suites."
+      },
+      "q3": {
+        "question": "Muss ich alle Funktionen nutzen?",
+        "answer": "Nein. Die modulare Architektur ermöglicht es, Funktionen über Feature Flags zu aktivieren oder deaktivieren. Entfernen Sie das Marktplatz-Modul und behalten Sie die Kern-SaaS-Funktionen, oder nutzen Sie alles sofort einsatzbereit."
+      },
+      "q4": {
+        "question": "Wie deploye ich es?",
+        "answer": "Deployen Sie mit einem Klick auf Vercel oder jeder Plattform, die Next.js unterstützt. Die Datenbank läuft auf Supabase (gehostet oder self-hosted). Vollständige Einrichtungsanleitungen sind enthalten."
+      }
+    },
     "cta": {
       "title": "Bereit loszulegen?",
       "description": "Schließen Sie sich Tausenden von Entwicklern an, die mit unserem SaaS-Starter-Kit bauen.",
       "button": "Heute mit dem Bauen beginnen"
+    }
+  },
+  "marketplace": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "listings": "Angebote",
+      "matches": "Übereinstimmungen",
+      "contracts": "Verträge",
+      "disputes": "Streitfälle"
+    },
+    "roles": {
+      "buyer": "Käufer",
+      "seller": "Verkäufer",
+      "both": "Käufer & Verkäufer"
+    },
+    "dashboard": {
+      "title": "Marktplatz-Dashboard",
+      "newListing": "Neues Angebot",
+      "activeListings": "Aktive Angebote",
+      "pendingMatches": "Offene Übereinstimmungen",
+      "activeContracts": "Aktive Verträge",
+      "viewAll": "Alle anzeigen"
+    },
+    "profile": {
+      "setup": {
+        "title": "Marktplatz-Profil einrichten",
+        "description": "Richten Sie Ihr Marktplatz-Profil ein, um Lieferanfragen oder -angebote zu erstellen.",
+        "step": "Schritt {current} von {total}",
+        "roleDescription": "Was möchten Sie auf dem Marktplatz tun?",
+        "roles": {
+          "buyer": "Lieferungen anfragen",
+          "buyerDescription": "Veröffentlichen Sie Lieferanfragen für Waren, die Sie transportieren lassen möchten",
+          "seller": "Lieferungen anbieten",
+          "sellerDescription": "Bieten Sie Lieferdienste an, um Anfragen zu erfüllen",
+          "both": "Beides",
+          "bothDescription": "Sowohl Lieferungen anfragen als auch anbieten"
+        },
+        "businessTypes": {
+          "company": "Unternehmen",
+          "sole_proprietor": "Einzelunternehmer"
+        },
+        "companyName": "Firmenname",
+        "taxId": "Steuernummer",
+        "vatId": "USt-IdNr.",
+        "streetAddress": "Straße und Hausnummer",
+        "postalCode": "Postleitzahl",
+        "city": "Stadt",
+        "country": "Land",
+        "contactEmail": "Kontakt-E-Mail",
+        "contactPhone": "Kontakttelefon",
+        "optional": "Optional",
+        "next": "Weiter",
+        "back": "Zurück",
+        "submit": "Profil erstellen",
+        "saving": "Wird erstellt..."
+      },
+      "error": "Ein Fehler ist aufgetreten"
+    },
+    "seller": {
+      "onboarding": {
+        "title": "Verkäufer-Einrichtung",
+        "stripeConnect": "Stripe Connect",
+        "description": "Verbinden Sie Ihr Stripe-Konto, um Zahlungen für Lieferungen zu erhalten.",
+        "returnSuccess": "Stripe-Einrichtungsfortschritt gespeichert. Bitte prüfen Sie den Status unten.",
+        "connected": "Verbunden",
+        "active": "Aktiv",
+        "incomplete": "Einrichtung unvollständig",
+        "pending": "Ausstehend",
+        "notStarted": "Nicht gestartet",
+        "chargesEnabled": "Zahlungen aktiviert",
+        "payoutsEnabled": "Auszahlungen aktiviert",
+        "yes": "Ja",
+        "no": "Nein",
+        "startOnboarding": "Stripe-Einrichtung starten",
+        "manageDashboard": "Stripe-Dashboard öffnen",
+        "loading": "Laden..."
+      }
+    },
+    "listings": {
+      "title": "Serviceangebote",
+      "newListing": "Neues Angebot",
+      "empty": "Keine Angebote gefunden",
+      "tabs": {
+        "all": "Alle",
+        "requests": "Anfragen",
+        "offers": "Angebote",
+        "mine": "Meine Angebote"
+      },
+      "types": {
+        "request": "Lieferanfrage",
+        "offer": "Lieferangebot"
+      },
+      "status": {
+        "open": "Offen",
+        "matched": "Zugeordnet",
+        "expired": "Abgelaufen",
+        "cancelled": "Storniert"
+      },
+      "packageSizes": {
+        "small": "Klein",
+        "medium": "Mittel",
+        "large": "Groß",
+        "pallet": "Palette"
+      },
+      "detail": {
+        "route": "Route",
+        "details": "Details"
+      },
+      "form": {
+        "createTitle": "Angebot erstellen",
+        "basicInfo": "Grundinformationen",
+        "listingType": "Angebotstyp",
+        "title": "Titel",
+        "description": "Beschreibung",
+        "pickup": "Abholort",
+        "delivery": "Lieferort",
+        "street": "Straße",
+        "postalCode": "PLZ",
+        "city": "Stadt",
+        "packageDetails": "Paketdetails",
+        "packageSize": "Paketgröße",
+        "weight": "Gewicht (kg)",
+        "packageDescription": "Paketbeschreibung",
+        "priceAndSchedule": "Preis & Zeitplan",
+        "priceMin": "Mindestpreis (EUR netto)",
+        "priceMax": "Höchstpreis (EUR netto)",
+        "priceMinExceedsMax": "Der Mindestpreis darf den Höchstpreis nicht überschreiten",
+        "deliveryDate": "Lieferdatum",
+        "timeStart": "Zeit von",
+        "timeEnd": "Zeit bis",
+        "submit": "Angebot erstellen",
+        "saving": "Wird erstellt...",
+        "error": "Angebot konnte nicht erstellt werden"
+      }
+    },
+    "price": {
+      "net": "Netto",
+      "vat": "MwSt. ({rate}%)",
+      "gross": "Brutto",
+      "grossPrice": "Bruttopreis",
+      "priceBreakdown": "Preisaufschlüsselung",
+      "range": "{min} - {max}"
+    },
+    "matches": {
+      "title": "Übereinstimmungen",
+      "empty": "Noch keine Übereinstimmungen gefunden",
+      "matchFound": "Übereinstimmung gefunden",
+      "status": {
+        "proposed": "Vorgeschlagen",
+        "buyer_confirmed": "Käufer bestätigt",
+        "seller_confirmed": "Verkäufer bestätigt",
+        "confirmed": "Bestätigt",
+        "rejected": "Abgelehnt"
+      },
+      "confirm": "Übereinstimmung bestätigen",
+      "confirming": "Wird bestätigt...",
+      "reject": "Ablehnen",
+      "rejecting": "Wird abgelehnt...",
+      "waitingForOther": "Warten auf Bestätigung der Gegenpartei",
+      "detail": {
+        "title": "Übereinstimmungsdetails",
+        "agreedPrice": "Vereinbarter Preis",
+        "request": "Lieferanfrage",
+        "offer": "Lieferangebot"
+      }
+    },
+    "contracts": {
+      "title": "Verträge",
+      "empty": "Noch keine Verträge",
+      "tracking": "Sendungsverfolgung",
+      "counterparty": "Gegenpartei",
+      "role": "Rolle",
+      "amount": "Betrag",
+      "statusLabel": "Status",
+      "invoice": "Rechnung",
+      "buyer": "Käufer",
+      "seller": "Verkäufer",
+      "parties": "Parteien",
+      "priceBreakdown": "Preisaufschlüsselung",
+      "platformFee": "Plattformgebühr",
+      "sellerPayout": "Verkäuferauszahlung",
+      "statusTimeline": "Vertragsstatus-Zeitleiste",
+      "status": {
+        "pending_payment": "Zahlung ausstehend",
+        "paid": "Bezahlt",
+        "in_progress": "In Bearbeitung",
+        "pickup_confirmed": "Abholung bestätigt",
+        "delivered": "Zugestellt",
+        "completed": "Abgeschlossen",
+        "disputed": "Streitfall",
+        "resolved": "Gelöst",
+        "refunded": "Erstattet",
+        "cancelled": "Storniert"
+      },
+      "actions": {
+        "startWork": "Arbeit beginnen",
+        "confirmPickup": "Abholung bestätigen",
+        "markDelivered": "Als zugestellt markieren",
+        "confirmComplete": "Lieferung bestätigen",
+        "fileDispute": "Streitfall melden"
+      }
+    },
+    "payments": {
+      "title": "Zahlung",
+      "description": "Sichere Zahlung über Stripe.",
+      "payNow": "Jetzt zahlen ({amount} EUR)",
+      "processing": "Wird verarbeitet...",
+      "error": "Zahlung fehlgeschlagen"
+    },
+    "disputes": {
+      "title": "Streitfall melden",
+      "odrNotice": "Sie können auch die EU-Plattform zur Online-Streitbeilegung nutzen:",
+      "status": {
+        "open": "Offen",
+        "under_review": "In Prüfung",
+        "resolved": "Gelöst",
+        "dismissed": "Abgewiesen"
+      },
+      "detail": {
+        "title": "Streitfalldetails",
+        "contract": "Vertrag",
+        "resolution": "Lösung"
+      },
+      "form": {
+        "title": "Streitfalldetails",
+        "contract": "Vertrag auswählen",
+        "selectContract": "Vertrag wählen...",
+        "reason": "Grund",
+        "description": "Detaillierte Beschreibung",
+        "submit": "Streitfall einreichen",
+        "submitting": "Wird eingereicht...",
+        "error": "Streitfall konnte nicht eingereicht werden",
+        "noContracts": "Keine Verträge für Streitfall verfügbar"
+      }
+    },
+    "reports": {
+      "title": "Inhalt melden",
+      "myReports": "Meine Meldungen",
+      "relatedListing": "Zugehöriges Angebot",
+      "types": {
+        "illegal_content": "Illegaler Inhalt",
+        "fraud": "Betrug",
+        "misleading": "Irreführend",
+        "other": "Sonstiges"
+      },
+      "status": {
+        "pending": "Ausstehend",
+        "reviewing": "In Prüfung",
+        "action_taken": "Maßnahme ergriffen",
+        "dismissed": "Abgewiesen"
+      },
+      "form": {
+        "title": "Angebot melden",
+        "listingId": "Angebots-ID",
+        "optional": "Optional",
+        "type": "Meldetyp",
+        "description": "Beschreibung",
+        "submit": "Meldung einreichen",
+        "submitting": "Wird eingereicht...",
+        "error": "Meldung konnte nicht eingereicht werden",
+        "success": "Meldung erfolgreich eingereicht"
+      }
+    }
+  },
+  "onboarding": {
+    "title": "Erste Schritte",
+    "description": "Schließen Sie diese Schritte ab, um Ihren Arbeitsbereich einzurichten.",
+    "progress": "{completed} von {total} Schritten abgeschlossen",
+    "steps": {
+      "createAccount": "Konto erstellen",
+      "createOrg": "Organisation erstellen",
+      "inviteTeam": "Teammitglieder einladen",
+      "setupBilling": "Abrechnung einrichten"
+    },
+    "orgPlaceholder": "Organisationsname",
+    "create": "Erstellen",
+    "creating": "Wird erstellt..."
+  },
+  "admin": {
+    "title": "Admin-Dashboard",
+    "description": "Plattformweite Statistiken und aktuelle Aktivitaeten.",
+    "stats": {
+      "totalUsers": "Benutzer gesamt",
+      "totalOrganizations": "Organisationen gesamt",
+      "totalRevenue": "Geschaetzter Umsatz",
+      "perMonth": "/Monat",
+      "activeSubscriptions": "Aktive Abonnements"
+    },
+    "recentSignups": {
+      "title": "Neueste Anmeldungen",
+      "description": "Die letzten 10 registrierten Benutzer.",
+      "empty": "Noch keine Anmeldungen."
+    },
+    "recentOrganizations": {
+      "title": "Neueste Organisationen",
+      "description": "Die letzten 10 erstellten Organisationen.",
+      "empty": "Noch keine Organisationen."
     }
   }
 }

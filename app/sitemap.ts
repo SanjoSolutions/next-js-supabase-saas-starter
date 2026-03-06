@@ -1,0 +1,36 @@
+import type { MetadataRoute } from "next"
+import { isFeatureModuleEnabledInCode } from "@/features/config"
+import { routing } from "@/i18n/routing"
+import { getAppUrl } from "@/lib/app-url"
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = getAppUrl()
+
+  const staticPages = [
+    "",
+    "/auth/login",
+    "/auth/sign-up",
+    "/legal-notice",
+    "/privacy-policy",
+    "/terms",
+  ]
+
+  if (isFeatureModuleEnabledInCode("marketplace")) {
+    staticPages.push("/marketplace-terms")
+  }
+
+  const entries: MetadataRoute.Sitemap = []
+
+  for (const locale of routing.locales) {
+    for (const page of staticPages) {
+      entries.push({
+        url: `${baseUrl}/${locale}${page}`,
+        lastModified: new Date(),
+        changeFrequency: page === "" ? "weekly" : "monthly",
+        priority: page === "" ? 1 : 0.5,
+      })
+    }
+  }
+
+  return entries
+}

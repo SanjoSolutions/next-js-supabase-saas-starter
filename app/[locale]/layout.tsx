@@ -6,16 +6,29 @@ import { notFound } from "next/navigation"
 import { CookieConsentProvider } from "@/components/cookie-consent/cookie-consent-provider"
 import { CookieConsentBanner } from "@/components/cookie-consent/cookie-consent-banner"
 import { routing } from "@/i18n/routing"
+import { getAppUrl } from "@/lib/app-url"
 import "../globals.css"
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000"
-
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  metadataBase: new URL(getAppUrl()),
+  title: {
+    default: "Next.js + Supabase SaaS Starter",
+    template: "%s | SaaS Starter",
+  },
+  description:
+    "Production-ready SaaS starter kit with authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n, and an optional B2B marketplace module.",
+  openGraph: {
+    title: "Next.js + Supabase SaaS Starter",
+    description:
+      "Ship your SaaS in days, not months. Auth, billing, teams, and optional feature modules like marketplace.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Next.js + Supabase SaaS Starter",
+    description:
+      "Ship your SaaS in days, not months. Auth, billing, teams, and optional feature modules like marketplace.",
+  },
 }
 
 const geistSans = Geist({

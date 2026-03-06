@@ -1,9 +1,11 @@
 import { Link } from "@/i18n/navigation"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { isFeatureModuleEnabledInCode } from "@/features/config"
 import { getTranslations } from "next-intl/server"
 
 export async function Footer() {
   const t = await getTranslations()
+  const hasMarketplaceModule = isFeatureModuleEnabledInCode("marketplace")
 
   return (
     <footer className="w-full flex items-center justify-between border-t mx-auto text-xs py-8 px-4 max-w-5xl">
@@ -26,6 +28,14 @@ export async function Footer() {
         >
           {t("legal.agb")}
         </Link>
+        {hasMarketplaceModule && (
+          <Link
+            href="/marketplace-terms"
+            className="text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {t("legal.marketplaceTermsLink")}
+          </Link>
+        )}
       </nav>
       <LanguageSwitcher />
     </footer>

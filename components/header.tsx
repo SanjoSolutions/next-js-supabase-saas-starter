@@ -1,5 +1,5 @@
 import { EnvVarWarning } from "@/components/env-var-warning"
-import { isFeatureEnabled } from "@/lib/feature-flags"
+import { isFeatureEnabled, isMarketplaceEnabled } from "@/lib/feature-flags"
 import { createClient } from "@/lib/supabase/server"
 import { hasEnvVars } from "@/lib/utils"
 import { cookies } from "next/headers"
@@ -42,6 +42,8 @@ export async function Header() {
     ? await isFeatureEnabled("advanced_analytics", activeOrgId)
     : false
 
+  const hasMarketplace = await isMarketplaceEnabled(activeOrgId)
+
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-14">
       <div className="w-full max-w-5xl flex justify-between items-center px-4 text-sm">
@@ -82,6 +84,7 @@ export async function Header() {
                 }}
                 activeOrgId={activeOrgId}
                 hasActivityDashboard={hasActivityDashboard}
+                hasMarketplace={hasMarketplace}
               />
             </Suspense>
           </div>
