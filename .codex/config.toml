@@ -1,0 +1,12 @@
+# Project-local Codex settings for this repository.
+# Synced from .mcp.json for Codex CLI.
+
+[mcp_servers."supabase-local"]
+url = "http://127.0.0.1:54321/mcp"
+
+[mcp_servers."next-devtools"]
+command = "npx"
+args = ["-y", "next-devtools-mcp@latest"]
+
+[mcp_servers."stripe"]
+url = "https://mcp.stripe.com/"
