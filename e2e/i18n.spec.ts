@@ -175,7 +175,9 @@ test.describe("Internationalization (i18n)", () => {
       const footer = page.locator("footer")
       await expect(footer.getByRole("link", { name: "Impressum" })).toBeVisible()
       await expect(footer.getByRole("link", { name: "Datenschutz" })).toBeVisible()
-      await expect(footer.getByRole("link", { name: "AGB" })).toBeVisible()
+      await expect(
+        footer.getByRole("link", { name: "AGB", exact: true })
+      ).toBeVisible()
     })
   })
 
@@ -378,7 +380,9 @@ test.describe("Internationalization (i18n)", () => {
       // Check footer links are in German
       await expect(footer.getByRole("link", { name: "Impressum" })).toBeVisible()
       await expect(footer.getByRole("link", { name: "Datenschutz" })).toBeVisible()
-      await expect(footer.getByRole("link", { name: "AGB" })).toBeVisible()
+      await expect(
+        footer.getByRole("link", { name: "AGB", exact: true })
+      ).toBeVisible()
     })
   })
 })

@@ -10,9 +10,9 @@ test.describe("Marketplace legal pages", () => {
 
     // Should display marketplace terms content
     await expect(
-      page
-        .locator("text=Marketplace Terms")
-        .or(page.locator("text=Marktplatz-Nutzungsbedingungen"))
+      page.getByRole("heading", {
+        name: /Marketplace Terms & Conditions|Marktplatz-Nutzungsbedingungen/,
+      })
     ).toBeVisible({ timeout: 10000 })
   })
 

@@ -3,6 +3,7 @@
 import { stripe } from "@/lib/stripe"
 import { createClient } from "@/lib/supabase/server"
 import { requireUser } from "@/lib/auth"
+import { getAppUrl } from "@/lib/app-url"
 
 export async function createConnectOnboardingLink(organizationId: string) {
   const user = await requireUser()
@@ -50,7 +51,7 @@ export async function createConnectOnboardingLink(organizationId: string) {
       .eq("organization_id", organizationId)
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(":54321", ":3000")
+  const baseUrl = getAppUrl()
 
   const accountLink = await stripe.accountLinks.create({
     account: accountId,

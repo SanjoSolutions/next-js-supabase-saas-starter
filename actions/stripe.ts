@@ -2,6 +2,7 @@
 
 import { stripe } from "@/lib/stripe"
 import { createClient } from "@/lib/supabase/server"
+import { getAppUrl } from "@/lib/app-url"
 import { redirect } from "next/navigation"
 
 export async function createCheckoutSession(orgId: string) {
@@ -33,6 +34,7 @@ export async function createCheckoutSession(orgId: string) {
     .single()
 
   const priceId = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID!
+  const appUrl = getAppUrl()
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -46,8 +48,8 @@ export async function createCheckoutSession(orgId: string) {
       ],
       customer: org?.stripe_customer_id || undefined,
       customer_email: org?.stripe_customer_id ? undefined : user.email,
-      success_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(":54321", ":3000")}/organizations/${orgId}/billing?success=true`,
-      cancel_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(":54321", ":3000")}/organizations/${orgId}/billing?canceled=true`,
+      success_url: `${appUrl}/organizations/${orgId}/billing?success=true`,
+      cancel_url: `${appUrl}/organizations/${orgId}/billing?canceled=true`,
       metadata: {
           orgId,
       }
@@ -94,7 +96,7 @@ export async function createCustomerPortalSession(orgId: string) {
 
     const session = await stripe.billingPortal.sessions.create({
         customer: org.stripe_customer_id,
-        return_url: `${process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(":54321", ":3000")}/organizations/${orgId}/billing`,
+        return_url: `${getAppUrl()}/organizations/${orgId}/billing`,
     })
 
     if (session.url) {

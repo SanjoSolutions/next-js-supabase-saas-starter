@@ -1,10 +1,9 @@
 import type { MetadataRoute } from "next"
 import { routing } from "@/i18n/routing"
+import { getAppUrl } from "@/lib/app-url"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000"
+  const baseUrl = getAppUrl()
 
   const staticPages = [
     "",

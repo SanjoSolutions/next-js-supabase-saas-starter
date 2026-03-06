@@ -100,7 +100,6 @@ test.describe("Activity Dashboard", () => {
 
     // Sign up and create org
     await signUp(page, { email, firstName: "FreeUser", password })
-    await login(page, email, password)
     await createOrganization(page, "Free Org")
 
     // Wait for welcome page and extract org ID
@@ -129,7 +128,6 @@ test.describe("Activity Dashboard", () => {
 
     // Sign up and create org
     await signUp(page, { email, firstName: "ProUser", password })
-    await login(page, email, password)
     await createOrganization(page, "Pro Org")
 
     // Wait for welcome page and extract org ID
@@ -171,7 +169,6 @@ test.describe("Activity Dashboard", () => {
 
     // Sign up and create org
     await signUp(page, { email, firstName: "NavUser", password })
-    await login(page, email, password)
     await createOrganization(page, "Nav Org")
 
     await page.waitForURL(/\/organizations\/.*\/welcome/)

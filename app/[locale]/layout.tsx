@@ -6,14 +6,11 @@ import { notFound } from "next/navigation"
 import { CookieConsentProvider } from "@/components/cookie-consent/cookie-consent-provider"
 import { CookieConsentBanner } from "@/components/cookie-consent/cookie-consent-banner"
 import { routing } from "@/i18n/routing"
+import { getAppUrl } from "@/lib/app-url"
 import "../globals.css"
 
-const defaultUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000"
-
 export const metadata: Metadata = {
-  metadataBase: new URL(defaultUrl),
+  metadataBase: new URL(getAppUrl()),
   title: {
     default: "Next.js + Supabase SaaS Starter",
     template: "%s | SaaS Starter",
