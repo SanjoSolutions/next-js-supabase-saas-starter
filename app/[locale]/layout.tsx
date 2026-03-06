@@ -14,8 +14,24 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: {
+    default: "Next.js + Supabase SaaS Starter",
+    template: "%s | SaaS Starter",
+  },
+  description:
+    "Production-ready SaaS starter kit with authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n, and a full B2B marketplace module.",
+  openGraph: {
+    title: "Next.js + Supabase SaaS Starter",
+    description:
+      "Ship your SaaS in days, not months. Auth, billing, teams, marketplace, and more.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Next.js + Supabase SaaS Starter",
+    description:
+      "Ship your SaaS in days, not months. Auth, billing, teams, marketplace, and more.",
+  },
 }
 
 const geistSans = Geist({

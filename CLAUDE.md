@@ -11,11 +11,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-pnpm dev          # Start Next.js dev server
-pnpm build        # Production build
-pnpm lint         # Run ESLint
-pnpm test         # Run Vitest unit tests
-pnpm test:e2e     # Run Playwright E2E tests
+pnpm dev              # Start Next.js dev server
+pnpm build            # Production build
+pnpm lint             # Run ESLint
+pnpm test             # Run Vitest unit tests
+pnpm test:e2e         # Run Playwright E2E tests
+pnpm storybook        # Start Storybook UI catalog
+pnpm build-storybook  # Build static Storybook
 ```
 
 Run a single test file:
@@ -34,7 +36,7 @@ npx supabase db push  # Apply migrations
 
 ## Architecture
 
-This is a **Next.js 16 + Supabase SaaS Starter** with multi-tenant organizations, Stripe billing, role-based access, i18n support, and a **B2B delivery gig marketplace**.
+This is a **Next.js 16 + Supabase SaaS Starter** with multi-tenant organizations, Stripe billing, usage-based credits, role-based access, i18n support, admin dashboard, and a **B2B delivery gig marketplace**.
 
 ### Key Patterns
 
@@ -45,8 +47,10 @@ This is a **Next.js 16 + Supabase SaaS Starter** with multi-tenant organizations
   - `requireOrgMember(orgId)` — redirects to `/protected` if not a member
   - `requireMarketplaceProfile(orgId)` — redirects to `/marketplace/profile/setup` if no profile
   - `requireSellerProfile(orgId)` — redirects to `/marketplace/seller/onboarding` if not onboarded
+- `lib/admin.ts` exports `requireAdmin()` — checks `ADMIN_USER_IDS` env var, redirects to `/protected` if not admin
 - Cookie-based auth via `@supabase/ssr` — use `createClient()` from `lib/supabase/server.ts` in Server Components/Actions
 - `lib/supabase/admin.ts` bypasses RLS — only use in webhooks and cron jobs
+- Social auth (Google, GitHub) via Supabase OAuth — callback at `/auth/callback`
 - Default post-login redirect is `/marketplace` (not `/protected`)
 
 **Multi-Tenancy:**
@@ -54,6 +58,14 @@ This is a **Next.js 16 + Supabase SaaS Starter** with multi-tenant organizations
 - All data scoped by `organization_id` with Row-Level Security (RLS)
 - Users have memberships with roles: `owner`, `admin`, `member`
 - Active org stored in cookie (`active_org_id`)
+
+**Usage-Based Credits:**
+
+- `lib/credits.ts` exports `getBalance()`, `deductCredits()`, `addCredits()`, `getTransactions()`
+- Atomic operations via PostgreSQL `deduct_credits()` / `add_credits()` functions (row-level locking)
+- `credits` table per organization, `credit_transactions` audit trail
+- Server actions in `actions/credits.ts`
+- Auto-created when organization is created (trigger)
 
 **Internationalization (i18n):**
 
@@ -81,6 +93,19 @@ This is a **Next.js 16 + Supabase SaaS Starter** with multi-tenant organizations
 - `lib/feature-flags.ts` exports `isFeatureEnabled(name, orgId)`
 - Gates Pro-only features like Activity Dashboard
 - `marketplace_access` flag gates the marketplace
+
+**API Utilities:**
+
+- `lib/api.ts` exports `authenticateApiRequest()` for Bearer token auth in API routes
+- `rateLimit()` and `rateLimitResponse()` for in-memory rate limiting
+- For production, replace in-memory store with Redis
+
+### Admin Dashboard
+
+- Route: `app/[locale]/(authenticated)/admin/page.tsx`
+- Access controlled by `ADMIN_USER_IDS` env var (comma-separated user UUIDs)
+- Shows: total users, organizations, revenue estimate, active subscriptions
+- Recent signups and organizations lists
 
 ### Marketplace Architecture
 
@@ -122,6 +147,7 @@ The marketplace is a **request-offer matching system** for B2B delivery services
 
 - `POST /api/marketplace/listings` — Create listing. Auth: Bearer token. Validates fields, membership, marketplace profile, role/Stripe requirements.
 - `POST /api/matching-engine` — Run matching engine. Auth: `CRON_SECRET` bearer token.
+- `POST /api/account/export` — GDPR data export (returns JSON file download).
 - `POST /api/dac7/export` — DAC7 tax export.
 - `POST /api/webhooks/stripe` — Stripe billing webhooks.
 - `POST /api/webhooks/stripe-connect` — Stripe Connect webhooks.
@@ -129,8 +155,9 @@ The marketplace is a **request-offer matching system** for B2B delivery services
 ### Route Structure
 
 - `app/[locale]/(authenticated)/` — Protected routes (requires login)
+- `app/[locale]/(authenticated)/admin/` — Platform admin dashboard
 - `app/[locale]/(authenticated)/marketplace/` — Marketplace routes (dashboard, listings, matches, contracts, disputes)
-- `app/[locale]/auth/` — Login, signup, password reset
+- `app/[locale]/auth/` — Login, signup, password reset, OAuth callback
 - `app/[locale]/(legal)/` — Impressum, Datenschutz, AGB, Marketplace Terms
 - `app/api/` — REST API and webhook handlers
 - `proxy.ts` — Combined i18n middleware and Supabase session handling
@@ -145,6 +172,8 @@ Migrations in `supabase/migrations/`. Key tables:
 - `activity_logs` — Audit trail (auto-populated by triggers)
 - `feature_flags` — Per-org feature toggles
 - `notifications` — In-app notifications
+- `credits` — Per-org credit balance (auto-created via trigger)
+- `credit_transactions` — Credit audit trail (purchase, usage, refund, bonus, adjustment)
 - `marketplace_profiles` — Marketplace role, business info, Stripe Connect
 - `service_listings` — Delivery requests/offers with price ranges
 - `order_matches` — Matched request-offer pairs with confirmation state machine
@@ -156,6 +185,7 @@ Migrations in `supabase/migrations/`. Key tables:
 - Unit tests: Vitest with jsdom, co-located with components (e.g., `component.test.tsx`)
 - E2E tests: Playwright in `e2e/`, uses `.env.local` for test credentials
 - Database security tests: pgTAP in `supabase/tests/database`
+- UI component catalog: Storybook in `stories/`
 - i18n test wrapper: `I18nTestWrapper` in `test/utils/i18n-test-wrapper.tsx`
 - E2E helpers in `e2e/helpers.ts`: `loginAsTestUser()`, `signUp()`, `createOrganization()`, `acceptInvite()`, `generateTestEmail()`
 - Default test user: `test@example.com` / `password123`

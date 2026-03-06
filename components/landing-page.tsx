@@ -12,11 +12,18 @@ import {
   ArrowRight,
   Bell,
   Check,
+  Code2,
   CreditCard,
   Database,
   Globe,
+  KeyRound,
+  LayoutDashboard,
+  Puzzle,
   Shield,
+  ShoppingBag,
+  Sparkles,
   Users,
+  Zap,
 } from "lucide-react"
 import { getTranslations } from "next-intl/server"
 
@@ -27,37 +34,47 @@ export async function LandingPage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto text-center">
-          <Badge variant="secondary" className="mb-4">
+          <Badge variant="secondary" className="mb-4 px-4 py-1.5 text-sm">
             {t("hero.badge")}
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 leading-tight">
             {t("hero.title")}{" "}
-            <span className="text-primary">{t("hero.titleHighlight")}</span>
+            <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              {t("hero.titleHighlight")}
+            </span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             {t("hero.description")}
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="text-base">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button asChild size="lg" className="text-base px-8">
               <Link href="/auth/sign-up">
                 {t("hero.cta")}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="text-base">
+            <Button asChild variant="outline" size="lg" className="text-base px-8">
               <Link href="/auth/login">{t("hero.ctaSecondary")}</Link>
             </Button>
           </div>
+          <p className="text-sm text-muted-foreground">
+            {t("hero.trustedBy")}
+          </p>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 px-4 bg-muted/50">
+      <section className="py-24 px-4 bg-muted/50">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t("features.title")}</h2>
+          <div className="text-center mb-16">
+            <Badge variant="secondary" className="mb-4">
+              {t("features.badge")}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("features.title")}
+            </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               {t("features.description")}
             </p>
@@ -79,6 +96,11 @@ export async function LandingPage() {
               description={t("features.billing.description")}
             />
             <FeatureCard
+              icon={<Sparkles className="h-6 w-6" />}
+              title={t("features.credits.title")}
+              description={t("features.credits.description")}
+            />
+            <FeatureCard
               icon={<Globe className="h-6 w-6" />}
               title={t("features.i18n.title")}
               description={t("features.i18n.description")}
@@ -93,15 +115,141 @@ export async function LandingPage() {
               title={t("features.notifications.title")}
               description={t("features.notifications.description")}
             />
+            <FeatureCard
+              icon={<LayoutDashboard className="h-6 w-6" />}
+              title={t("features.admin.title")}
+              description={t("features.admin.description")}
+            />
+            <FeatureCard
+              icon={<Puzzle className="h-6 w-6" />}
+              title={t("features.modular.title")}
+              description={t("features.modular.description")}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Marketplace Showcase */}
+      <section className="py-24 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <Badge variant="secondary" className="mb-4">
+              {t("showcase.badge")}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("showcase.title")}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t("showcase.description")}
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card>
+              <CardHeader>
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                  <ShoppingBag className="h-6 w-6" />
+                </div>
+                <CardTitle>{t("showcase.marketplace.title")}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.marketplace.feature1")}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.marketplace.feature2")}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.marketplace.feature3")}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.marketplace.feature4")}
+                    </span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                  <KeyRound className="h-6 w-6" />
+                </div>
+                <CardTitle>{t("showcase.compliance.title")}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-3">
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.compliance.feature1")}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.compliance.feature2")}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.compliance.feature3")}
+                    </span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Check className="h-4 w-4 text-primary mt-1 flex-shrink-0" />
+                    <span className="text-sm text-muted-foreground">
+                      {t("showcase.compliance.feature4")}
+                    </span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Tech Stack */}
+      <section className="py-24 px-4 bg-muted/50">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("techStack.title")}
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {t("techStack.description")}
+            </p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <TechCard icon={<Code2 className="h-8 w-8" />} name="Next.js 16" description={t("techStack.nextjs")} />
+            <TechCard icon={<Database className="h-8 w-8" />} name="Supabase" description={t("techStack.supabase")} />
+            <TechCard icon={<CreditCard className="h-8 w-8" />} name="Stripe" description={t("techStack.stripe")} />
+            <TechCard icon={<Zap className="h-8 w-8" />} name="TypeScript" description={t("techStack.typescript")} />
           </div>
         </div>
       </section>
 
       {/* Pricing Section */}
-      <section className="py-20 px-4">
+      <section className="py-24 px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">{t("pricing.title")}</h2>
+          <div className="text-center mb-16">
+            <Badge variant="secondary" className="mb-4">
+              {t("pricing.badge")}
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("pricing.title")}
+            </h2>
             <p className="text-lg text-muted-foreground">
               {t("pricing.description")}
             </p>
@@ -185,19 +333,50 @@ export async function LandingPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-24 px-4 bg-muted/50">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("faq.title")}
+            </h2>
+          </div>
+          <div className="space-y-6">
+            <FaqItem
+              question={t("faq.q1.question")}
+              answer={t("faq.q1.answer")}
+            />
+            <FaqItem
+              question={t("faq.q2.question")}
+              answer={t("faq.q2.answer")}
+            />
+            <FaqItem
+              question={t("faq.q3.question")}
+              answer={t("faq.q3.answer")}
+            />
+            <FaqItem
+              question={t("faq.q4.question")}
+              answer={t("faq.q4.answer")}
+            />
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
-      <section className="py-20 px-4 bg-muted/50">
+      <section className="py-24 px-4">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">{t("cta.title")}</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t("cta.title")}</h2>
           <p className="text-lg text-muted-foreground mb-8">
             {t("cta.description")}
           </p>
-          <Button asChild size="lg" className="text-base">
-            <Link href="/auth/sign-up">
-              {t("cta.button")}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild size="lg" className="text-base px-8">
+              <Link href="/auth/sign-up">
+                {t("cta.button")}
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </div>
@@ -214,7 +393,7 @@ function FeatureCard({
   description: string
 }) {
   return (
-    <Card>
+    <Card className="transition-colors hover:border-primary/50">
       <CardHeader>
         <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
           {icon}
@@ -228,11 +407,51 @@ function FeatureCard({
   )
 }
 
+function TechCard({
+  icon,
+  name,
+  description,
+}: {
+  icon: React.ReactNode
+  name: string
+  description: string
+}) {
+  return (
+    <div className="flex flex-col items-center text-center p-6 rounded-lg border bg-card">
+      <div className="text-primary mb-3">{icon}</div>
+      <h3 className="font-semibold mb-1">{name}</h3>
+      <p className="text-xs text-muted-foreground">{description}</p>
+    </div>
+  )
+}
+
 function PricingFeature({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-center gap-2">
       <Check className="h-4 w-4 text-primary flex-shrink-0" />
       <span className="text-sm">{children}</span>
     </li>
+  )
+}
+
+function FaqItem({
+  question,
+  answer,
+}: {
+  question: string
+  answer: string
+}) {
+  return (
+    <details className="group border rounded-lg">
+      <summary className="flex cursor-pointer items-center justify-between p-4 font-medium">
+        {question}
+        <span className="ml-2 transition-transform group-open:rotate-180">
+          <ArrowRight className="h-4 w-4 rotate-90" />
+        </span>
+      </summary>
+      <div className="px-4 pb-4 text-muted-foreground">
+        {answer}
+      </div>
+    </details>
   )
 }

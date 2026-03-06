@@ -71,6 +71,11 @@
       "codeError": "Code error:",
       "unspecified": "An unspecified error occurred."
     },
+    "social": {
+      "google": "Continue with Google",
+      "github": "Continue with GitHub",
+      "divider": "or continue with email"
+    },
     "button": {
       "greeting": "Hey,",
       "signIn": "Sign in",
@@ -459,11 +464,12 @@
       "trustedBy": "Trusted by developers worldwide"
     },
     "features": {
+      "badge": "Features",
       "title": "Everything you need to launch",
       "description": "Stop building the same features over and over. Focus on what makes your product unique.",
       "auth": {
         "title": "Authentication",
-        "description": "Secure email/password auth with email verification, password reset, and session management built-in."
+        "description": "Secure email/password auth with social login (Google, GitHub), email verification, password reset, and session management."
       },
       "teams": {
         "title": "Team Management",
@@ -472,6 +478,10 @@
       "billing": {
         "title": "Subscription Billing",
         "description": "Stripe integration with support for free and paid plans, customer portal, and automatic invoice handling."
+      },
+      "credits": {
+        "title": "Usage-Based Credits",
+        "description": "Atomic credit system with purchase, deduction, and refund operations. Transaction audit trail included."
       },
       "i18n": {
         "title": "Internationalization",
@@ -484,9 +494,45 @@
       "notifications": {
         "title": "In-App Notifications",
         "description": "Real-time notification system to keep users informed about important events and updates."
+      },
+      "admin": {
+        "title": "Admin Dashboard",
+        "description": "Platform-wide admin panel with user stats, revenue metrics, and recent activity monitoring."
+      },
+      "modular": {
+        "title": "Modular Architecture",
+        "description": "Feature flag system lets you enable or disable modules per organization. Ship only what you need."
       }
     },
+    "showcase": {
+      "badge": "Built-in Modules",
+      "title": "Production-ready modules included",
+      "description": "Each module is fully implemented with database migrations, server actions, UI components, and tests.",
+      "marketplace": {
+        "title": "B2B Marketplace",
+        "feature1": "Request-offer matching engine with price negotiation",
+        "feature2": "Stripe Connect payments with platform fees",
+        "feature3": "Contract lifecycle with delivery tracking",
+        "feature4": "Dispute resolution and compliance (DSA, DAC7, P2B)"
+      },
+      "compliance": {
+        "title": "Legal & Compliance",
+        "feature1": "GDPR-compliant privacy policy and data export",
+        "feature2": "German legal templates (Impressum, AGB, Datenschutz)",
+        "feature3": "Cookie consent banner with granular controls",
+        "feature4": "EU marketplace regulations (DSA, DAC7, P2B)"
+      }
+    },
+    "techStack": {
+      "title": "Built on a modern stack",
+      "description": "Production-tested technologies that scale with your business.",
+      "nextjs": "React framework with App Router",
+      "supabase": "Postgres, Auth, Realtime, Storage",
+      "stripe": "Subscriptions and Connect",
+      "typescript": "End-to-end type safety"
+    },
     "pricing": {
+      "badge": "Pricing",
       "title": "Simple, transparent pricing",
       "description": "Start for free, upgrade when you need more.",
       "monthly": "Monthly",
@@ -516,6 +562,25 @@
           "5": "Activity dashboard",
           "6": "Custom integrations"
         }
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "q1": {
+        "question": "Can I use this for commercial projects?",
+        "answer": "Yes! The codebase is MIT licensed. You can use it for any commercial project, modify it freely, and keep all the revenue."
+      },
+      "q2": {
+        "question": "What's included in the starter?",
+        "answer": "Authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n (English & German), admin dashboard, in-app notifications, legal pages, cookie consent, a full B2B marketplace module, and comprehensive test suites."
+      },
+      "q3": {
+        "question": "Do I need to use all the features?",
+        "answer": "No. The modular architecture lets you enable or disable features via feature flags. Remove the marketplace module and keep the core SaaS features, or use everything out of the box."
+      },
+      "q4": {
+        "question": "How do I deploy it?",
+        "answer": "Deploy to Vercel with one click, or any platform that supports Next.js. The database runs on Supabase (hosted or self-hosted). Full setup instructions are included."
       }
     },
     "cta": {
@@ -784,6 +849,41 @@
         "error": "Failed to submit report",
         "success": "Report submitted successfully"
       }
+    }
+  },
+  "onboarding": {
+    "title": "Get Started",
+    "description": "Complete these steps to set up your workspace.",
+    "progress": "{completed} of {total} steps completed",
+    "steps": {
+      "createAccount": "Create your account",
+      "createOrg": "Create an organization",
+      "inviteTeam": "Invite team members",
+      "setupBilling": "Set up billing"
+    },
+    "orgPlaceholder": "Organization name",
+    "create": "Create",
+    "creating": "Creating..."
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "description": "Platform-wide statistics and recent activity.",
+    "stats": {
+      "totalUsers": "Total Users",
+      "totalOrganizations": "Total Organizations",
+      "totalRevenue": "Estimated Revenue",
+      "perMonth": "/mo",
+      "activeSubscriptions": "Active Subscriptions"
+    },
+    "recentSignups": {
+      "title": "Recent Signups",
+      "description": "Last 10 users who signed up.",
+      "empty": "No signups yet."
+    },
+    "recentOrganizations": {
+      "title": "Recent Organizations",
+      "description": "Last 10 organizations created.",
+      "empty": "No organizations yet."
     }
   }
 }

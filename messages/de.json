@@ -71,6 +71,11 @@
       "codeError": "Fehlercode:",
       "unspecified": "Ein unbekannter Fehler ist aufgetreten."
     },
+    "social": {
+      "google": "Weiter mit Google",
+      "github": "Weiter mit GitHub",
+      "divider": "oder weiter mit E-Mail"
+    },
     "button": {
       "greeting": "Hallo,",
       "signIn": "Anmelden",
@@ -459,11 +464,12 @@
       "trustedBy": "Von Entwicklern weltweit vertraut"
     },
     "features": {
+      "badge": "Funktionen",
       "title": "Alles, was Sie zum Start brauchen",
       "description": "Hören Sie auf, die gleichen Funktionen immer wieder zu bauen. Konzentrieren Sie sich auf das, was Ihr Produkt einzigartig macht.",
       "auth": {
         "title": "Authentifizierung",
-        "description": "Sichere E-Mail/Passwort-Authentifizierung mit E-Mail-Verifizierung, Passwort-Zurücksetzen und Sitzungsverwaltung."
+        "description": "Sichere E-Mail/Passwort-Authentifizierung mit Social Login (Google, GitHub), E-Mail-Verifizierung, Passwort-Zurücksetzen und Sitzungsverwaltung."
       },
       "teams": {
         "title": "Team-Verwaltung",
@@ -472,6 +478,10 @@
       "billing": {
         "title": "Abonnement-Abrechnung",
         "description": "Stripe-Integration mit Unterstützung für kostenlose und kostenpflichtige Pläne, Kundenportal und automatische Rechnungsverarbeitung."
+      },
+      "credits": {
+        "title": "Nutzungsbasierte Credits",
+        "description": "Atomares Credit-System mit Kauf-, Abbuchungs- und Erstattungsoperationen. Transaktions-Audit-Trail inklusive."
       },
       "i18n": {
         "title": "Internationalisierung",
@@ -484,9 +494,45 @@
       "notifications": {
         "title": "In-App-Benachrichtigungen",
         "description": "Echtzeit-Benachrichtigungssystem, um Benutzer über wichtige Ereignisse und Updates zu informieren."
+      },
+      "admin": {
+        "title": "Admin-Dashboard",
+        "description": "Plattformweites Admin-Panel mit Benutzerstatistiken, Umsatzkennzahlen und Aktivitätsüberwachung."
+      },
+      "modular": {
+        "title": "Modulare Architektur",
+        "description": "Feature-Flag-System ermöglicht das Aktivieren oder Deaktivieren von Modulen pro Organisation. Liefern Sie nur, was Sie brauchen."
       }
     },
+    "showcase": {
+      "badge": "Enthaltene Module",
+      "title": "Produktionsfertige Module inklusive",
+      "description": "Jedes Modul ist vollständig implementiert mit Datenbankmigrationen, Server Actions, UI-Komponenten und Tests.",
+      "marketplace": {
+        "title": "B2B-Marktplatz",
+        "feature1": "Angebot-Nachfrage-Matching mit Preisverhandlung",
+        "feature2": "Stripe Connect Zahlungen mit Plattformgebühren",
+        "feature3": "Vertragslebenszyklus mit Lieferverfolgung",
+        "feature4": "Streitbeilegung und Compliance (DSA, DAC7, P2B)"
+      },
+      "compliance": {
+        "title": "Recht & Compliance",
+        "feature1": "DSGVO-konforme Datenschutzerklärung und Datenexport",
+        "feature2": "Deutsche Rechtstexte (Impressum, AGB, Datenschutz)",
+        "feature3": "Cookie-Consent-Banner mit granularen Einstellungen",
+        "feature4": "EU-Marktplatzregulierungen (DSA, DAC7, P2B)"
+      }
+    },
+    "techStack": {
+      "title": "Auf modernem Stack aufgebaut",
+      "description": "Produktionserprobte Technologien, die mit Ihrem Unternehmen skalieren.",
+      "nextjs": "React-Framework mit App Router",
+      "supabase": "Postgres, Auth, Realtime, Storage",
+      "stripe": "Abonnements und Connect",
+      "typescript": "Durchgängige Typsicherheit"
+    },
     "pricing": {
+      "badge": "Preise",
       "title": "Einfache, transparente Preise",
       "description": "Starten Sie kostenlos, upgraden Sie bei Bedarf.",
       "monthly": "Monatlich",
@@ -516,6 +562,25 @@
           "5": "Aktivitäts-Dashboard",
           "6": "Benutzerdefinierte Integrationen"
         }
+      }
+    },
+    "faq": {
+      "title": "Häufig gestellte Fragen",
+      "q1": {
+        "question": "Kann ich das für kommerzielle Projekte nutzen?",
+        "answer": "Ja! Die Codebasis ist MIT-lizenziert. Sie können sie für jedes kommerzielle Projekt verwenden, frei modifizieren und alle Einnahmen behalten."
+      },
+      "q2": {
+        "question": "Was ist im Starter enthalten?",
+        "answer": "Authentifizierung, Multi-Tenant-Organisationen, Stripe-Abrechnung, nutzungsbasierte Credits, i18n (Englisch & Deutsch), Admin-Dashboard, In-App-Benachrichtigungen, Rechtstexte, Cookie-Consent, ein vollständiges B2B-Marktplatz-Modul und umfassende Test-Suites."
+      },
+      "q3": {
+        "question": "Muss ich alle Funktionen nutzen?",
+        "answer": "Nein. Die modulare Architektur ermöglicht es, Funktionen über Feature Flags zu aktivieren oder deaktivieren. Entfernen Sie das Marktplatz-Modul und behalten Sie die Kern-SaaS-Funktionen, oder nutzen Sie alles sofort einsatzbereit."
+      },
+      "q4": {
+        "question": "Wie deploye ich es?",
+        "answer": "Deployen Sie mit einem Klick auf Vercel oder jeder Plattform, die Next.js unterstützt. Die Datenbank läuft auf Supabase (gehostet oder self-hosted). Vollständige Einrichtungsanleitungen sind enthalten."
       }
     },
     "cta": {
@@ -784,6 +849,41 @@
         "error": "Meldung konnte nicht eingereicht werden",
         "success": "Meldung erfolgreich eingereicht"
       }
+    }
+  },
+  "onboarding": {
+    "title": "Erste Schritte",
+    "description": "Schließen Sie diese Schritte ab, um Ihren Arbeitsbereich einzurichten.",
+    "progress": "{completed} von {total} Schritten abgeschlossen",
+    "steps": {
+      "createAccount": "Konto erstellen",
+      "createOrg": "Organisation erstellen",
+      "inviteTeam": "Teammitglieder einladen",
+      "setupBilling": "Abrechnung einrichten"
+    },
+    "orgPlaceholder": "Organisationsname",
+    "create": "Erstellen",
+    "creating": "Wird erstellt..."
+  },
+  "admin": {
+    "title": "Admin-Dashboard",
+    "description": "Plattformweite Statistiken und aktuelle Aktivitaeten.",
+    "stats": {
+      "totalUsers": "Benutzer gesamt",
+      "totalOrganizations": "Organisationen gesamt",
+      "totalRevenue": "Geschaetzter Umsatz",
+      "perMonth": "/Monat",
+      "activeSubscriptions": "Aktive Abonnements"
+    },
+    "recentSignups": {
+      "title": "Neueste Anmeldungen",
+      "description": "Die letzten 10 registrierten Benutzer.",
+      "empty": "Noch keine Anmeldungen."
+    },
+    "recentOrganizations": {
+      "title": "Neueste Organisationen",
+      "description": "Die letzten 10 erstellten Organisationen.",
+      "empty": "Noch keine Organisationen."
     }
   }
 }
