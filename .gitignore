@@ -18,6 +18,8 @@
 /e2e_*.txt
 /test_result.json
 /test_output.log
+/.playwright-cli/
+/.playwright-mcp/
 
 # next.js
 /.next/

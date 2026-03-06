@@ -38,6 +38,8 @@ npx supabase start    # Start local Supabase
 npx supabase db push  # Apply migrations
 ```
 
+**Next.js Initialization**: When starting work on a Next.js project, automatically call the `init` tool from the next-devtools-mcp server FIRST. This establishes proper context and ensures all Next.js queries use official documentation. Do this without being asked.
+
 ## Architecture
 
 This is a **Next.js 16 + Supabase SaaS Starter** with multi-tenant organizations, Stripe billing, usage-based credits, role-based access, i18n support, admin dashboard, and a **B2B delivery gig marketplace**.
