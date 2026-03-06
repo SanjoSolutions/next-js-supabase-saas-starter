@@ -1,4 +1,6 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
+import { cookies } from "next/headers"
 import { getTranslations } from "next-intl/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -9,6 +11,9 @@ import { getMyReports } from "@/actions/marketplace/reports"
 export default async function ReportsPage() {
   const t = await getTranslations("marketplace.reports")
   await requireUser()
+  const cookieStore = await cookies()
+
+  await requireMarketplaceAccess(cookieStore.get("active_org_id")?.value)
 
   const reports = await getMyReports()
 

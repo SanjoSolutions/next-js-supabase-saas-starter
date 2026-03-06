@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr"
 import { NextRequest, NextResponse } from "next/server"
+import { isMarketplaceEnabled } from "@/lib/feature-flags"
 
 const VALID_LISTING_TYPES = ["request", "offer"] as const
 const VALID_PACKAGE_SIZES = ["small", "medium", "large", "pallet"] as const
@@ -126,6 +127,14 @@ export async function POST(req: NextRequest) {
 
   if (!membership) {
     return NextResponse.json({ error: "Not a member of this organization" }, { status: 403 })
+  }
+
+  const hasMarketplaceAccess = await isMarketplaceEnabled(organizationId)
+  if (!hasMarketplaceAccess) {
+    return NextResponse.json(
+      { error: "Marketplace module is not enabled for this organization" },
+      { status: 403 }
+    )
   }
 
   // Verify marketplace profile

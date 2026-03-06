@@ -218,7 +218,7 @@ test.describe("Activity Dashboard", () => {
     await page.waitForTimeout(1000)
 
     // If already redirected to protected page after signup, skip login
-    if (!page.url().includes("/marketplace")) {
+    if (!page.url().includes("/protected")) {
       await login(page, email, password)
     }
 

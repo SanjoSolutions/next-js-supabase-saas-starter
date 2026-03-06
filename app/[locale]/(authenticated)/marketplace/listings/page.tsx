@@ -1,7 +1,7 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
@@ -17,10 +17,10 @@ export default async function ListingsPage({
   const t = await getTranslations("marketplace.listings")
   await requireUser()
   const cookieStore = await cookies()
-  const activeOrgId = cookieStore.get("active_org_id")?.value
+  const activeOrgId = await requireMarketplaceAccess(
+    cookieStore.get("active_org_id")?.value
+  )
   const { tab } = await searchParams
-
-  if (!activeOrgId) redirect("/organizations/new")
 
   const supabase = await createClient()
 

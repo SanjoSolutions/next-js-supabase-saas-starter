@@ -78,7 +78,7 @@ describe("UpdatePasswordForm", () => {
 
     await waitFor(() => {
       expect(mockUpdateUser).toHaveBeenCalledWith({ password: "newSecurePassword123" })
-      expect(mockPush).toHaveBeenCalledWith("/marketplace")
+      expect(mockPush).toHaveBeenCalledWith("/protected")
     })
   })
 
@@ -150,7 +150,7 @@ describe("UpdatePasswordForm", () => {
     expect(screen.getByRole("button", { name: "Saving..." })).toBeDisabled()
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith("/marketplace")
+      expect(mockPush).toHaveBeenCalledWith("/protected")
     })
   })
 
@@ -196,7 +196,7 @@ describe("UpdatePasswordForm", () => {
 
     await waitFor(() => {
       expect(screen.queryByText("Invalid password format")).not.toBeInTheDocument()
-      expect(mockPush).toHaveBeenCalledWith("/marketplace")
+      expect(mockPush).toHaveBeenCalledWith("/protected")
     })
   })
 

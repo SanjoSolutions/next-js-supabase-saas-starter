@@ -94,7 +94,7 @@ describe("LoginForm", () => {
         email: "user@example.com",
         password: "password123",
       })
-      expect(mockPush).toHaveBeenCalledWith("/marketplace")
+      expect(mockPush).toHaveBeenCalledWith("/protected")
     })
   })
 

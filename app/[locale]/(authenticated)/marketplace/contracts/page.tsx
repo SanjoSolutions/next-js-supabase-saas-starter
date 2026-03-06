@@ -1,6 +1,6 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { Badge } from "@/components/ui/badge"
@@ -22,9 +22,9 @@ export default async function ContractsPage() {
   const t = await getTranslations("marketplace.contracts")
   await requireUser()
   const cookieStore = await cookies()
-  const activeOrgId = cookieStore.get("active_org_id")?.value
-
-  if (!activeOrgId) redirect("/organizations/new")
+  const activeOrgId = await requireMarketplaceAccess(
+    cookieStore.get("active_org_id")?.value
+  )
 
   const contracts = await getContractsForOrg(activeOrgId)
 

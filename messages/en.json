@@ -501,13 +501,13 @@
       },
       "modular": {
         "title": "Modular Architecture",
-        "description": "Feature flag system lets you enable or disable modules per organization. Ship only what you need."
+        "description": "Feature flag system lets you enable or disable modules per organization. Keep the core SaaS on by default and turn on optional modules only where needed."
       }
     },
     "showcase": {
       "badge": "Built-in Modules",
       "title": "Production-ready modules included",
-      "description": "Each module is fully implemented with database migrations, server actions, UI components, and tests.",
+      "description": "Each module is fully implemented with database migrations, server actions, UI components, and tests, and can be enabled independently.",
       "marketplace": {
         "title": "B2B Marketplace",
         "feature1": "Request-offer matching engine with price negotiation",
@@ -572,7 +572,7 @@
       },
       "q2": {
         "question": "What's included in the starter?",
-        "answer": "Authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n (English & German), admin dashboard, in-app notifications, legal pages, cookie consent, a full B2B marketplace module, and comprehensive test suites."
+        "answer": "Authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n (English & German), admin dashboard, in-app notifications, legal pages, cookie consent, an optional B2B marketplace module, and comprehensive test suites."
       },
       "q3": {
         "question": "Do I need to use all the features?",

@@ -1,4 +1,5 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
@@ -18,12 +19,10 @@ export default async function SellerOnboardingPage({
   const t = await getTranslations("marketplace.seller")
   await requireUser()
   const cookieStore = await cookies()
-  const activeOrgId = cookieStore.get("active_org_id")?.value
+  const activeOrgId = await requireMarketplaceAccess(
+    cookieStore.get("active_org_id")?.value
+  )
   const { success } = await searchParams
-
-  if (!activeOrgId) {
-    redirect("/organizations/new")
-  }
 
   const supabase = await createClient()
   const { data: profile } = await supabase

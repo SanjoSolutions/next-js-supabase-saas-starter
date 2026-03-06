@@ -1,4 +1,5 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
@@ -9,11 +10,9 @@ export default async function ProfileSetupPage() {
   const t = await getTranslations("marketplace.profile")
   const user = await requireUser()
   const cookieStore = await cookies()
-  const activeOrgId = cookieStore.get("active_org_id")?.value
-
-  if (!activeOrgId) {
-    redirect("/organizations/new")
-  }
+  const activeOrgId = await requireMarketplaceAccess(
+    cookieStore.get("active_org_id")?.value
+  )
 
   // Check membership
   const supabase = await createClient()

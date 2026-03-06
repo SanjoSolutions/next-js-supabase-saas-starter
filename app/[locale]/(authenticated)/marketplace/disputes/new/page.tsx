@@ -1,6 +1,6 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 import { MarketplaceNav } from "@/components/marketplace/marketplace-nav"
 import { getContractsForOrg } from "@/actions/marketplace/contracts"
@@ -10,9 +10,9 @@ export default async function NewDisputePage() {
   const t = await getTranslations("marketplace.disputes")
   await requireUser()
   const cookieStore = await cookies()
-  const activeOrgId = cookieStore.get("active_org_id")?.value
-
-  if (!activeOrgId) redirect("/organizations/new")
+  const activeOrgId = await requireMarketplaceAccess(
+    cookieStore.get("active_org_id")?.value
+  )
 
   const contracts = await getContractsForOrg(activeOrgId)
   const disputableContracts = (contracts || []).filter(

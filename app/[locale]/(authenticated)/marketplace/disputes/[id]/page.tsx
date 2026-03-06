@@ -1,4 +1,6 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
+import { cookies } from "next/headers"
 import { getTranslations } from "next-intl/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +16,9 @@ export default async function DisputeDetailPage({
   const t = await getTranslations("marketplace.disputes")
   await requireUser()
   const { id } = await params
+  const cookieStore = await cookies()
+
+  await requireMarketplaceAccess(cookieStore.get("active_org_id")?.value)
 
   let dispute
   try {

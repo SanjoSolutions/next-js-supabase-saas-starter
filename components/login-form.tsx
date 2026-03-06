@@ -37,7 +37,7 @@ export function LoginForm({
       })
       if (error) throw error
 
-      router.push(returnUrl || "/marketplace")
+      router.push(returnUrl || "/protected")
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {

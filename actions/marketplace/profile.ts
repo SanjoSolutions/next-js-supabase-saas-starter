@@ -1,5 +1,6 @@
 "use server"
 
+import { assertMarketplaceAccess } from "@/features/marketplace/access"
 import { createClient } from "@/lib/supabase/server"
 import { requireUser } from "@/lib/auth"
 
@@ -24,6 +25,7 @@ interface UpdateProfileInput extends Partial<Omit<CreateProfileInput, "organizat
 
 export async function createMarketplaceProfile(input: CreateProfileInput) {
   const user = await requireUser()
+  await assertMarketplaceAccess(input.organizationId)
   const supabase = await createClient()
 
   // Verify user is owner/admin
@@ -77,6 +79,7 @@ export async function createMarketplaceProfile(input: CreateProfileInput) {
 
 export async function updateMarketplaceProfile(input: UpdateProfileInput) {
   const user = await requireUser()
+  await assertMarketplaceAccess(input.organizationId)
   const supabase = await createClient()
 
   // Verify user is owner/admin
@@ -119,6 +122,7 @@ export async function updateMarketplaceProfile(input: UpdateProfileInput) {
 }
 
 export async function getMarketplaceProfile(organizationId: string) {
+  await assertMarketplaceAccess(organizationId)
   const supabase = await createClient()
 
   const { data, error } = await supabase

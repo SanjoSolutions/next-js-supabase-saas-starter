@@ -1,6 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { NextRequest } from "next/server"
 
+const mockIsMarketplaceEnabled = vi.fn()
+vi.mock("@/lib/feature-flags", () => ({
+  isMarketplaceEnabled: (...args: unknown[]) => mockIsMarketplaceEnabled(...args),
+}))
+
 // Mock Supabase SSR
 const mockSingle = vi.fn()
 const mockFrom = vi.fn()
@@ -58,6 +63,7 @@ describe("POST /api/marketplace/listings", () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockFrom.mockReturnValue(createChain())
+    mockIsMarketplaceEnabled.mockResolvedValue(true)
     mockGetUser.mockResolvedValue({
       data: { user: { id: "user-123" } },
       error: null,
@@ -126,6 +132,16 @@ describe("POST /api/marketplace/listings", () => {
 
     const res = await POST(makeRequest(validBody))
     expect(res.status).toBe(403)
+  })
+
+  it("returns 403 when marketplace access is disabled", async () => {
+    mockSingle.mockResolvedValueOnce({ data: { role: "member" } })
+    mockIsMarketplaceEnabled.mockResolvedValueOnce(false)
+
+    const res = await POST(makeRequest(validBody))
+    expect(res.status).toBe(403)
+    const json = await res.json()
+    expect(json.error).toContain("Marketplace module is not enabled")
   })
 
   it("returns 201 on successful creation", async () => {

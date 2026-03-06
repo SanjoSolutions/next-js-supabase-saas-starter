@@ -1,5 +1,6 @@
 "use server"
 
+import { assertMarketplaceAccess } from "@/features/marketplace/access"
 import { createClient } from "@/lib/supabase/server"
 import { requireUser } from "@/lib/auth"
 
@@ -29,6 +30,7 @@ interface CreateListingInput {
 
 export async function createListing(input: CreateListingInput) {
   const user = await requireUser()
+  await assertMarketplaceAccess(input.organizationId)
   const supabase = await createClient()
 
   // Verify membership
@@ -115,6 +117,7 @@ export async function updateListing(
   updates: Partial<Omit<CreateListingInput, "organizationId" | "listingType">>
 ) {
   const user = await requireUser()
+  await assertMarketplaceAccess(organizationId)
   const supabase = await createClient()
 
   const { data: membership } = await supabase
@@ -160,6 +163,7 @@ export async function updateListing(
 
 export async function cancelListing(listingId: string, organizationId: string) {
   const user = await requireUser()
+  await assertMarketplaceAccess(organizationId)
   const supabase = await createClient()
 
   const { data: membership } = await supabase
@@ -246,6 +250,7 @@ export async function getListingById(listingId: string) {
 
 export async function getMyListings(organizationId: string) {
   const user = await requireUser()
+  await assertMarketplaceAccess(organizationId)
   const supabase = await createClient()
 
   const { data: membership } = await supabase

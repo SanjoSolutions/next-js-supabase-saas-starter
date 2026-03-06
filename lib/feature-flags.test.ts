@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { isFeatureEnabled } from "./feature-flags"
+import { isFeatureEnabled, isMarketplaceEnabled } from "./feature-flags"
 
 // Mock Supabase client
 const mockFrom = vi.fn()
@@ -147,6 +147,22 @@ describe("isFeatureEnabled", () => {
       const result = await isFeatureEnabled("activity_dashboard", orgId)
 
       expect(result).toBe(false)
+    })
+  })
+})
+
+describe("isMarketplaceEnabled", () => {
+  it("returns false without an organizationId", async () => {
+    await expect(isMarketplaceEnabled()).resolves.toBe(false)
+  })
+
+  it("checks the marketplace_access flag when organizationId is present", async () => {
+    mockRpc.mockResolvedValue({ data: true, error: null })
+
+    await expect(isMarketplaceEnabled("org-789")).resolves.toBe(true)
+    expect(mockRpc).toHaveBeenCalledWith("is_feature_enabled", {
+      org_id: "org-789",
+      feature_name: "marketplace_access",
     })
   })
 })

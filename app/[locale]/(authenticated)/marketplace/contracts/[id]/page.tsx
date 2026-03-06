@@ -1,6 +1,6 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
 import { getTranslations } from "next-intl/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -21,9 +21,9 @@ export default async function ContractDetailPage({
   await requireUser()
   const { id } = await params
   const cookieStore = await cookies()
-  const activeOrgId = cookieStore.get("active_org_id")?.value
-
-  if (!activeOrgId) redirect("/organizations/new")
+  const activeOrgId = await requireMarketplaceAccess(
+    cookieStore.get("active_org_id")?.value
+  )
 
   let contract
   try {

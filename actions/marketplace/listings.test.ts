@@ -6,6 +6,11 @@ vi.mock("@/lib/auth", () => ({
   requireUser: () => mockRequireUser(),
 }))
 
+const mockAssertMarketplaceAccess = vi.fn()
+vi.mock("@/features/marketplace/access", () => ({
+  assertMarketplaceAccess: (...args: unknown[]) => mockAssertMarketplaceAccess(...args),
+}))
+
 // Mock Supabase client with chainable builder
 const mockSingle = vi.fn()
 const mockQueryResult = vi.fn()
@@ -63,6 +68,7 @@ describe("marketplace listing actions", () => {
   beforeEach(() => {
     vi.clearAllMocks()
     mockRequireUser.mockResolvedValue(mockUser)
+    mockAssertMarketplaceAccess.mockResolvedValue(undefined)
     mockFrom.mockReturnValue(createChain())
     mockQueryResult.mockReturnValue({ data: [], error: null })
   })

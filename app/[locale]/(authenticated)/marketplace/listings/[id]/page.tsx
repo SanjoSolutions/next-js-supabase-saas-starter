@@ -1,5 +1,7 @@
 import { requireUser } from "@/lib/auth"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { createClient } from "@/lib/supabase/server"
+import { cookies } from "next/headers"
 import { getTranslations } from "next-intl/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -16,6 +18,9 @@ export default async function ListingDetailPage({
   const t = await getTranslations("marketplace.listings")
   await requireUser()
   const { id } = await params
+  const cookieStore = await cookies()
+
+  await requireMarketplaceAccess(cookieStore.get("active_org_id")?.value)
 
   const supabase = await createClient()
   const { data: listing, error } = await supabase

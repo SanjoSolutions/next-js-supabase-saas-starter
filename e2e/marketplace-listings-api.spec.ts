@@ -137,8 +137,8 @@ test.describe("Marketplace Listings API", () => {
 // 2. Default Post-Login Redirect
 // ============================================================
 
-test.describe("Marketplace default redirect", () => {
-  test("login redirects to /marketplace", async ({ page }) => {
+test.describe("Default post-login redirect", () => {
+  test("login redirects to /protected", async ({ page }) => {
     enableConsoleLogs(page)
 
     await page.goto("/auth/login")
@@ -154,21 +154,19 @@ test.describe("Marketplace default redirect", () => {
     await loginButton.scrollIntoViewIfNeeded()
     await loginButton.click({ timeout: 5000 })
 
-    // Should land on marketplace (or org creation if no org)
-    await expect(page).toHaveURL(/\/(marketplace|organizations)/, { timeout: 10000 })
+    await expect(page).toHaveURL(/\/(protected|organizations)/, { timeout: 10000 })
   })
 
-  test("sign-up redirects to /marketplace", async ({ page }) => {
+  test("sign-up redirects to /protected", async ({ page }) => {
     enableConsoleLogs(page)
 
     const email = generateTestEmail("redirect-signup")
     await signUp(page, { email, firstName: "Redirect Test" })
 
-    // After sign-up, should redirect to marketplace (or org creation)
-    await expect(page).toHaveURL(/\/(marketplace|organizations)/, { timeout: 10000 })
+    await expect(page).toHaveURL(/\/(protected|organizations)/, { timeout: 10000 })
   })
 
-  test("authenticated root page redirects to /marketplace", async ({ page }) => {
+  test("authenticated root page redirects to /protected", async ({ page }) => {
     enableConsoleLogs(page)
 
     // First login
@@ -178,8 +176,7 @@ test.describe("Marketplace default redirect", () => {
     await page.goto("/")
     await page.waitForLoadState("networkidle")
 
-    // Should redirect to marketplace (or org creation)
-    await expect(page).toHaveURL(/\/(marketplace|organizations)/, { timeout: 10000 })
+    await expect(page).toHaveURL(/\/(protected|organizations)/, { timeout: 10000 })
   })
 })
 

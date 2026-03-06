@@ -501,13 +501,13 @@
       },
       "modular": {
         "title": "Modulare Architektur",
-        "description": "Feature-Flag-System ermöglicht das Aktivieren oder Deaktivieren von Modulen pro Organisation. Liefern Sie nur, was Sie brauchen."
+        "description": "Feature-Flag-System ermöglicht das Aktivieren oder Deaktivieren von Modulen pro Organisation. Der SaaS-Kern bleibt Standard, optionale Module schalten Sie nur dort frei, wo sie gebraucht werden."
       }
     },
     "showcase": {
       "badge": "Enthaltene Module",
       "title": "Produktionsfertige Module inklusive",
-      "description": "Jedes Modul ist vollständig implementiert mit Datenbankmigrationen, Server Actions, UI-Komponenten und Tests.",
+      "description": "Jedes Modul ist vollständig implementiert mit Datenbankmigrationen, Server Actions, UI-Komponenten und Tests und kann unabhängig aktiviert werden.",
       "marketplace": {
         "title": "B2B-Marktplatz",
         "feature1": "Angebot-Nachfrage-Matching mit Preisverhandlung",
@@ -572,7 +572,7 @@
       },
       "q2": {
         "question": "Was ist im Starter enthalten?",
-        "answer": "Authentifizierung, Multi-Tenant-Organisationen, Stripe-Abrechnung, nutzungsbasierte Credits, i18n (Englisch & Deutsch), Admin-Dashboard, In-App-Benachrichtigungen, Rechtstexte, Cookie-Consent, ein vollständiges B2B-Marktplatz-Modul und umfassende Test-Suites."
+        "answer": "Authentifizierung, Multi-Tenant-Organisationen, Stripe-Abrechnung, nutzungsbasierte Credits, i18n (Englisch & Deutsch), Admin-Dashboard, In-App-Benachrichtigungen, Rechtstexte, Cookie-Consent, ein optionales B2B-Marktplatz-Modul und umfassende Test-Suites."
       },
       "q3": {
         "question": "Muss ich alle Funktionen nutzen?",

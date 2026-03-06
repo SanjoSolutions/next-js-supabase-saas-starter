@@ -1,5 +1,5 @@
 import { requireUser } from "@/lib/auth"
-import { isFeatureEnabled } from "@/lib/feature-flags"
+import { requireMarketplaceAccess } from "@/features/marketplace/access"
 import { createClient } from "@/lib/supabase/server"
 import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
@@ -15,16 +15,9 @@ export default async function MarketplaceDashboard() {
   const t = await getTranslations("marketplace")
   await requireUser()
   const cookieStore = await cookies()
-  const activeOrgId = cookieStore.get("active_org_id")?.value
-
-  if (!activeOrgId) {
-    redirect("/organizations/new")
-  }
-
-  const hasAccess = await isFeatureEnabled("marketplace_access", activeOrgId)
-  if (!hasAccess) {
-    redirect("/protected")
-  }
+  const activeOrgId = await requireMarketplaceAccess(
+    cookieStore.get("active_org_id")?.value
+  )
 
   const supabase = await createClient()
 

@@ -9,7 +9,7 @@ The production-ready SaaS starter kit that saves you months of development. Buil
 
 ## Why This Starter?
 
-Most SaaS starters give you auth and a landing page. This one gives you a **complete, production-grade application** with multi-tenant organizations, Stripe billing, usage-based credits, a full B2B marketplace module, EU legal compliance, i18n, admin dashboard, and comprehensive test coverage.
+Most SaaS starters give you auth and a landing page. This one gives you a **complete, production-grade application** with multi-tenant organizations, Stripe billing, usage-based credits, an optional B2B marketplace module, EU legal compliance, i18n, admin dashboard, and comprehensive test coverage.
 
 **Ship your SaaS in days, not months.**
 
@@ -34,6 +34,8 @@ Every feature is designed as an independent module that can be enabled or disabl
 - **Legal & Compliance** -- German legal templates (Impressum, AGB, Datenschutz), GDPR data export, cookie consent
 - **EU Regulations** -- DSA content moderation, DAC7 tax reporting, P2B complaint system
 - **Activity Dashboard** -- Audit log of organization events (Pro plan feature gate)
+
+Code-level module definitions live under `features/<feature>/` and the central registry in `features/registry.ts`. Each module declares its feature flag, default state, route prefixes, and the owned paths that can be removed from the repo.
 
 ### Developer Experience
 - **TypeScript strict mode** end-to-end
@@ -187,12 +189,12 @@ Toggle features per organization via the `feature_flags` table:
 - `marketplace_access` -- B2B marketplace module
 
 ### Removing a Module
-Each module is self-contained. To remove the marketplace:
-1. Delete `app/[locale]/(authenticated)/marketplace/`
-2. Delete `actions/marketplace/`
-3. Delete `lib/marketplace/`
-4. Remove marketplace migrations from `supabase/migrations/`
-5. Remove marketplace translation keys from `messages/`
+Each module is self-contained. To remove a module, start with its manifest in `features/<feature>/module.ts`.
+
+For example, to remove marketplace:
+1. Delete the paths listed in `features/marketplace/module.ts`
+2. Remove the `marketplace` entry from `features/registry.ts`
+3. Remove marketplace translation keys from `messages/`
 
 The core platform (auth, orgs, billing, credits, notifications) continues to work independently.
 

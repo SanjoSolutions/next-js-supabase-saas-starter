@@ -16,18 +16,18 @@ export const metadata: Metadata = {
     template: "%s | SaaS Starter",
   },
   description:
-    "Production-ready SaaS starter kit with authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n, and a full B2B marketplace module.",
+    "Production-ready SaaS starter kit with authentication, multi-tenant organizations, Stripe billing, usage-based credits, i18n, and an optional B2B marketplace module.",
   openGraph: {
     title: "Next.js + Supabase SaaS Starter",
     description:
-      "Ship your SaaS in days, not months. Auth, billing, teams, marketplace, and more.",
+      "Ship your SaaS in days, not months. Auth, billing, teams, and optional feature modules like marketplace.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
     title: "Next.js + Supabase SaaS Starter",
     description:
-      "Ship your SaaS in days, not months. Auth, billing, teams, marketplace, and more.",
+      "Ship your SaaS in days, not months. Auth, billing, teams, and optional feature modules like marketplace.",
   },
 }
 

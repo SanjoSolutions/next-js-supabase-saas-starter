@@ -1,5 +1,5 @@
 import { EnvVarWarning } from "@/components/env-var-warning"
-import { isFeatureEnabled } from "@/lib/feature-flags"
+import { isFeatureEnabled, isMarketplaceEnabled } from "@/lib/feature-flags"
 import { createClient } from "@/lib/supabase/server"
 import { hasEnvVars } from "@/lib/utils"
 import { cookies } from "next/headers"
@@ -42,17 +42,7 @@ export async function Header() {
     ? await isFeatureEnabled("advanced_analytics", activeOrgId)
     : false
 
-  // Check if org has a marketplace profile
-  const hasMarketplace = activeOrgId
-    ? await (async () => {
-        const { data } = await supabase
-          .from("marketplace_profiles")
-          .select("id")
-          .eq("organization_id", activeOrgId)
-          .single()
-        return !!data
-      })()
-    : false
+  const hasMarketplace = await isMarketplaceEnabled(activeOrgId)
 
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-14">
