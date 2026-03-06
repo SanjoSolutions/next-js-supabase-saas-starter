@@ -1,6 +1,8 @@
+import { cookieConsentFeatureModule } from "@/features/cookie-consent/module"
 import { marketplaceFeatureModule } from "@/features/marketplace/module"
 
 export const FEATURE_MODULES = {
+  cookieConsent: cookieConsentFeatureModule,
   marketplace: marketplaceFeatureModule,
 } as const
 

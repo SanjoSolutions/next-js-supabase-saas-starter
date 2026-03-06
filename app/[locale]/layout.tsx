@@ -3,8 +3,9 @@ import { Geist } from "next/font/google"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
-import { CookieConsentProvider } from "@/components/cookie-consent/cookie-consent-provider"
-import { CookieConsentBanner } from "@/components/cookie-consent/cookie-consent-banner"
+import { CookieConsentBanner } from "@/features/cookie-consent/components/cookie-consent-banner"
+import { CookieConsentProvider } from "@/features/cookie-consent/components/cookie-consent-provider"
+import { isFeatureModuleEnabledInCode } from "@/features/config"
 import { routing } from "@/i18n/routing"
 import { getAppUrl } from "@/lib/app-url"
 import "../globals.css"
@@ -48,6 +49,7 @@ export default async function LocaleLayout({
   children: React.ReactNode
   params: Promise<{ locale: string }>
 }) {
+  const cookieConsentEnabled = isFeatureModuleEnabledInCode("cookieConsent")
   const { locale } = await params
 
   // Validate locale
@@ -65,10 +67,14 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className={`${geistSans.className} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <CookieConsentProvider>
-            {children}
-            <CookieConsentBanner />
-          </CookieConsentProvider>
+          {cookieConsentEnabled ? (
+            <CookieConsentProvider>
+              {children}
+              <CookieConsentBanner />
+            </CookieConsentProvider>
+          ) : (
+            children
+          )}
         </NextIntlClientProvider>
       </body>
     </html>

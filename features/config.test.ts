@@ -6,4 +6,8 @@ describe("feature module config", () => {
     expect(ENABLED_FEATURE_MODULES).not.toContain("marketplace")
     expect(isFeatureModuleEnabledInCode("marketplace")).toBe(false)
   })
+
+  it("keeps cookie consent enabled in code by default", () => {
+    expect(isFeatureModuleEnabledInCode("cookieConsent")).toBe(true)
+  })
 })
