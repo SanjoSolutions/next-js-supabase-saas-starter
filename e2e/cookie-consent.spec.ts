@@ -6,7 +6,7 @@ test.describe("Cookie Consent Banner", () => {
     await context.clearCookies()
   })
 
-  test("should show cookie banner on first visit", async ({ page }) => {
+  test("@smoke should show cookie banner on first visit", async ({ page }) => {
     await page.goto("/")
 
     // Wait for hydration

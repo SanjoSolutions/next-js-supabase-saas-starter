@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test"
 import { enableConsoleLogs } from "./helpers"
 
 test.describe("Marketplace legal pages", () => {
-  test("marketplace terms page loads", async ({ page }) => {
+  test("@smoke marketplace terms page loads", async ({ page }) => {
     enableConsoleLogs(page)
 
     await page.goto("/marketplace-terms")

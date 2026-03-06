@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test"
 import { generateTestEmail, signUp } from "./helpers"
 
-test("should sign up with first name and display it", async ({ page }) => {
+test("@smoke should sign up with first name and display it", async ({ page }) => {
   const email = generateTestEmail("firstname")
   const firstName = "Test User"
 

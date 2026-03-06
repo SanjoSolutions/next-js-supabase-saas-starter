@@ -12,7 +12,7 @@ import {
     TEST_USER,
 } from "./helpers"
 
-test("should create a new organization", async ({ page }) => {
+test("@smoke should create a new organization", async ({ page }) => {
   enableConsoleLogs(page)
 
   // 1. Login

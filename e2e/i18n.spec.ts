@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test"
 
 test.describe("Internationalization (i18n)", () => {
   test.describe("Locale Routing", () => {
-    test("should redirect root URL to default locale (en)", async ({ page }) => {
+    test("@smoke should redirect root URL to default locale (en)", async ({ page }) => {
       await page.goto("/")
       await page.waitForTimeout(500)
 

@@ -5,9 +5,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "pnpm test:unit && pnpm test:e2e",
+    "test": "pnpm test:unit",
     "test:unit": "vitest",
     "test:e2e": "npx playwright test",
+    "test:e2e:smoke": "npx playwright test --grep @smoke --workers=1",
+    "verify": "pnpm lint && pnpm test:unit",
+    "test:full": "pnpm verify && pnpm test:e2e",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },

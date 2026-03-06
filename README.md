@@ -165,9 +165,12 @@ ADMIN_USER_IDS=user-uuid-1,user-uuid-2
 pnpm dev              # Start Next.js dev server
 pnpm build            # Production build
 pnpm lint             # Run ESLint
-pnpm test             # Run all tests (unit + E2E)
+pnpm test             # Run the fast default loop (unit tests only)
+pnpm verify           # Run the fast local gate (lint + unit tests)
 pnpm test:unit        # Run Vitest unit tests
+pnpm test:e2e:smoke   # Run a small Playwright smoke subset
 pnpm test:e2e         # Run Playwright E2E tests
+pnpm test:full        # Run lint + unit tests + full E2E
 pnpm storybook        # Start Storybook dev server
 pnpm build-storybook  # Build static Storybook
 ```
