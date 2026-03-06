@@ -8,6 +8,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Run `pnpm test` after making changes.
 - Run `pnpm test:e2e` after the implementation of features.
 
+## Workflow
+
+- **Auto-commit**: Commit changes automatically as work progresses. Don't wait to be asked.
+
 ## Commands
 
 ```bash
@@ -122,21 +126,25 @@ The marketplace is a **request-offer matching system** for B2B delivery services
 - `disputes` — Filed by either contract party.
 
 **Matching algorithm** (`find_matching_listings()` SQL function):
+
 - Matches opposite listing types with same postal codes, package size, delivery date
 - **Price range overlap**: `request_max >= offer_min AND offer_max >= request_min`
 - Agreed price = midpoint of the overlapping range
 - Run via cron: `POST /api/matching-engine` (auth: `CRON_SECRET` bearer token)
 
 **Contract status transitions** (enforced in `actions/marketplace/contracts.ts`):
+
 - Seller-only: `paid→in_progress`, `in_progress→pickup_confirmed`, `pickup_confirmed→delivered`
 - Buyer-only: `delivered→completed`
 
 **Stripe Connect integration:**
+
 - Sellers onboard via `actions/marketplace/stripe-connect.ts`
 - Payments use destination charges (buyer pays, platform takes fee, seller gets payout)
 - Webhook at `app/api/webhooks/stripe-connect/route.ts` handles async events
 
 **Price utilities** (`lib/marketplace/price.ts`):
+
 - `calculateVat()`, `calculateGross()`, `calculatePlatformFee()`, `calculateSellerPayout()`, `calculatePriceBreakdown()`
 - `formatEurCents()` — German locale EUR formatting
 - Default: 19% VAT, 10% platform fee (configurable via `MARKETPLACE_PLATFORM_FEE_PERCENT`)
