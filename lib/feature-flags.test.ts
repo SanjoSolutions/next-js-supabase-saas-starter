@@ -1,6 +1,13 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import { isFeatureEnabled, isMarketplaceEnabled } from "./feature-flags"
 
+const mockIsFeatureModuleEnabledInCode = vi.fn()
+vi.mock("@/features/config", () => ({
+  ENABLED_FEATURE_MODULES: [],
+  isFeatureModuleEnabledInCode: (...args: unknown[]) =>
+    mockIsFeatureModuleEnabledInCode(...args),
+}))
+
 // Mock Supabase client
 const mockFrom = vi.fn()
 const mockSelect = vi.fn()
@@ -21,6 +28,7 @@ const consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => {})
 describe("isFeatureEnabled", () => {
   beforeEach(() => {
     vi.clearAllMocks()
+    mockIsFeatureModuleEnabledInCode.mockReturnValue(false)
 
     // Setup default chain for from().select().eq().single()
     mockFrom.mockReturnValue({ select: mockSelect })
@@ -152,11 +160,24 @@ describe("isFeatureEnabled", () => {
 })
 
 describe("isMarketplaceEnabled", () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+    mockIsFeatureModuleEnabledInCode.mockReturnValue(false)
+  })
+
   it("returns false without an organizationId", async () => {
     await expect(isMarketplaceEnabled()).resolves.toBe(false)
   })
 
+  it("returns false when the marketplace module is disabled in code", async () => {
+    mockIsFeatureModuleEnabledInCode.mockReturnValue(false)
+
+    await expect(isMarketplaceEnabled("org-789")).resolves.toBe(false)
+    expect(mockRpc).not.toHaveBeenCalled()
+  })
+
   it("checks the marketplace_access flag when organizationId is present", async () => {
+    mockIsFeatureModuleEnabledInCode.mockReturnValue(true)
     mockRpc.mockResolvedValue({ data: true, error: null })
 
     await expect(isMarketplaceEnabled("org-789")).resolves.toBe(true)

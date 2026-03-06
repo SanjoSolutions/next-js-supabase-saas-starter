@@ -195,6 +195,8 @@ Toggle features per organization via the `feature_flags` table:
 ### Removing a Module
 Each module is self-contained. To remove a module, start with its manifest in `features/<feature>/module.ts`.
 
+Optional modules are also toggled in code via `features/config.ts`, so public app chrome and route wrappers only expose modules that are explicitly enabled there.
+
 For example, to remove marketplace:
 1. Delete `features/marketplace/`
 2. Delete the thin app and API wrapper paths listed in `features/marketplace/module.ts`

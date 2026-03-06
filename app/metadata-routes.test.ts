@@ -26,6 +26,12 @@ describe("metadata routes", () => {
     expect(entries.every((entry) => entry.url.startsWith("https://app.example.com/"))).toBe(true)
   })
 
+  it("does not expose marketplace legal pages in sitemap when the module is disabled in code", () => {
+    const entries = sitemap()
+
+    expect(entries.some((entry) => entry.url.endsWith("/marketplace-terms"))).toBe(false)
+  })
+
   it("uses NEXT_PUBLIC_APP_URL for robots sitemap url", () => {
     process.env.NEXT_PUBLIC_APP_URL = "https://app.example.com/"
 

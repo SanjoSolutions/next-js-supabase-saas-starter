@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import { isFeatureModuleEnabledInCode } from "@/features/config"
 import { routing } from "@/i18n/routing"
 import { getAppUrl } from "@/lib/app-url"
 
@@ -12,8 +13,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/legal-notice",
     "/privacy-policy",
     "/terms",
-    "/marketplace-terms",
   ]
+
+  if (isFeatureModuleEnabledInCode("marketplace")) {
+    staticPages.push("/marketplace-terms")
+  }
 
   const entries: MetadataRoute.Sitemap = []
 

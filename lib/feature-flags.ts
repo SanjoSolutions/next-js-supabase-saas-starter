@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server"
+import { isFeatureModuleEnabledInCode } from "@/features/config"
 import { getFeatureModule, type FeatureModuleKey } from "@/features/registry"
 
 export async function isFeatureEnabled(featureName: string, organizationId?: string) {
@@ -39,6 +40,10 @@ export async function isFeatureModuleEnabled(
   featureModule: FeatureModuleKey,
   organizationId?: string
 ) {
+  if (!isFeatureModuleEnabledInCode(featureModule)) {
+    return false
+  }
+
   if (!organizationId) {
     return false
   }
